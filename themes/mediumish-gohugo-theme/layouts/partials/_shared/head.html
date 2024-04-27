@@ -1,0 +1,126 @@
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	{{ hugo.Generator }}
+	{{ with .Site.Params.logo }}
+	<link rel="icon" href="{{ . | urlize | relURL }}">
+	{{ end }}
+	<title>{{ .Page.Title }} | {{ .Site.Title }}</title>
+	<meta name="description" content="{{.Description | default .Site.Params.description}}">
+	<meta name="keywords" content="{{ .Keywords | default .Site.Params.keywords }}">
+	{{ with .OutputFormats.Get "rss" -}}{{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}{{ end }}
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+	{{ if .Params.canonicalUrl }}
+	<link rel="canonical" href="{{ .Params.canonicalUrl }}">
+	{{ else }}
+	<link rel="canonical" href="{{ .Permalink }}">
+	{{ end }}
+
+	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+	<link rel="preconnect" href="//www.google-analytics.com">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	{{ if .IsPage }}
+		{{ if .Site.Config.Services.Disqus.Shortname }}
+		<link rel="dns-prefetch" href="//developerzen.disqus.com">
+		{{ end }}
+		{{ if .Site.Params.Utterances.Repo }}
+		<link rel="dns-prefetch" href="//utteranc.es">
+		{{ end }}
+	{{ end }}
+	
+	{{ template "_internal/twitter_cards.html" . }}
+	{{ template "_internal/opengraph.html" . }}
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+	{{ $medium := resources.Get "/css/medium.css" | resources.Fingerprint }}
+	{{ $additional := resources.Get "/css/additional.css" | resources.Fingerprint }}
+	{{ $css := slice $medium $additional | resources.Concat "css/style.css" | resources.Minify | resources.Fingerprint }}
+	<link rel="stylesheet" href="{{ $css.RelPermalink | absURL }}" integrity="{{ $css.Data.Integrity }}">
+
+
+	<!-- Custom css -->
+	{{ range .Site.Params.customCSS -}}
+	{{ $style := resources.Get . }}
+	<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous" media="screen">
+	{{- end }}
+
+	<!-- ld+json -->
+	{{ if .IsPage }}
+	{{ if eq .Type "blog" }}
+	{{ $titleMeta := printf "%s" .Title }}
+	{{ $description := printf "%s" .Summary }}
+	{{ if .Description }}
+	{{ $description = printf "%s" .Description }}
+	{{ end }}
+	<script type="application/ld+json">
+	{
+		"@context"	:	"http://schema.org",
+		"@type"		:	"BlogPosting",
+		"@id"		:	"{{ .Permalink }}",
+		"mainEntityOfPage"	:	{
+			"@type"	: 	"WebPage",
+			"@id"	:	"{{ .Permalink }}"
+		},
+		"name"		: 	{{ $titleMeta }},
+		{{ if .Params.comments }}
+		"discussionUrl" : "{{ .Permalink }}#comments",
+		{{ end }}
+		"headline"	:	{{ $titleMeta }},
+		"description"	: {{ $description }},
+		"abstract"	:	{{ $description }},
+		"inLanguage"	: "en-US",
+		"isFamilyFriendly"	: 	"true",
+		"author"		: {
+			"@type"	: "Person",
+			"name"	: "{{ default .Site.Params.author.name .Params.author }}",
+			"url"	: "{{"/about" | absURL}}"
+		},
+		"creator"		: {
+			"@type"	: "Person",
+			"name"	: "{{ default .Site.Params.author.name .Params.author }}",
+			"url"	: "{{"/about" | absURL}}"
+		},
+		"accountablePerson"	: {
+			"@type"	: "Person",
+			"name"	: "{{ default .Site.Params.author.name .Params.author }}",
+			"url"	: "{{"/about" | absURL}}"
+		},
+		"copyrightHolder"	: {
+			"@type"	: "Person",
+			"name"	: "{{ default .Site.Params.author.name .Params.author }}",
+			"url"	: "{{"/about" | absURL}}"
+		},
+		"copyrightYear"	: "{{ dateFormat "2006" (default .Date (.PublishDate)) }}",
+		"datePublished"	: "{{ dateFormat "2006-01-02" (default .Date (.PublishDate)) }}",
+		"dateCreated"	: "{{ dateFormat "2006-01-02" (default .Date (.PublishDate)) }}",
+		"dateModified"  : "{{ dateFormat "2006-01-02" (default .Date (.Params.lastmod)) }}",
+		"publisher"	:	{
+			"@type" : "Organization",
+			"name":	"{{ .Site.Title }}",
+			"url": "{{"/" | absURL}}",
+			"logo": {
+				"@type"	:	"ImageObject",
+				"contentUrl"	:	"{{ .Site.Params.logo | absURL }}",
+				"url"	:	"{{ .Site.Params.logo | absURL }}"
+			}
+		},
+		"url"	:	"{{ .Permalink }}",
+		"wordCount"	:	"{{ .WordCount }}",
+		"image"	:	"{{ .Params.image | absURL }}",
+		"keywords"	:	"{{ range $i, $e := .Params.tags }}{{ if $i }},{{ end }}{{ $e }}{{ end}}"
+	}
+	</script>
+	{{ end }}
+	{{ end }}
+
+	{{ if isset .Site.Params "goatcounter" }}
+	<script data-goatcounter="https://{{.Site.Params.goatcounter}}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+	{{ end }}
+
+	{{ partial "_shared/head-extra.html" . }}
+</head>

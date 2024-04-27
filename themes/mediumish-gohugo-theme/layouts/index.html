@@ -1,0 +1,62 @@
+{{ define "header"}}
+    {{- partial "_shared/navbar.html" . -}}
+{{ end }}
+
+{{ define "main" }}
+    <div class="main-content">
+        <header class="text-center">
+            {{ with .Site.Params.index.picture }}
+                <img src="{{ . | urlize | relURL }}" class="rounded-circle text-center index-image">
+            {{ end }}
+            <h1 class="index-title">{{ .Site.Params.index.title }}</h1>
+        </header>
+
+        <section class="text-center">
+            {{ with .Site.Params.index.subtitle }}
+            <h3 class="index-sub">{{ . }}</h3>
+            {{ end }}
+            {{ with .Site.Params.index.mdtext }}
+            <h6 class="index-text">{{ . | markdownify }}</h6>
+            {{ end }}
+        </section>
+
+        <section>
+            <section class="recent-posts">
+                <div class="section-title">
+                    <h2><span>Most Recent Posts</span></h2>
+                </div>
+                <div class="row">
+                    <div class="listrecent">
+                        {{ $recent := where .Site.Pages "Type" "blog" }}
+                        {{ $recentPages := where $recent "IsPage" true }}
+                        {{ range first 1 $recentPages.ByPublishDate.Reverse }}
+                            {{- partial "list-partials/postbox-row.html" . -}}
+                        {{ end }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="listrecent">
+                        <div class="row h-100">
+                        {{ $recent := where .Site.Pages "Type" "blog" }}
+                        {{ $recentPages := where $recent "IsPage" true }}
+                        {{ $recentPages := after 1 $recentPages.ByPublishDate.Reverse}}
+                        {{ range first 6 $recentPages }}
+                            {{- partial "list-partials/postbox.html" . -}}
+                        {{ end }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+
+    {{ if isset .Site.Params.index "alertbar" }}
+    	{{ if .Site.Params.index.alertbar }}
+            {{- partial "_shared/alertbar.html" . -}}
+        {{ end }}
+    {{ end }}
+{{end}}
+
+{{ define "footer" }}
+    {{- partial "_shared/footer.html" . -}}
+{{end}}

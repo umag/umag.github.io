@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statics on Magistr and Maps</title>
+    <link>https://magistr.me/static/</link>
+    <description>Recent content in Statics on Magistr and Maps</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>CC SA 4.0</copyright>
+    <lastBuildDate>Sun, 07 Oct 2018 11:12:00 +0200</lastBuildDate>
+    <atom:link href="https://magistr.me/static/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Imprint</title>
+      <link>https://magistr.me/static/imprint/</link>
+      <pubDate>Sun, 07 Oct 2018 11:12:00 +0200</pubDate>
+      <guid>https://magistr.me/static/imprint/</guid>
+      <description>Imprint Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean semper libero quis dictum dapibus. Nulla egestas vitae augue eu rutrum. Duis ullamcorper dictum ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://magistr.me/blog/</loc>
+    <lastmod>2024-02-07T16:12:14+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/blog/1/</loc>
+    <lastmod>2024-02-07T16:12:14+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/interesting/</loc>
+    <lastmod>2024-02-07T16:12:14+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/</loc>
+    <lastmod>2024-02-07T16:12:14+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/</loc>
+    <lastmod>2024-02-07T16:12:14+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/static/imprint/</loc>
+    <lastmod>2018-10-07T11:12:00+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/static/</loc>
+    <lastmod>2018-10-07T11:12:00+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/categories/</loc>
+  </url>
+</urlset>

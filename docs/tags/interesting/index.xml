@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>interesting on Magistr and Maps</title>
+    <link>https://magistr.me/tags/interesting/</link>
+    <description>Recent content in interesting on Magistr and Maps</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>CC SA 4.0</copyright>
+    <lastBuildDate>Wed, 07 Feb 2024 16:12:14 +0200</lastBuildDate>
+    <atom:link href="https://magistr.me/tags/interesting/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fosdem and Cgmgmtcamp</title>
+      <link>https://magistr.me/blog/1/</link>
+      <pubDate>Wed, 07 Feb 2024 16:12:14 +0200</pubDate>
+      <guid>https://magistr.me/blog/1/</guid>
+      <description>On search of good devops gatherings Meetups Hacker meetups and culture CCC how it can be My tribe Talks Ai as another entity that needs out knowledge and skill in connecting things and configuring it</description>
+    </item>
+  </channel>
+</rss>

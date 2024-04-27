@@ -1,0 +1,27 @@
+baseURL = "https://magistr.me/"
+languageCode = "en-us"
+title = "Magistr and Maps"
+theme = "mediumish-gohugo-theme"
+summaryLength = 25
+copyright = "CC SA 4.0"
+enableEmoji = true
+publishDir = "docs"
+[params]
+  logo = "/images/logo.png"
+  description ="Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps."
+  #mailchimp = "you can provide a mailchimp-link here"
+
+
+## Main Menu
+[[menu.main]]
+    name = "Thoughts"
+    weight = 100
+    identifier = "blog"
+    url = "/blog/"
+[[menu.main]]
+    name = "About Me"
+    identifier = "about"
+    weight = 200
+    url = "/me/me"
+
+

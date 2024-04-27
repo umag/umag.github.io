@@ -1,0 +1,18 @@
+name = "mediumish"
+license = "MIT"
+licenselink = "https://github.com/ekampf/mediumish-theme-gohugo/blob/master/LICENSE"
+description = "An elegant, mediumish theme for gohugo"
+homepage = "https://developerzen.com"
+tags = ["Blog", "Responsive", "Personal", "Minimal", "Clean", "Disqus", "Google Analytics"]
+features = []
+min_version = "0.120"
+
+[author]
+  name = "Eran Kampf"
+  homepage = "https://developerzen.com"
+
+# If porting an existing theme
+[original]
+  name = "wowthemesnet"
+  homepage = "https://www.wowthemes.net/"
+  repo = "https://github.com/wowthemesnet/mediumish-theme-jekyll"

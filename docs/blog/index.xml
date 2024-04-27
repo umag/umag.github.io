@@ -7,14 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Wed, 07 Feb 2024 16:12:14 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 27 Apr 2024 15:07:14 +0100</lastBuildDate>
     <atom:link href="https://magistr.me/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Fosdem and Cgmgmtcamp</title>
+      <title>Devops Landscape</title>
+      <link>https://magistr.me/blog/2/</link>
+      <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
+      <guid>https://magistr.me/blog/2/</guid>
+      <description>In thouse turbulent times it feels like another tectonic shift is happening on a devops landscape, so I&amp;rsquo;m wondering what would future hold and what will be important, like was important more than 10 years ago when devops established itself.</description>
+    </item>
+    <item>
+      <title>Devops Roadmap</title>
       <link>https://magistr.me/blog/1/</link>
-      <pubDate>Wed, 07 Feb 2024 16:12:14 +0200</pubDate>
+      <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
       <guid>https://magistr.me/blog/1/</guid>
-      <description>On search of good devops gatherings Meetups Hacker meetups and culture CCC how it can be My tribe Talks Ai as another entity that needs out knowledge and skill in connecting things and configuring it</description>
+      <description>I was asked by a friend to advise him a devops roadmap, all the ones that I found on internet were incomplete or i just didnt like them, so after few months of thinking about that topic, and todays nudge in chat from another soon-to-be devops about roadmap.</description>
     </item>
   </channel>
 </rss>

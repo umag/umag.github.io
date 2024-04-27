@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Magistr and Maps</title>
-    <link>https://magistr.me/</link>
-    <description>Recent content on Magistr and Maps</description>
+    <title>devops on Magistr and Maps</title>
+    <link>https://magistr.me/tags/devops/</link>
+    <description>Recent content in devops on Magistr and Maps</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
     <lastBuildDate>Sat, 27 Apr 2024 15:07:14 +0100</lastBuildDate>
-    <atom:link href="https://magistr.me/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://magistr.me/tags/devops/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Devops Landscape</title>
       <link>https://magistr.me/blog/2/</link>
@@ -22,13 +22,6 @@
       <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
       <guid>https://magistr.me/blog/1/</guid>
       <description>I was asked by a friend to advise him a devops roadmap, all the ones that I found on internet were incomplete or i just didnt like them, so after few months of thinking about that topic, and todays nudge in chat from another soon-to-be devops about roadmap.</description>
-    </item>
-    <item>
-      <title>Whoami</title>
-      <link>https://magistr.me/me/me/</link>
-      <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
-      <guid>https://magistr.me/me/me/</guid>
-      <description>I&amp;rsquo;m Sergey https://www.linkedin.com/in/sergey-pozdnyakov-63300048/&#xA;My interests are Devops, Wardley Maps, Strategy and AI</description>
     </item>
   </channel>
 </rss>

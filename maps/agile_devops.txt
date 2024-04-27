@@ -1,0 +1,75 @@
+title Agile devops, apr 2024
+
+//focus on speed of change
+
+anchor Devops [0.95, 0.47]
+anchor Developer [0.95, 0.30]
+
+component local dev environment [0.85, 0.26] label [-69, -14]
+component git [0.69, 0.77]
+component containerization [0.53, 0.83]
+component code build systems [0.62, 0.57] label [17, -25]
+component virtualization [0.39, 0.83]
+component testing [0.70, 0.37]
+component local cloud env [0.26, 0.75] label [5, -10]
+component ide [0.86, 0.66]
+component ai-aid [0.60, 0.26] label [-9, -19]
+component moldable development [0.44, 0.24]
+component dependency management [0.49, 0.47]
+component debugging [0.64, 0.10] label [-55, -17]
+component cloud [0.23, 0.91]
+
+Developer->local dev environment
+local dev environment->ide
+local dev environment->git
+local dev environment->code build systems
+code build systems->containerization
+containerization->virtualization
+code build systems->dependency management
+code build systems->testing
+testing->local cloud env
+ide->testing
+ide->ai-aid
+ide->moldable development
+ide->debugging
+debugging->ai-aid
+debugging->moldable development
+
+component documentaion [0.31, 0.47]
+component examples [0.31, 0.30] label [-52, -22]
+component business domain [0.26, 0.60]
+component knowledge [0.40, 0.38]
+
+Developer->knowledge
+knowledge->business domain
+knowledge->examples
+knowledge->documentaion
+moldable development->knowledge
+Developer->jyp notebooks
+jyp notebooks->ide
+ide->experiment tracking
+
+component os/linux [0.29, 0.87]
+virtualization->os/linux
+os/linux->cloud
+
+component experiment tracking [0.76, 0.78] label [24, -17]
+component jyp notebooks [0.90, 0.78]
+component experiment execution [0.67, 0.84]
+
+experiment tracking->experiment execution
+experiment execution->containerization
+
+note k3s/k8s/docker-compose [0.58, 0.80]
+note kvm/hyper-v/qemu/hyperkit [0.44, 0.79]
+note localstack [0.30, 0.76]
+note buck2/maven/yarn/cmake/etc [0.68, 0.53]
+note pip/poetry/etc [0.56, 0.44]
+note glamourous toolkit [0.49, 0.19]
+note copilot [0.67, 0.25]
+note direnv/flox.dev/nix flakes/tilt [0.89, 0.12]
+note vim/vscode/etc [0.92, 0.65]
+note clearml/mlflow/w&b [0.82, 0.80]
+note gpu/gpu cluster/SaaS [0.17, 0.84]
+
+

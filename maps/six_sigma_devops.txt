@@ -1,0 +1,108 @@
+title Six Sigma Devops, Apr 2024
+
+anchor Devops [0.94, 0.46]
+anchor Business [0.94, 0.30]
+
+component runtime [0.87, 0.46]
+component observability [0.80, 0.60]
+component monitoring [0.75, 0.79]
+component logging [0.71, 0.74]
+component tracing [0.66, 0.72]
+component alerting [0.84, 0.79]
+
+component reproducibility [0.79, 0.49]
+component sustainability [0.76, 0.35]
+component scalability [0.76, 0.28]
+component relaibility [0.76, 0.20] label [-2, -34]
+component maintainability [0.76, 0.05] label [5, -23]
+
+Devops->runtime
+
+runtime->observability
+observability->alerting
+observability->monitoring
+observability->logging
+observability->tracing
+
+note otel [0.62, 0.74]
+note datadog/sumologic/ELK/etc [0.72, 0.80]
+note victoriametricks/prometeus/etc [0.80, 0.81]
+note datadog/cloudwatch/pagerduty/etc [0.90, 0.73]
+
+component email/slack/phone [0.48, 0.84]
+alerting->email/slack/phone
+
+runtime->reproducibility
+component IaC [0.72, 0.47] label [11, -10]
+reproducibility->IaC
+component cloud [0.10, 0.83]
+IaC->cloud
+note terraform/cf/si/pulumi [0.68, 0.42]
+note aws/gcp/azure [0.18, 0.81]
+note Lean process for IaC code not working [0.07, 0.42]
+
+runtime->sustainability
+component finops [0.52, 0.35]
+component serverless [0.59, 0.45]
+component autoscaling [0.46, 0.54]
+component microservices [0.44, 0.25]
+component orchestration [0.33, 0.65]
+sustainability->finops
+sustainability->serverless
+finops->scalability
+
+scalability->autoscaling
+scalability->microservices
+scalability->serverless
+
+serverless->cloud
+autoscaling->cloud
+microservices->orchestration
+orchestration->cloud
+
+runtime->relaibility
+relaibility->autoscaling
+relaibility->orchestration
+orchestration->autoscaling
+serverless->autoscaling
+
+note aks/eks/k8s [0.27, 0.61]
+note lambda/cloud functons/cf workers/vercel [0.57, 0.48]
+
+component load balancing [0.32, 0.86]
+component SaaS [0.32, 0.76] label [5, -10]
+relaibility->load balancing
+relaibility->SaaS
+load balancing->cloud
+SaaS->cloud
+
+
+runtime->maintainability
+component configuration mgmt [0.61, 0.04]
+maintainability->configuration mgmt
+component secrets mgmt [0.60, 0.13]
+component feature flag mgmt [0.51, 0.16]
+maintainability->secrets mgmt
+maintainability->feature flag mgmt
+component service discovery [0.51, 0.03]
+configuration mgmt->service discovery
+component service mesh [0.21, 0.45]
+component dns [0.05, 0.73]
+service discovery->dns
+
+note vault/secrets store/etc [0.65, 0.13]
+note flagsmith/optimizely/unleash [0.42, 0.06]
+note consul/parameter store/etc [0.56, 0.01]
+
+microservices->service mesh
+service discovery->service mesh
+note istio/anthos [0.27, 0.43]
+note route53/etc [0.09, 0.71]
+dns->cloud
+
+note cloudzero/aws caur/etc [0.56, 0.27]
+note alb/google lb/ingress [0.38, 0.86]
+orchestration->load balancing
+service mesh->load balancing
+
+note SRE [0.96, 0.51]

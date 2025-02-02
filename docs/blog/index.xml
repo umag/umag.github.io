@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Sat, 27 Apr 2024 15:07:14 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 03 Feb 2025 00:23:14 +0100</lastBuildDate>
     <atom:link href="https://magistr.me/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CfgMgmtCamp Day 0</title>
+      <link>https://magistr.me/blog/4/</link>
+      <pubDate>Mon, 03 Feb 2025 00:23:14 +0100</pubDate>
+      <guid>https://magistr.me/blog/4/</guid>
+      <description>Last year, I went to FOSDEM and Config Management Camp as a place to meet colleagues I hadn’t seen for a few years after moving to the Netherlands.</description>
+    </item>
     <item>
       <title>Devops Landscape</title>
       <link>https://magistr.me/blog/2/</link>
@@ -22,6 +29,13 @@
       <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
       <guid>https://magistr.me/blog/1/</guid>
       <description>I was asked by a friend to advise him a devops roadmap, all the ones that I found on internet were incomplete or i just didnt like them, so after few months of thinking about that topic, and todays nudge in chat from another soon-to-be devops about roadmap.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://magistr.me/blog/5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://magistr.me/blog/5/</guid>
+      <description></description>
     </item>
   </channel>
 </rss>

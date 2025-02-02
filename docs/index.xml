@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Sat, 27 Apr 2024 15:07:14 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 03 Feb 2025 00:23:14 +0100</lastBuildDate>
     <atom:link href="https://magistr.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CfgMgmtCamp Day 0</title>
+      <link>https://magistr.me/blog/4/</link>
+      <pubDate>Mon, 03 Feb 2025 00:23:14 +0100</pubDate>
+      <guid>https://magistr.me/blog/4/</guid>
+      <description>Last year, I went to FOSDEM and Config Management Camp as a place to meet colleagues I hadn’t seen for a few years after moving to the Netherlands.</description>
+    </item>
     <item>
       <title>Devops Landscape</title>
       <link>https://magistr.me/blog/2/</link>
@@ -29,6 +36,13 @@
       <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
       <guid>https://magistr.me/me/me/</guid>
       <description>I&amp;rsquo;m Sergey https://www.linkedin.com/in/sergey-pozdnyakov-63300048/&#xA;My interests are Devops, Wardley Maps, Strategy and AI</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://magistr.me/blog/5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://magistr.me/blog/5/</guid>
+      <description></description>
     </item>
   </channel>
 </rss>

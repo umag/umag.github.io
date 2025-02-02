@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>me on Magistr and Maps</title>
-    <link>https://magistr.me/tags/me/</link>
-    <description>Recent content in me on Magistr and Maps</description>
+    <title>blog on Magistr and Maps</title>
+    <link>https://magistr.me/tags/blog/</link>
+    <description>Recent content in blog on Magistr and Maps</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
     <lastBuildDate>Mon, 03 Feb 2025 00:23:14 +0100</lastBuildDate>
-    <atom:link href="https://magistr.me/tags/me/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://magistr.me/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CfgMgmtCamp Day 0</title>
       <link>https://magistr.me/blog/4/</link>
       <pubDate>Mon, 03 Feb 2025 00:23:14 +0100</pubDate>
       <guid>https://magistr.me/blog/4/</guid>
       <description>Last year, I went to FOSDEM and Config Management Camp as a place to meet colleagues I hadn’t seen for a few years after moving to the Netherlands.</description>
-    </item>
-    <item>
-      <title>Whoami</title>
-      <link>https://magistr.me/me/me/</link>
-      <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
-      <guid>https://magistr.me/me/me/</guid>
-      <description>I&amp;rsquo;m Sergey https://www.linkedin.com/in/sergey-pozdnyakov-63300048/&#xA;My interests are Devops, Wardley Maps, Strategy and AI</description>
     </item>
   </channel>
 </rss>

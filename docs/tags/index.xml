@@ -7,20 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Sat, 27 Apr 2024 15:07:14 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 03 Feb 2025 00:23:14 +0100</lastBuildDate>
     <atom:link href="https://magistr.me/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>devops</title>
-      <link>https://magistr.me/tags/devops/</link>
-      <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
-      <guid>https://magistr.me/tags/devops/</guid>
+      <title>blog</title>
+      <link>https://magistr.me/tags/blog/</link>
+      <pubDate>Mon, 03 Feb 2025 00:23:14 +0100</pubDate>
+      <guid>https://magistr.me/tags/blog/</guid>
       <description></description>
     </item>
     <item>
       <title>me</title>
       <link>https://magistr.me/tags/me/</link>
-      <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
+      <pubDate>Mon, 03 Feb 2025 00:23:14 +0100</pubDate>
       <guid>https://magistr.me/tags/me/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>devops</title>
+      <link>https://magistr.me/tags/devops/</link>
+      <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
+      <guid>https://magistr.me/tags/devops/</guid>
       <description></description>
     </item>
   </channel>

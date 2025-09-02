@@ -7,21 +7,23 @@ copyright = "CC SA 4.0"
 enableEmoji = true
 publishDir = "docs"
 [params]
-  logo = "/images/logo.png"
-  description ="Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps."
-  #mailchimp = "you can provide a mailchimp-link here"
+logo = "/images/logo.png"
+description = "Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps."
+#mailchimp = "you can provide a mailchimp-link here"
+
+
+[params.author]
+name = "Magistr"
 
 
 ## Main Menu
 [[menu.main]]
-    name = "Thoughts"
-    weight = 100
-    identifier = "blog"
-    url = "/blog/"
+name = "Thoughts"
+weight = 100
+identifier = "blog"
+url = "/blog/"
 [[menu.main]]
-    name = "About Me"
-    identifier = "about"
-    weight = 200
-    url = "/me/me"
-
-
+name = "About Me"
+identifier = "about"
+weight = 200
+url = "/me/me"

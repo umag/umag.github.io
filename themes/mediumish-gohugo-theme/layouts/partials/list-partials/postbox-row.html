@@ -4,10 +4,14 @@
         <div class="row">
             <div class="col-lg-8">
                 <a href="{{ .Permalink }}">
-                    {{$images := .Resources.ByType "image"}}
-                    {{with $images.GetMatch "*cover*" }}
-                        {{$coverThumb := .Resize "x290" }}
-                        <img class="img-fluid" src="{{ $coverThumb.Permalink }}" alt="A thumbnail image" loading="lazy">
+                    {{if .Params.image}}
+                        <img class="img-fluid" src="{{ .Params.image | relURL }}" alt="Thumbnail for {{ .Title }}" loading="lazy">
+                    {{else}}
+                        {{$images := .Resources.ByType "image"}}
+                        {{with $images.GetMatch "*cover*" }}
+                            {{$coverThumb := .Resize "x290" }}
+                            <img class="img-fluid" src="{{ $coverThumb.Permalink }}" alt="A thumbnail image" loading="lazy">
+                        {{end}}
                     {{end}}
                 </a>
             </div>

@@ -49,10 +49,14 @@
                     </div>
 
                     <!-- Post Featured Image -->
-                    {{$images := .Resources.ByType "image"}}
-                    {{with $images.GetMatch "*cover*" }}
-                        {{ $cover := .Resize "800x webp" }}
-                        <img class="featured-image img-fluid" src="{{ $cover.Permalink }}" alt="thumbnail for this post">
+                    {{if .Params.image}}
+                        <img class="featured-image img-fluid" src="{{ .Params.image | relURL }}" alt="Featured image for {{ .Title }}">
+                    {{else}}
+                        {{$images := .Resources.ByType "image"}}
+                        {{with $images.GetMatch "*cover*" }}
+                            {{ $cover := .Resize "800x webp" }}
+                            <img class="featured-image img-fluid" src="{{ $cover.Permalink }}" alt="thumbnail for this post">
+                        {{end}}
                     {{end}}
                     <!-- End Featured Image -->
 

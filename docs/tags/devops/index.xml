@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Sat, 27 Apr 2024 15:07:14 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 19 Sep 2025 22:19:14 +0200</lastBuildDate>
     <atom:link href="https://magistr.me/tags/devops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A future ways of working</title>
+      <link>https://magistr.me/blog/6/</link>
+      <pubDate>Fri, 19 Sep 2025 22:19:14 +0200</pubDate>
+      <guid>https://magistr.me/blog/6/</guid>
+      <description>A video from another era—2013, suddenly found me. Bryan Cantrill talking with the unshakeable confidence of someone who hasn&amp;rsquo;t yet lived through the next decade.</description>
+    </item>
     <item>
       <title>Devops Landscape</title>
       <link>https://magistr.me/blog/2/</link>

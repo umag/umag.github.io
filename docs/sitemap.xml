@@ -2,26 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://magistr.me/tags/blog/</loc>
-    <lastmod>2025-02-03T00:23:14+01:00</lastmod>
+    <loc>https://magistr.me/blog/6/</loc>
+    <lastmod>2025-09-19T22:19:14+02:00</lastmod>
   </url><url>
     <loc>https://magistr.me/blog/</loc>
+    <lastmod>2025-09-19T22:19:14+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/devops/</loc>
+    <lastmod>2025-09-19T22:19:14+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/</loc>
+    <lastmod>2025-09-19T22:19:14+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/oxide/</loc>
+    <lastmod>2025-09-19T22:19:14+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/</loc>
+    <lastmod>2025-09-19T22:19:14+02:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/blog/</loc>
     <lastmod>2025-02-03T00:23:14+01:00</lastmod>
   </url><url>
     <loc>https://magistr.me/blog/4/</loc>
     <lastmod>2025-02-03T00:23:14+01:00</lastmod>
   </url><url>
-    <loc>https://magistr.me/</loc>
-    <lastmod>2025-02-03T00:23:14+01:00</lastmod>
-  </url><url>
     <loc>https://magistr.me/tags/me/</loc>
     <lastmod>2025-02-03T00:23:14+01:00</lastmod>
-  </url><url>
-    <loc>https://magistr.me/tags/</loc>
-    <lastmod>2025-02-03T00:23:14+01:00</lastmod>
-  </url><url>
-    <loc>https://magistr.me/tags/devops/</loc>
-    <lastmod>2024-04-27T15:07:14+01:00</lastmod>
   </url><url>
     <loc>https://magistr.me/blog/2/</loc>
     <lastmod>2024-04-27T15:07:14+01:00</lastmod>

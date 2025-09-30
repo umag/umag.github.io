@@ -7,8 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Fri, 19 Sep 2025 22:19:14 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 30 Sep 2025 13:57:14 +0200</lastBuildDate>
     <atom:link href="https://magistr.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>it</title>
+      <link>https://magistr.me/tags/it/</link>
+      <pubDate>Tue, 30 Sep 2025 13:57:14 +0200</pubDate>
+      <guid>https://magistr.me/tags/it/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>политическое</title>
+      <link>https://magistr.me/tags/%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5/</link>
+      <pubDate>Tue, 30 Sep 2025 13:57:14 +0200</pubDate>
+      <guid>https://magistr.me/tags/%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5/</guid>
+      <description></description>
+    </item>
     <item>
       <title>devops</title>
       <link>https://magistr.me/tags/devops/</link>

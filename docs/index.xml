@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Fri, 19 Sep 2025 22:19:14 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 30 Sep 2025 13:57:14 +0200</lastBuildDate>
     <atom:link href="https://magistr.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>О политических еднорогах</title>
+      <link>https://magistr.me/blog/7/</link>
+      <pubDate>Tue, 30 Sep 2025 13:57:14 +0200</pubDate>
+      <guid>https://magistr.me/blog/7/</guid>
+      <description>Айтишник и политика: что делать, когда твой опенсорс-кумир внезапно зигует?&#xA;Есть такой уютный миф, в который мы, айтишники, очень долго и свято верили: технологии вне политики.</description>
+    </item>
     <item>
       <title>A future ways of working</title>
       <link>https://magistr.me/blog/6/</link>

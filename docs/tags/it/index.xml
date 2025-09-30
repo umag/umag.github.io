@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>it on Magistr and Maps</title>
+    <link>https://magistr.me/tags/it/</link>
+    <description>Recent content in it on Magistr and Maps</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>CC SA 4.0</copyright>
+    <lastBuildDate>Tue, 30 Sep 2025 13:57:14 +0200</lastBuildDate>
+    <atom:link href="https://magistr.me/tags/it/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>О политических еднорогах</title>
+      <link>https://magistr.me/blog/7/</link>
+      <pubDate>Tue, 30 Sep 2025 13:57:14 +0200</pubDate>
+      <guid>https://magistr.me/blog/7/</guid>
+      <description>Айтишник и политика: что делать, когда твой опенсорс-кумир внезапно зигует?&#xA;Есть такой уютный миф, в который мы, айтишники, очень долго и свято верили: технологии вне политики.</description>
+    </item>
+  </channel>
+</rss>

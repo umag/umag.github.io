@@ -810,6 +810,7 @@ h6 {
     font-weight: 700;
     margin-bottom: 1.5rem;
     margin-top: 2.25rem;
+    scroll-margin-top: 100px; /* Adjust this value to match your navbar height */
 }
 
 .article-post img.shadow {
@@ -1016,4 +1017,39 @@ iframe {
 
 .sticky-top-80 {
     top: 80px;
+}
+
+#toc {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.25rem;
+}
+
+#toc h4 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+#toc ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#toc ul li {
+    margin-bottom: 0.5rem;
+}
+
+#toc ul li a {
+    color: #333;
+}
+
+#toc ul li a:hover {
+    color: #00ab6b;
+}
+
+#toc ul ul {
+    padding-left: 20px;
+    margin-top: 0.5rem;
 }

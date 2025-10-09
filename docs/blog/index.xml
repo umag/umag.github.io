@@ -7,21 +7,14 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Wed, 01 Oct 2025 21:48:14 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 09 Oct 2025 19:40:14 +0200</lastBuildDate>
     <atom:link href="https://magistr.me/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>A dream of AI-DLC</title>
-      <link>https://magistr.me/blog/8/</link>
-      <pubDate>Wed, 01 Oct 2025 21:48:14 +0200</pubDate>
-      <guid>https://magistr.me/blog/8/</guid>
-      <description>The Genesis Engine: A Manifesto for the AI-Driven Development Lifecycle Introduction: The Old World is Dead It’s Saturday evening, September 20th, 2025. I’m thinking about how we build things.</description>
-    </item>
-    <item>
-      <title>О политических единорогах</title>
-      <link>https://magistr.me/blog/7/</link>
-      <pubDate>Tue, 30 Sep 2025 13:57:14 +0200</pubDate>
-      <guid>https://magistr.me/blog/7/</guid>
-      <description>Айтишник и политика: что делать, когда твой опенсорс-кумир внезапно зигует? Есть такой уютный миф, в который мы, айтишники, очень долго и свято верили: технологии вне политики.</description>
+      <title>The Pain-Driven Workflow</title>
+      <link>https://magistr.me/blog/9/</link>
+      <pubDate>Thu, 09 Oct 2025 19:40:14 +0200</pubDate>
+      <guid>https://magistr.me/blog/9/</guid>
+      <description>A recent post from System Initiative, &amp;ldquo;AI is an Amplifier, Why Engineers Need Better Foundations,&amp;rdquo; got me thinking about my own workflow. You wonder why I love what they&amp;rsquo;re building?</description>
     </item>
     <item>
       <title>A future ways of working</title>

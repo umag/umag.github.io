@@ -6,6 +6,7 @@ tags: ["me"]
 comments: true
 ---
 
-I'm Sergey https://www.linkedin.com/in/sergey-pozdnyakov-63300048/
+I'm Sergey want to talk or work with me send a mail to i@ domain name of that
+site
 
 My interests are Devops, Wardley Maps, Strategy and AI

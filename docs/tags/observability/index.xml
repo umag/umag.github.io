@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>oxide on Magistr and Maps</title>
-    <link>https://magistr.me/tags/oxide/</link>
-    <description>Recent content in oxide on Magistr and Maps</description>
+    <title>observability on Magistr and Maps</title>
+    <link>https://magistr.me/tags/observability/</link>
+    <description>Recent content in observability on Magistr and Maps</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
     <lastBuildDate>Sat, 14 Feb 2026 12:27:00 +0100</lastBuildDate>
-    <atom:link href="https://magistr.me/tags/oxide/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://magistr.me/tags/observability/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Sight of Systems</title>
       <link>https://magistr.me/blog/10/</link>
       <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
       <guid>https://magistr.me/blog/10/</guid>
       <description>I’ll never forget that feeling—ingesting millions of metrics into a tool like Grafana or Honeycomb for the first time. Before that, I was blind. I was guessing.</description>
-    </item>
-    <item>
-      <title>A future ways of working</title>
-      <link>https://magistr.me/blog/6/</link>
-      <pubDate>Fri, 19 Sep 2025 22:19:14 +0200</pubDate>
-      <guid>https://magistr.me/blog/6/</guid>
-      <description>A video from another era—2013, suddenly found me. Bryan Cantrill talking with the unshakeable confidence of someone who hasn&amp;rsquo;t yet lived through the next decade.</description>
     </item>
   </channel>
 </rss>

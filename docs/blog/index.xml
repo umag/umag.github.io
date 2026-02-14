@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Thu, 09 Oct 2025 19:40:14 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 14 Feb 2026 12:27:00 +0100</lastBuildDate>
     <atom:link href="https://magistr.me/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Sight of Systems</title>
+      <link>https://magistr.me/blog/10/</link>
+      <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
+      <guid>https://magistr.me/blog/10/</guid>
+      <description>I’ll never forget that feeling—ingesting millions of metrics into a tool like Grafana or Honeycomb for the first time. Before that, I was blind. I was guessing.</description>
+    </item>
     <item>
       <title>The Pain-Driven Workflow</title>
       <link>https://magistr.me/blog/9/</link>

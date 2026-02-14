@@ -7,8 +7,57 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Thu, 09 Oct 2025 19:40:14 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 14 Feb 2026 12:27:00 +0100</lastBuildDate>
     <atom:link href="https://magistr.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>devops</title>
+      <link>https://magistr.me/tags/devops/</link>
+      <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/devops/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>moldable development</title>
+      <link>https://magistr.me/tags/moldable-development/</link>
+      <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/moldable-development/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>observability</title>
+      <link>https://magistr.me/tags/observability/</link>
+      <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/observability/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>oxide</title>
+      <link>https://magistr.me/tags/oxide/</link>
+      <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/oxide/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>si</title>
+      <link>https://magistr.me/tags/si/</link>
+      <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/si/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>swamp</title>
+      <link>https://magistr.me/tags/swamp/</link>
+      <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/swamp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>tools</title>
+      <link>https://magistr.me/tags/tools/</link>
+      <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/tools/</guid>
+      <description></description>
+    </item>
     <item>
       <title>ai</title>
       <link>https://magistr.me/tags/ai/</link>
@@ -17,31 +66,10 @@
       <description></description>
     </item>
     <item>
-      <title>devops</title>
-      <link>https://magistr.me/tags/devops/</link>
-      <pubDate>Thu, 09 Oct 2025 19:40:14 +0200</pubDate>
-      <guid>https://magistr.me/tags/devops/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>si</title>
-      <link>https://magistr.me/tags/si/</link>
-      <pubDate>Thu, 09 Oct 2025 19:40:14 +0200</pubDate>
-      <guid>https://magistr.me/tags/si/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>wardley mapping</title>
       <link>https://magistr.me/tags/wardley-mapping/</link>
       <pubDate>Wed, 01 Oct 2025 21:48:14 +0200</pubDate>
       <guid>https://magistr.me/tags/wardley-mapping/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>oxide</title>
-      <link>https://magistr.me/tags/oxide/</link>
-      <pubDate>Fri, 19 Sep 2025 22:19:14 +0200</pubDate>
-      <guid>https://magistr.me/tags/oxide/</guid>
       <description></description>
     </item>
     <item>

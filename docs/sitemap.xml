@@ -3,12 +3,39 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://magistr.me/blog/</loc>
-    <lastmod>2026-02-14T12:27:00+01:00</lastmod>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
   </url><url>
-    <loc>https://magistr.me/tags/devops/</loc>
-    <lastmod>2026-02-14T12:27:00+01:00</lastmod>
+    <loc>https://magistr.me/tags/macos/</loc>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
   </url><url>
     <loc>https://magistr.me/</loc>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/opencore/</loc>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/qemu/</loc>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/retro/</loc>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/blog/11/</loc>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/swamp/</loc>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/</loc>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/unraid/</loc>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/virtualization/</loc>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://magistr.me/tags/devops/</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
   </url><url>
     <loc>https://magistr.me/tags/moldable-development/</loc>
@@ -21,12 +48,6 @@
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
   </url><url>
     <loc>https://magistr.me/tags/si/</loc>
-    <lastmod>2026-02-14T12:27:00+01:00</lastmod>
-  </url><url>
-    <loc>https://magistr.me/tags/swamp/</loc>
-    <lastmod>2026-02-14T12:27:00+01:00</lastmod>
-  </url><url>
-    <loc>https://magistr.me/tags/</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
   </url><url>
     <loc>https://magistr.me/blog/10/</loc>

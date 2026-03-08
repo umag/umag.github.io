@@ -7,8 +7,57 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Sat, 14 Feb 2026 12:27:00 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2026 21:00:00 +0100</lastBuildDate>
     <atom:link href="https://magistr.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>macos</title>
+      <link>https://magistr.me/tags/macos/</link>
+      <pubDate>Sun, 08 Mar 2026 21:00:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/macos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>opencore</title>
+      <link>https://magistr.me/tags/opencore/</link>
+      <pubDate>Sun, 08 Mar 2026 21:00:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/opencore/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>qemu</title>
+      <link>https://magistr.me/tags/qemu/</link>
+      <pubDate>Sun, 08 Mar 2026 21:00:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/qemu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>retro</title>
+      <link>https://magistr.me/tags/retro/</link>
+      <pubDate>Sun, 08 Mar 2026 21:00:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/retro/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>swamp</title>
+      <link>https://magistr.me/tags/swamp/</link>
+      <pubDate>Sun, 08 Mar 2026 21:00:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/swamp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>unraid</title>
+      <link>https://magistr.me/tags/unraid/</link>
+      <pubDate>Sun, 08 Mar 2026 21:00:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/unraid/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>virtualization</title>
+      <link>https://magistr.me/tags/virtualization/</link>
+      <pubDate>Sun, 08 Mar 2026 21:00:00 +0100</pubDate>
+      <guid>https://magistr.me/tags/virtualization/</guid>
+      <description></description>
+    </item>
     <item>
       <title>devops</title>
       <link>https://magistr.me/tags/devops/</link>
@@ -42,13 +91,6 @@
       <link>https://magistr.me/tags/si/</link>
       <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
       <guid>https://magistr.me/tags/si/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>swamp</title>
-      <link>https://magistr.me/tags/swamp/</link>
-      <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
-      <guid>https://magistr.me/tags/swamp/</guid>
       <description></description>
     </item>
     <item>

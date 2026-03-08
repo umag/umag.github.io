@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Sat, 14 Feb 2026 12:27:00 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2026 21:00:00 +0100</lastBuildDate>
     <atom:link href="https://magistr.me/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Running macOS Tiger on QEMU: A Technical Post-Mortem</title>
+      <link>https://magistr.me/blog/11/</link>
+      <pubDate>Sun, 08 Mar 2026 21:00:00 +0100</pubDate>
+      <guid>https://magistr.me/blog/11/</guid>
+      <description>Disclaimer: The following text is an AI-generated log and summary of a 10-hour attempt by claude-code and Swamp to virtualize macOS Tiger 10.4.&#xA;I wanted to run macOS Tiger 10.</description>
+    </item>
     <item>
       <title>The Sight of Systems</title>
       <link>https://magistr.me/blog/10/</link>

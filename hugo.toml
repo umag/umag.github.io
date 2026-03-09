@@ -6,15 +6,38 @@ summaryLength = 25
 copyright = "CC SA 4.0"
 enableEmoji = true
 publishDir = "docs"
+uglyURLs = true
+
+[mediaTypes]
+[mediaTypes."text/markdown"]
+suffixes = ["md"]
+
+[outputFormats.HTML]
+mediaType = "text/html"
+noUgly = true
+
+[outputFormats.Markdown]
+mediaType = "text/markdown"
+isPlainText = true
+isHTML = false
+
+[outputFormats.LLMS]
+mediaType = "text/plain"
+baseName = "llms"
+isPlainText = true
+isHTML = false
+
+[outputs]
+home = ["HTML", "RSS", "LLMS", "Sitemap"]
+page = ["HTML", "Markdown"]
+
 [params]
 logo = "/images/logo.png"
 description = "Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps."
 #mailchimp = "you can provide a mailchimp-link here"
 
-
 [params.author]
 name = "Magistr"
-
 
 ## Main Menu
 [[menu.main]]

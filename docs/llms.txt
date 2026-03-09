@@ -1,0 +1,24 @@
+# Magistr and Maps
+Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.
+
+## Posts
+
+- [Today's Session: Cozystack on Tapok Cluster](https://magistr.me/blog/12/index.md) - Disclaimer: The following text is an AI-generated log and summary of a session deploying Cozystack on a Talos cluster. All work was done in a background manner by claude-code and Swamp, and I only had to approve some steps here and there and add a hint about the ISO boot order issue.
+
+- [Running macOS Tiger on QEMU: A Technical Post-Mortem](https://magistr.me/blog/11/index.md) - Disclaimer: The following text is an AI-generated log and summary of a 10-hour attempt by claude-code and Swamp to virtualize macOS Tiger 10.4. Previously I had no experience running mac os in VM, nor did a I read guides, during the run I had to point claude to guides and reasonable attempts
+
+- [The Sight of Systems](https://magistr.me/blog/10/index.md) - I’ll never forget that feeling—ingesting millions of metrics into a tool like Grafana or Honeycomb for the first time. Before that, I was blind. I was guessing.
+
+- [The Pain-Driven Workflow](https://magistr.me/blog/9/index.md) - A recent post from System Initiative, &ldquo;AI is an Amplifier, Why Engineers Need Better Foundations,&rdquo; got me thinking about our industry workflow. You wonder why I love what they&rsquo;re building?
+
+- [A dream of AI-DLC](https://magistr.me/blog/8/index.md) - The Genesis Engine: A Manifesto for the AI-Driven Development Lifecycle Introduction: The Old World Is Dead Saturday evening, September 20, 2025.
+I’m thinking about how we build.
+
+- [A future ways of working](https://magistr.me/blog/6/index.md) - A video from another era—2013, suddenly found me. Bryan Cantrill talking with the unshakeable confidence of someone who hasn&rsquo;t yet lived through the next decade.
+
+- [CfgMgmtCamp Day 0](https://magistr.me/blog/4/index.md) - Last year, I went to FOSDEM and Config Management Camp as a place to meet colleagues I hadn’t seen for a few years after moving to the Netherlands.
+
+- [Devops Landscape](https://magistr.me/blog/2/index.md) - In thouse turbulent times it feels like another tectonic shift is happening on a devops landscape, so I&rsquo;m wondering what would future hold and what will be important, like was important more than 10 years ago when devops established itself.
+
+- [Devops Roadmap](https://magistr.me/blog/1/index.md) - I was asked by a friend to advise him a devops roadmap, all the ones that I found on internet were incomplete or i just didnt like them, so after few months of thinking about that topic, and todays nudge in chat from another soon-to-be devops about roadmap.
+

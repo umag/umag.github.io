@@ -3,95 +3,227 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://magistr.me/blog/</loc>
-    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+    <lastmod>2026-03-09T21:00:00+01:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/cozystack/</loc>
+    <lastmod>2026-03-09T21:00:00+01:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/kubernetes/</loc>
+    <lastmod>2026-03-09T21:00:00+01:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/</loc>
+    <lastmod>2026-03-09T21:00:00+01:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/swamp/</loc>
+    <lastmod>2026-03-09T21:00:00+01:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/</loc>
+    <lastmod>2026-03-09T21:00:00+01:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/talos/</loc>
+    <lastmod>2026-03-09T21:00:00+01:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/blog/12/</loc>
+    <lastmod>2026-03-09T21:00:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/macos/</loc>
     <lastmod>2026-03-08T21:00:00+01:00</lastmod>
-  </url><url>
-    <loc>https://magistr.me/</loc>
-    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/opencore/</loc>
     <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/qemu/</loc>
     <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/retro/</loc>
     <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/blog/11/</loc>
     <lastmod>2026-03-08T21:00:00+01:00</lastmod>
-  </url><url>
-    <loc>https://magistr.me/tags/swamp/</loc>
-    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
-  </url><url>
-    <loc>https://magistr.me/tags/</loc>
-    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/unraid/</loc>
     <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/virtualization/</loc>
     <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/devops/</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/moldable-development/</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/observability/</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/oxide/</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/si/</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/blog/10/</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/tools/</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/ai/</loc>
     <lastmod>2025-10-09T19:40:14+02:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/blog/9/</loc>
     <lastmod>2025-10-09T19:40:14+02:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/blog/8/</loc>
     <lastmod>2025-10-01T21:48:14+02:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/wardley-mapping/</loc>
     <lastmod>2025-10-01T21:48:14+02:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/blog/6/</loc>
     <lastmod>2025-09-19T22:19:14+02:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/blog/</loc>
     <lastmod>2025-02-03T00:23:14+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/blog/4/</loc>
     <lastmod>2025-02-03T00:23:14+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/tags/me/</loc>
     <lastmod>2025-02-03T00:23:14+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/blog/2/</loc>
     <lastmod>2024-04-27T15:07:14+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/blog/1/</loc>
     <lastmod>2024-04-27T15:07:14+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/me/</loc>
     <lastmod>2024-04-27T15:07:14+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/me/me/</loc>
     <lastmod>2024-04-27T15:07:14+01:00</lastmod>
+    
+    
   </url><url>
     <loc>https://magistr.me/categories/</loc>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/12.md</loc>
+    <lastmod>2026-03-09T21:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/11.md</loc>
+    <lastmod>2026-03-08T21:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/10.md</loc>
+    <lastmod>2026-02-14T12:27:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/9.md</loc>
+    <lastmod>2025-10-09T19:40:14+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/8.md</loc>
+    <lastmod>2025-10-01T21:48:14+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/6.md</loc>
+    <lastmod>2025-09-19T22:19:14+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/4.md</loc>
+    <lastmod>2025-02-03T00:23:14+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/2.md</loc>
+    <lastmod>2024-04-27T15:07:14+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/1.md</loc>
+    <lastmod>2024-04-27T15:07:14+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/llms.txt</loc>
   </url>
 </urlset>

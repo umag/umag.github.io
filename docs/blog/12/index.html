@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="generator" content="Hugo 0.121.1">
+	
+	<link rel="icon" href="/images/logo.png">
+	
+	<title>Today&#39;s Session: Cozystack on Tapok Cluster | Magistr and Maps</title>
+	<meta name="description" content="Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.">
+	<meta name="keywords" content="">
+	
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+	<link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt">
+
+	
+	<link rel="canonical" href="https://magistr.me/blog/12/">
+	
+
+	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+	<link rel="preconnect" href="//www.google-analytics.com">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	
+		
+		
+	
+	
+	<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Today&#39;s Session: Cozystack on Tapok Cluster"/>
+<meta name="twitter:description" content="Disclaimer: The following text is an AI-generated log and summary of a session deploying Cozystack on a Talos cluster. All work was done in a background manner by claude-code and Swamp, and I only had to approve some steps here and there and add a hint about the ISO boot order issue."/>
+
+	<meta property="og:title" content="Today&#39;s Session: Cozystack on Tapok Cluster" />
+<meta property="og:description" content="Disclaimer: The following text is an AI-generated log and summary of a session deploying Cozystack on a Talos cluster. All work was done in a background manner by claude-code and Swamp, and I only had to approve some steps here and there and add a hint about the ISO boot order issue." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://magistr.me/blog/12/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2026-03-09T21:00:00+01:00" />
+<meta property="article:modified_time" content="2026-03-09T21:00:00+01:00" />
+
+
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+	
+	
+	
+	<link rel="stylesheet" href="https://magistr.me/css/style.min.0b8af6cefc5fb2bf4cf841dfb6904d7935744516dbe24e851253e57a88a7bca1.css" integrity="sha256-C4r2zvxfsr9M&#43;EHftpBNeTV0RRbb4k6FElPleoinvKE=">
+
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context"	:	"http://schema.org",
+		"@type"		:	"BlogPosting",
+		"@id"		:	"https:\/\/magistr.me\/blog\/12\/",
+		"mainEntityOfPage"	:	{
+			"@type"	: 	"WebPage",
+			"@id"	:	"https:\/\/magistr.me\/blog\/12\/"
+		},
+		"name"		: 	"Today's Session: Cozystack on Tapok Cluster",
+		
+		"discussionUrl" : "https:\/\/magistr.me\/blog\/12\/#comments",
+		
+		"headline"	:	"Today's Session: Cozystack on Tapok Cluster",
+		"description"	: "Disclaimer: The following text is an AI-generated log and summary of a session deploying Cozystack on a Talos cluster. All work was done in a background manner by claude-code and Swamp, and I only had to approve some steps here and there and add a hint about the ISO boot order issue.",
+		"abstract"	:	"Disclaimer: The following text is an AI-generated log and summary of a session deploying Cozystack on a Talos cluster. All work was done in a background manner by claude-code and Swamp, and I only had to approve some steps here and there and add a hint about the ISO boot order issue.",
+		"inLanguage"	: "en-US",
+		"isFamilyFriendly"	: 	"true",
+		"author"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"creator"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"accountablePerson"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightHolder"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightYear"	: "2026",
+		"datePublished"	: "2026-03-09",
+		"dateCreated"	: "2026-03-09",
+		"dateModified"  : "2026-03-09",
+		"publisher"	:	{
+			"@type" : "Organization",
+			"name":	"Magistr and Maps",
+			"url": "https:\/\/magistr.me\/",
+			"logo": {
+				"@type"	:	"ImageObject",
+				"contentUrl"	:	"https:\/\/magistr.me\/images\/logo.png",
+				"url"	:	"https:\/\/magistr.me\/images\/logo.png"
+			}
+		},
+		"url"	:	"https:\/\/magistr.me\/blog\/12\/",
+		"wordCount"	:	"538",
+		"image"	:	"https:\/\/magistr.me\/images\/blog\/talos.jpg",
+		"keywords"	:	"cozystack,talos,swamp,kubernetes"
+	}
+	</script>
+	
+	
+
+	
+
+	
+</head>
+<body><header class="navbar-light bg-white fixed-top mediumnavigation">
+    <div class="container">
+        
+        <div class="row justify-content-center align-items-center brandrow">
+            <div class="col-lg-4 col-md-4 col-xs-12 d-none d-lg-block d-xl-block d-xll-block">
+                
+                
+                
+                
+                
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12 text-start text-sm-center logoarea">
+                <a class="navbar-brand" href="https://magistr.me//">
+                    
+                    <img src="/images/logo.png" alt="logo">
+                    
+                </a>        
+            </div>
+            <div class="col-lg-4 col-md-4 mr-auto col-xs-12 text-end searcharea d-none d-lg-block d-xl-block d-xll-block">
+                <form role="search" method="get" class="search-form" action="/search/">
+                    <input type="search" class="search-field" placeholder="Search..." value="" name="q" title="Search for:">
+                    <button type="submit" class="search-submit">
+                        <i class="fa fa-search"></i>   
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+
+        <div class="navarea">
+            <nav class="navbar navbar-expand-lg">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMediumish" aria-controls="navbarMediumish" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbarMediumish" class="collapse navbar-collapse">
+                    
+                    <ul class="navbar-nav ml-auto col-md-12 justify-content-center">
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/blog/">Thoughts</a>
+                        </li>
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/me/me">About Me</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+        <div class="site-content">   
+            <div class="container">
+<div class="mainheading">
+    <h1 class="sitetitle">Magistr and Maps</h1>
+    <p class="lead">
+         Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.
+    </p>
+</div><div class="main-content">
+        
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset">
+    <p>Share</p>
+    <ul class="shareitnow">
+        <li class="ml-1 mr-1">
+            <a aria-label="Share on Twitter" target="_blank" href="https://twitter.com/intent/tweet?text=Today%27s%20Session%3a%20Cozystack%20on%20Tapok%20Cluster&url=https%3a%2f%2fmagistr.me%2fblog%2f12%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=435');return false;">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="ml-1 mr-1">
+            <a aria-label="Share on Facebook" target="_blank" href="https://facebook.com/sharer.php?u=https%3a%2f%2fmagistr.me%2fblog%2f12%2f" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fa fa-facebook-f"></i>
+            </a>
+        </li>
+        <li>
+            <a aria-label="Share on LinkedIn" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fmagistr.me%2fblog%2f12%2f" onclick="window.open(this.href, 'facebook-linkedin', 'width=550,height=435');return false;">
+                <i class="fa fa-linkedin"></i>
+            </a>
+        </li>
+    </ul>
+
+    
+        <div class="sep">
+        </div>				
+        <ul>
+            <li> 
+                <a class="small smoothscroll" href="#disqus_thread" aria-label="Click to scroll to the top"></a>
+            </li>
+        </ul>
+    
+</div>
+</div>
+                                
+                <div class="col-md-9 flex-first flex-md-unordered">
+                    <div class="mainheading">
+                        	
+                        
+                        
+                                                
+                        
+                        <h1 class="posttitle">Today&#39;s Session: Cozystack on Tapok Cluster</h1>
+                        
+                    </div>
+
+                    
+                    
+                        <img class="featured-image img-fluid" src="/images/blog/talos.jpg" alt="Featured image for Today&#39;s Session: Cozystack on Tapok Cluster">
+                    
+                    
+
+                    
+                    <div class="article-post">
+                        
+                        <blockquote>
+<p><strong>Disclaimer:</strong> The following text is an AI-generated log and summary of a
+session deploying Cozystack on a Talos cluster. All work was done in a
+background manner by <code>claude-code</code> and <code>Swamp</code>, and I only had to approve some
+steps here and there and add a hint about the ISO boot order issue.</p>
+</blockquote>
+<h2 id="what-worked-well-with-swamp">What Worked Well with Swamp</h2>
+<ol>
+<li>Extension models are powerful — The @talos/node model with applyConfig,
+bootstrap, health, patchConfig, reboot methods made the entire Talos
+lifecycle manageable. Adding patchConfig and retry logic was straightforward.</li>
+<li>Model methods for step-by-step execution — Running swamp model method run
+tapok-cp-1 applyConfig &ndash;input &lsquo;{&hellip;}&rsquo; was reliable and gave clear JSON
+output with success/failure status.</li>
+<li>libvirt models — unraid-vms and unraid-storage worked well for VM management
+(start/stop/resize/attach-disk) and storage pool/volume management.</li>
+<li>Retry logic in talosctl helper — The isTransientError() pattern with
+configurable retries saved the bootstrap phase (which needed ~20 retries over
+5 minutes).</li>
+</ol>
+<h2 id="issues--areas-for-improvement">Issues / Areas for Improvement</h2>
+<ol>
+<li>Workflow idempotency is hard — The full workflow failed repeatedly because: -
+start fails if VM is already running - poolDefine fails if pool exists -
+volCreate fails if volume exists - Required allowFailure: true + completed
+conditions everywhere, making the YAML verbose</li>
+<li>Workflow can&rsquo;t resume from a specific job — After the first run succeeded
+through job 5 but failed on job 6, we couldn&rsquo;t skip the completed jobs. Had
+to create a separate phase2 workflow.</li>
+<li>ISO boot order issue — The biggest time sink. After Talos installed to disk,
+the cdrom ISO was still first in boot order. After stop/start, VMs booted the
+ISO instead of the installed disk, causing all nodes to be unreachable. Fix:
+detach ISO after first successful boot.</li>
+<li>virsh setvcpus &ndash;maximum missing — Had to add the maximum parameter to the
+libvirt model mid-session.</li>
+<li>virsh attach-disk &ndash;persistent vs &ndash;config — &ndash;persistent only works on
+running VMs, &ndash;config for stopped VMs. Had to add the config parameter.</li>
+<li>Cozystack ConfigMap bundle naming — The docs say paas-full but v1.1.0 uses
+isp-full, default, etc. Also needed to manually create a Package CR — the
+operator doesn&rsquo;t auto-create it from the ConfigMap.</li>
+</ol>
+<h2 id="step-by-step-deployment-guide">Step-by-Step Deployment Guide</h2>
+<ol>
+<li>
+<p>WIPE &amp; BOOT</p>
+<ul>
+<li>Stop all VMs: virsh destroy tapok-*</li>
+<li>Wipe boot disks: qemu-img create -f qcow2 <!-- raw HTML omitted --> 10G</li>
+<li>Start VMs (boot from Talos ISO): virsh start tapok-*</li>
+<li>Wait for port 50000 (maintenance mode)</li>
+</ul>
+</li>
+<li>
+<p>PROVISION TALOS</p>
+<ul>
+<li>Apply controlplane configs (insecure): talosctl apply-config &ndash;insecure
+&ndash;file controlplane.yaml</li>
+<li>Apply worker configs (insecure): talosctl apply-config &ndash;insecure &ndash;file
+worker.yaml</li>
+<li>Wait for nodes to install and reboot</li>
+</ul>
+</li>
+<li>
+<p>BOOTSTRAP</p>
+<ul>
+<li>Bootstrap etcd on cp-1: talosctl bootstrap</li>
+<li>Wait for cluster health: talosctl health &ndash;wait-timeout 10m</li>
+</ul>
+</li>
+<li>
+<p>DRBD EXTENSION</p>
+<ul>
+<li>Patch all nodes with drbd-patch.yaml: talosctl patch machineconfig
+&ndash;patch-file drbd-patch.yaml</li>
+<li>Rolling reboot: reboot one node, wait for health, repeat</li>
+</ul>
+</li>
+<li>
+<p>DETACH ISO (critical!)</p>
+<ul>
+<li>Stop all VMs</li>
+<li>Detach cdrom: virsh detach-disk <!-- raw HTML omitted --> sda &ndash;config</li>
+</ul>
+</li>
+<li>
+<p>ATTACH LINSTOR STORAGE</p>
+<ul>
+<li>Create storage pool: virsh pool-define-as / pool-build / pool-start</li>
+<li>Create 100G qcow2 volumes per node</li>
+<li>Attach as vdb: virsh attach-disk &ndash;config</li>
+</ul>
+</li>
+<li>
+<p>START VMs</p>
+<ul>
+<li>Start all VMs (now boot from disk, no ISO)</li>
+<li>Wait for cluster health</li>
+</ul>
+</li>
+<li>
+<p>INSTALL COZYSTACK</p>
+<ul>
+<li>helm upgrade &ndash;install cozystack
+oci://ghcr.io/cozystack/cozystack/cozy-installer &ndash;namespace cozy-system
+&ndash;create-namespace</li>
+<li>Apply platform ConfigMap (bundle-name: isp-full)</li>
+<li>Create Package CR: kubectl apply -f package.yaml (name must match
+PackageSource)</li>
+<li>Wait for Cilium → cert-manager → dashboard chain</li>
+</ul>
+</li>
+<li>
+<p>ACCESS DASHBOARD</p>
+<ul>
+<li>https://dashboard.<!-- raw HTML omitted --> (after ingress/metallb/cert-manager are
+ready)</li>
+</ul>
+</li>
+</ol>
+
+                    </div>
+                    
+                    
+                    <div class="after-post-tags">
+                        <ul class="tags">
+                        
+                        <li>
+                        <a href="/tags/cozystack/">cozystack</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/talos/">talos</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/swamp/">swamp</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/kubernetes/">kubernetes</a>
+                        </li>
+                        
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                    <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+                    
+                    
+                        <a class="d-block col-md-6 text-lg-end" href="https://magistr.me/blog/11/">Running macOS Tiger on QEMU: A Technical Post-Mortem &raquo;</a>
+                    
+                    <div class="clearfix"></div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
+    </div>
+
+
+            </div>
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+			<div class="d-md-flex align-items-center justify-content-center h-100">
+				<h2 class="d-md-block d-none align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+			</div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+			
+			<a class="mt-1 mb-1" href="/tags/ai/">ai</a>
+			
+			<a class="mt-1 mb-1" href="/tags/blog/">blog</a>
+			
+			<a class="mt-1 mb-1" href="/tags/cozystack/">cozystack</a>
+			
+			<a class="mt-1 mb-1" href="/tags/devops/">devops</a>
+			
+			<a class="mt-1 mb-1" href="/tags/kubernetes/">kubernetes</a>
+			
+			<a class="mt-1 mb-1" href="/tags/macos/">macos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/me/">me</a>
+			
+			<a class="mt-1 mb-1" href="/tags/moldable-development/">moldable-development</a>
+			
+			<a class="mt-1 mb-1" href="/tags/observability/">observability</a>
+			
+			<a class="mt-1 mb-1" href="/tags/opencore/">opencore</a>
+			
+			<a class="mt-1 mb-1" href="/tags/oxide/">oxide</a>
+			
+			<a class="mt-1 mb-1" href="/tags/qemu/">qemu</a>
+			
+			<a class="mt-1 mb-1" href="/tags/retro/">retro</a>
+			
+			<a class="mt-1 mb-1" href="/tags/si/">si</a>
+			
+			<a class="mt-1 mb-1" href="/tags/swamp/">swamp</a>
+			
+			<a class="mt-1 mb-1" href="/tags/talos/">talos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/tools/">tools</a>
+			
+			<a class="mt-1 mb-1" href="/tags/unraid/">unraid</a>
+			
+			<a class="mt-1 mb-1" href="/tags/virtualization/">virtualization</a>
+			
+			<a class="mt-1 mb-1" href="/tags/wardley-mapping/">wardley-mapping</a>
+			
+		</div>
+	</div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-start">
+                &copy; Copyright CC SA 4.0
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-end">    
+                <a target="_blank" rel="noopener" href="https://github.com/ekampf/mediumish-gohugo-theme">Mediumish Theme</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://magistr.me/js/mediumish.1574b32c12cce790df495bf68909be2585a33e1bbc54b9f2cb080cac17b88472.js" integrity="sha256-FXSzLBLM55DfSVv2iQm&#43;JYWjPhu8VLnyywgMrBe4hHI="></script>
+    </body>
+</html>

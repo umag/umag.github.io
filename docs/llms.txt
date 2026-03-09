@@ -6,15 +6,15 @@ Magistr and Maps is a personal blog by Magistr covering IT infrastructure, DevOp
 
 ## Blog Posts
 
-- [Today's Session: Cozystack on Tapok Cluster](https://magistr.me/blog/12.md): Deploying Cozystack on a Talos Kubernetes cluster using Swamp extension models, with claude-code handling the execution while the author approves steps.
-- [Running macOS Tiger on QEMU: A Technical Post-Mortem](https://magistr.me/blog/11.md): A 10-hour technical post-mortem of attempting to virtualize macOS Tiger 10.4 on QEMU with OpenCore, managed by claude-code and Swamp on Unraid.
-- [The Sight of Systems](https://magistr.me/blog/10.md): From observability dashboards to moldable development tools, exploring why we need the same 'sight' into our code that Grafana gives us into running systems.
-- [The Pain-Driven Workflow](https://magistr.me/blog/9.md): Walking through the painfully slow cycle of developing a Terraform module to show why engineers need better foundations, inspired by System Initiative's approach.
-- [A dream of AI-DLC](https://magistr.me/blog/8.md): A manifesto for the AI-Driven Development Lifecycle, reimagining how we build software when AI handles the coding and humans focus on intent and architecture.
-- [A future ways of working](https://magistr.me/blog/6.md): Bryan Cantrill's 2013 vision of leaderless engineering culture, how Oxide Computer builds on those principles, and what it means for the future of work in tech.
-- [CfgMgmtCamp Day 0](https://magistr.me/blog/4.md): Reflections from Config Management Camp and FOSDEM, finding a tribe in the English-speaking DevOps community, and the value of in-person tech meetups.
-- [Devops Landscape](https://magistr.me/blog/2.md): Exploring the shifting DevOps landscape and mapping the current state of tooling and practices to understand where the industry is heading.
-- [Devops Roadmap](https://magistr.me/blog/1.md): A practical DevOps roadmap using Wardley Maps, covering Agile, Lean, and Six Sigma stages with relevant tools and technologies for each phase.
+- [Today's Session: Cozystack on Tapok Cluster](https://magistr.me/blog/cozystack-on-tapok-cluster.md): Deploying Cozystack on a Talos Kubernetes cluster using Swamp extension models, with claude-code handling the execution while the author approves steps.
+- [Running macOS Tiger on QEMU: A Technical Post-Mortem](https://magistr.me/blog/running-macos-tiger-on-qemu.md): A 10-hour technical post-mortem of attempting to virtualize macOS Tiger 10.4 on QEMU with OpenCore, managed by claude-code and Swamp on Unraid.
+- [The Sight of Systems](https://magistr.me/blog/the-sight-of-systems.md): From observability dashboards to moldable development tools, exploring why we need the same 'sight' into our code that Grafana gives us into running systems.
+- [The Pain-Driven Workflow](https://magistr.me/blog/the-pain-driven-workflow.md): Walking through the painfully slow cycle of developing a Terraform module to show why engineers need better foundations, inspired by System Initiative's approach.
+- [A dream of AI-DLC](https://magistr.me/blog/a-dream-of-ai-dlc.md): A manifesto for the AI-Driven Development Lifecycle, reimagining how we build software when AI handles the coding and humans focus on intent and architecture.
+- [A future ways of working](https://magistr.me/blog/future-ways-of-working.md): Bryan Cantrill's 2013 vision of leaderless engineering culture, how Oxide Computer builds on those principles, and what it means for the future of work in tech.
+- [CfgMgmtCamp Day 0](https://magistr.me/blog/cfgmgmtcamp-day-0.md): Reflections from Config Management Camp and FOSDEM, finding a tribe in the English-speaking DevOps community, and the value of in-person tech meetups.
+- [Devops Landscape](https://magistr.me/blog/devops-landscape.md): Exploring the shifting DevOps landscape and mapping the current state of tooling and practices to understand where the industry is heading.
+- [Devops Roadmap](https://magistr.me/blog/devops-roadmap.md): A practical DevOps roadmap using Wardley Maps, covering Agile, Lean, and Six Sigma stages with relevant tools and technologies for each phase.
 
 ## Optional
 

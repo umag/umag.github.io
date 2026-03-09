@@ -7,6 +7,7 @@ copyright = "CC SA 4.0"
 enableEmoji = true
 publishDir = "docs"
 uglyURLs = true
+disableAliases = true
 
 [mediaTypes]
 [mediaTypes."text/markdown"]

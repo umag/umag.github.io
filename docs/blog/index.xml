@@ -11,65 +11,65 @@
     <atom:link href="https://magistr.me/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Today&#39;s Session: Cozystack on Tapok Cluster</title>
-      <link>https://magistr.me/blog/12/</link>
+      <link>https://magistr.me/blog/cozystack-on-tapok-cluster/</link>
       <pubDate>Mon, 09 Mar 2026 21:00:00 +0100</pubDate>
-      <guid>https://magistr.me/blog/12/</guid>
+      <guid>https://magistr.me/blog/cozystack-on-tapok-cluster/</guid>
       <description>Disclaimer: The following text is an AI-generated log and summary of a session deploying Cozystack on a Talos cluster. All work was done in a background manner by claude-code and Swamp, and I only had to approve some steps here and there and add a hint about the ISO boot order issue.</description>
     </item>
     <item>
       <title>Running macOS Tiger on QEMU: A Technical Post-Mortem</title>
-      <link>https://magistr.me/blog/11/</link>
+      <link>https://magistr.me/blog/running-macos-tiger-on-qemu/</link>
       <pubDate>Sun, 08 Mar 2026 21:00:00 +0100</pubDate>
-      <guid>https://magistr.me/blog/11/</guid>
+      <guid>https://magistr.me/blog/running-macos-tiger-on-qemu/</guid>
       <description>Disclaimer: The following text is an AI-generated log and summary of a 10-hour attempt by claude-code and Swamp to virtualize macOS Tiger 10.4. Previously I had no experience running mac os in VM, nor did a I read guides, during the run I had to point claude to guides and reasonable attempts</description>
     </item>
     <item>
       <title>The Sight of Systems</title>
-      <link>https://magistr.me/blog/10/</link>
+      <link>https://magistr.me/blog/the-sight-of-systems/</link>
       <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
-      <guid>https://magistr.me/blog/10/</guid>
+      <guid>https://magistr.me/blog/the-sight-of-systems/</guid>
       <description>I’ll never forget that feeling—ingesting millions of metrics into a tool like Grafana or Honeycomb for the first time. Before that, I was blind. I was guessing.</description>
     </item>
     <item>
       <title>The Pain-Driven Workflow</title>
-      <link>https://magistr.me/blog/9/</link>
+      <link>https://magistr.me/blog/the-pain-driven-workflow/</link>
       <pubDate>Thu, 09 Oct 2025 19:40:14 +0200</pubDate>
-      <guid>https://magistr.me/blog/9/</guid>
+      <guid>https://magistr.me/blog/the-pain-driven-workflow/</guid>
       <description>A recent post from System Initiative, &amp;ldquo;AI is an Amplifier, Why Engineers Need Better Foundations,&amp;rdquo; got me thinking about our industry workflow. You wonder why I love what they&amp;rsquo;re building?</description>
     </item>
     <item>
       <title>A dream of AI-DLC</title>
-      <link>https://magistr.me/blog/8/</link>
+      <link>https://magistr.me/blog/a-dream-of-ai-dlc/</link>
       <pubDate>Wed, 01 Oct 2025 21:48:14 +0200</pubDate>
-      <guid>https://magistr.me/blog/8/</guid>
+      <guid>https://magistr.me/blog/a-dream-of-ai-dlc/</guid>
       <description>The Genesis Engine: A Manifesto for the AI-Driven Development Lifecycle Introduction: The Old World Is Dead Saturday evening, September 20, 2025.&#xA;I’m thinking about how we build.</description>
     </item>
     <item>
       <title>A future ways of working</title>
-      <link>https://magistr.me/blog/6/</link>
+      <link>https://magistr.me/blog/future-ways-of-working/</link>
       <pubDate>Fri, 19 Sep 2025 22:19:14 +0200</pubDate>
-      <guid>https://magistr.me/blog/6/</guid>
+      <guid>https://magistr.me/blog/future-ways-of-working/</guid>
       <description>A video from another era—2013, suddenly found me. Bryan Cantrill talking with the unshakeable confidence of someone who hasn&amp;rsquo;t yet lived through the next decade.</description>
     </item>
     <item>
       <title>CfgMgmtCamp Day 0</title>
-      <link>https://magistr.me/blog/4/</link>
+      <link>https://magistr.me/blog/cfgmgmtcamp-day-0/</link>
       <pubDate>Mon, 03 Feb 2025 00:23:14 +0100</pubDate>
-      <guid>https://magistr.me/blog/4/</guid>
+      <guid>https://magistr.me/blog/cfgmgmtcamp-day-0/</guid>
       <description>Last year, I went to FOSDEM and Config Management Camp as a place to meet colleagues I hadn’t seen for a few years after moving to the Netherlands.</description>
     </item>
     <item>
       <title>Devops Landscape</title>
-      <link>https://magistr.me/blog/2/</link>
+      <link>https://magistr.me/blog/devops-landscape/</link>
       <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
-      <guid>https://magistr.me/blog/2/</guid>
+      <guid>https://magistr.me/blog/devops-landscape/</guid>
       <description>In thouse turbulent times it feels like another tectonic shift is happening on a devops landscape, so I&amp;rsquo;m wondering what would future hold and what will be important, like was important more than 10 years ago when devops established itself.</description>
     </item>
     <item>
       <title>Devops Roadmap</title>
-      <link>https://magistr.me/blog/1/</link>
+      <link>https://magistr.me/blog/devops-roadmap/</link>
       <pubDate>Sat, 27 Apr 2024 15:07:14 +0100</pubDate>
-      <guid>https://magistr.me/blog/1/</guid>
+      <guid>https://magistr.me/blog/devops-roadmap/</guid>
       <description>I was asked by a friend to advise him a devops roadmap, all the ones that I found on internet were incomplete or i just didnt like them, so after few months of thinking about that topic, and todays nudge in chat from another soon-to-be devops about roadmap.</description>
     </item>
   </channel>

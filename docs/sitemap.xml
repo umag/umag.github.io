@@ -37,7 +37,7 @@
     
     
   </url><url>
-    <loc>https://magistr.me/blog/12/</loc>
+    <loc>https://magistr.me/blog/cozystack-on-tapok-cluster/</loc>
     <lastmod>2026-03-09T21:00:00+01:00</lastmod>
     
     
@@ -62,7 +62,7 @@
     
     
   </url><url>
-    <loc>https://magistr.me/blog/11/</loc>
+    <loc>https://magistr.me/blog/running-macos-tiger-on-qemu/</loc>
     <lastmod>2026-03-08T21:00:00+01:00</lastmod>
     
     
@@ -102,7 +102,7 @@
     
     
   </url><url>
-    <loc>https://magistr.me/blog/10/</loc>
+    <loc>https://magistr.me/blog/the-sight-of-systems/</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
     
     
@@ -117,12 +117,12 @@
     
     
   </url><url>
-    <loc>https://magistr.me/blog/9/</loc>
+    <loc>https://magistr.me/blog/the-pain-driven-workflow/</loc>
     <lastmod>2025-10-09T19:40:14+02:00</lastmod>
     
     
   </url><url>
-    <loc>https://magistr.me/blog/8/</loc>
+    <loc>https://magistr.me/blog/a-dream-of-ai-dlc/</loc>
     <lastmod>2025-10-01T21:48:14+02:00</lastmod>
     
     
@@ -132,7 +132,7 @@
     
     
   </url><url>
-    <loc>https://magistr.me/blog/6/</loc>
+    <loc>https://magistr.me/blog/future-ways-of-working/</loc>
     <lastmod>2025-09-19T22:19:14+02:00</lastmod>
     
     
@@ -142,7 +142,7 @@
     
     
   </url><url>
-    <loc>https://magistr.me/blog/4/</loc>
+    <loc>https://magistr.me/blog/cfgmgmtcamp-day-0/</loc>
     <lastmod>2025-02-03T00:23:14+01:00</lastmod>
     
     
@@ -152,12 +152,12 @@
     
     
   </url><url>
-    <loc>https://magistr.me/blog/2/</loc>
+    <loc>https://magistr.me/blog/devops-landscape/</loc>
     <lastmod>2024-04-27T15:07:14+01:00</lastmod>
     
     
   </url><url>
-    <loc>https://magistr.me/blog/1/</loc>
+    <loc>https://magistr.me/blog/devops-roadmap/</loc>
     <lastmod>2024-04-27T15:07:14+01:00</lastmod>
     
     
@@ -176,50 +176,55 @@
     
     
     
+  </url><url>
+    <loc>https://magistr.me/redirects/</loc>
+    
+    
+    
   </url>
   
   <url>
-    <loc>https://magistr.me/blog/12.md</loc>
+    <loc>https://magistr.me/blog/cozystack-on-tapok-cluster.md</loc>
     <lastmod>2026-03-09T21:00:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://magistr.me/blog/11.md</loc>
+    <loc>https://magistr.me/blog/running-macos-tiger-on-qemu.md</loc>
     <lastmod>2026-03-08T21:00:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://magistr.me/blog/10.md</loc>
+    <loc>https://magistr.me/blog/the-sight-of-systems.md</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://magistr.me/blog/9.md</loc>
+    <loc>https://magistr.me/blog/the-pain-driven-workflow.md</loc>
     <lastmod>2025-10-09T19:40:14+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://magistr.me/blog/8.md</loc>
+    <loc>https://magistr.me/blog/a-dream-of-ai-dlc.md</loc>
     <lastmod>2025-10-01T21:48:14+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://magistr.me/blog/6.md</loc>
+    <loc>https://magistr.me/blog/future-ways-of-working.md</loc>
     <lastmod>2025-09-19T22:19:14+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://magistr.me/blog/4.md</loc>
+    <loc>https://magistr.me/blog/cfgmgmtcamp-day-0.md</loc>
     <lastmod>2025-02-03T00:23:14+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://magistr.me/blog/2.md</loc>
+    <loc>https://magistr.me/blog/devops-landscape.md</loc>
     <lastmod>2024-04-27T15:07:14+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://magistr.me/blog/1.md</loc>
+    <loc>https://magistr.me/blog/devops-roadmap.md</loc>
     <lastmod>2024-04-27T15:07:14+01:00</lastmod>
   </url>
   

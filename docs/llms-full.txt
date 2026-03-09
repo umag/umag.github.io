@@ -8,7 +8,7 @@
 
 - Date: 2026-03-09
 - Tags: cozystack, talos, swamp, kubernetes
-- URL: https://magistr.me/blog/12/
+- URL: https://magistr.me/blog/cozystack-on-tapok-cluster/
 
 
 > **Disclaimer:** The following text is an AI-generated log and summary of a
@@ -108,7 +108,7 @@
 
 - Date: 2026-03-08
 - Tags: macos, qemu, virtualization, retro, unraid, opencore, swamp
-- URL: https://magistr.me/blog/11/
+- URL: https://magistr.me/blog/running-macos-tiger-on-qemu/
 
 
 > **Disclaimer:** The following text is an AI-generated log and summary of a
@@ -245,7 +245,7 @@ process ultimately stops at missing kernel extensions for the display.
 
 - Date: 2026-02-14
 - Tags: observability, devops, tools, moldable development, si, swamp, oxide
-- URL: https://magistr.me/blog/10/
+- URL: https://magistr.me/blog/the-sight-of-systems/
 
 
 I’ll never forget that feeling—ingesting millions of metrics into a tool like
@@ -326,7 +326,7 @@ not just watching—I’m molding the world in real-time. It works like magic.
 
 - Date: 2025-10-09
 - Tags: devops, ai, si
-- URL: https://magistr.me/blog/9/
+- URL: https://magistr.me/blog/the-pain-driven-workflow/
 
 
 A recent post from System Initiative,
@@ -388,7 +388,7 @@ will only amplify the existing broken processes.
 
 - Date: 2025-10-01
 - Tags: devops, wardley mapping, ai, si
-- URL: https://magistr.me/blog/8/
+- URL: https://magistr.me/blog/a-dream-of-ai-dlc/
 
 
 ## The Genesis Engine: A Manifesto for the AI-Driven Development Lifecycle
@@ -1008,7 +1008,7 @@ It's a better job. It's the job we should have been doing all along.
 
 - Date: 2025-09-19
 - Tags: devops, oxide
-- URL: https://magistr.me/blog/6/
+- URL: https://magistr.me/blog/future-ways-of-working/
 
 
 A video from another era—2013, suddenly found me. Bryan Cantrill talking with
@@ -1046,7 +1046,7 @@ https://medium.com/mapresearch/how-organisations-are-changing-cf80f3e2300
 
 - Date: 2025-02-03
 - Tags: blog, me
-- URL: https://magistr.me/blog/4/
+- URL: https://magistr.me/blog/cfgmgmtcamp-day-0/
 
 
 Last year, I went to FOSDEM and Config Management Camp as a place to meet
@@ -1172,7 +1172,7 @@ this blog post. So here it is.
 
 - Date: 2024-04-27
 - Tags: devops
-- URL: https://magistr.me/blog/2/
+- URL: https://magistr.me/blog/devops-landscape/
 
 
 In thouse turbulent times it feels like another tectonic shift is happening on a devops landscape,
@@ -1190,7 +1190,7 @@ Here is initial maps
 
 - Date: 2024-04-27
 - Tags: devops
-- URL: https://magistr.me/blog/1/
+- URL: https://magistr.me/blog/devops-roadmap/
 
 
 I was asked by a friend to advise him a devops roadmap, all the ones that I

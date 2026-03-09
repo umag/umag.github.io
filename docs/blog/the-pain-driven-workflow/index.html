@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="generator" content="Hugo 0.121.1">
+	
+	<link rel="icon" href="/images/logo.png">
+	
+	<title>The Pain-Driven Workflow | Magistr and Maps</title>
+	<meta name="description" content="Walking through the painfully slow cycle of developing a Terraform module to show why engineers need better foundations, inspired by System Initiative&#39;s approach.">
+	<meta name="keywords" content="devops, ai, si">
+	
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+	<link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt">
+
+	
+	<link rel="canonical" href="https://magistr.me/blog/the-pain-driven-workflow/">
+	
+
+	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+	<link rel="preconnect" href="//www.google-analytics.com">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	
+		
+		
+	
+	
+	<meta property="og:locale" content="en_US">
+	<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="The Pain-Driven Workflow"/>
+<meta name="twitter:description" content="Walking through the painfully slow cycle of developing a Terraform module to show why engineers need better foundations, inspired by System Initiative&#39;s approach."/>
+
+	<meta property="og:title" content="The Pain-Driven Workflow" />
+<meta property="og:description" content="Walking through the painfully slow cycle of developing a Terraform module to show why engineers need better foundations, inspired by System Initiative&#39;s approach." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://magistr.me/blog/the-pain-driven-workflow/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2025-10-09T19:40:14+02:00" />
+<meta property="article:modified_time" content="2025-10-09T19:40:14+02:00" />
+
+
+	<meta property="og:image" content="https://magistr.me/images/logo.png">
+	<meta property="article:tag" content="devops">
+	<meta property="article:tag" content="ai">
+	<meta property="article:tag" content="si">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+	
+	
+	
+	<link rel="stylesheet" href="https://magistr.me/css/style.min.0b8af6cefc5fb2bf4cf841dfb6904d7935744516dbe24e851253e57a88a7bca1.css" integrity="sha256-C4r2zvxfsr9M&#43;EHftpBNeTV0RRbb4k6FElPleoinvKE=">
+
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context"	:	"https://schema.org",
+		"@type"		:	"BlogPosting",
+		"@id"		:	"https:\/\/magistr.me\/blog\/the-pain-driven-workflow\/",
+		"mainEntityOfPage"	:	{
+			"@type"	: 	"WebPage",
+			"@id"	:	"https:\/\/magistr.me\/blog\/the-pain-driven-workflow\/"
+		},
+		"name"		: 	"The Pain-Driven Workflow",
+		
+		"discussionUrl" : "https:\/\/magistr.me\/blog\/the-pain-driven-workflow\/#comments",
+		
+		"headline"	:	"The Pain-Driven Workflow",
+		"description"	: "Walking through the painfully slow cycle of developing a Terraform module to show why engineers need better foundations, inspired by System Initiative's approach.",
+		"abstract"	:	"Walking through the painfully slow cycle of developing a Terraform module to show why engineers need better foundations, inspired by System Initiative's approach.",
+		"inLanguage"	: "en-US",
+		"isFamilyFriendly"	: 	"true",
+		"author"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"creator"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"accountablePerson"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightHolder"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightYear"	: "2025",
+		"datePublished"	: "2025-10-09",
+		"dateCreated"	: "2025-10-09",
+		"dateModified"  : "2025-10-09",
+		"publisher"	:	{
+			"@type" : "Organization",
+			"name":	"Magistr and Maps",
+			"url": "https:\/\/magistr.me\/",
+			"logo": {
+				"@type"	:	"ImageObject",
+				"contentUrl"	:	"https:\/\/magistr.me\/images\/logo.png",
+				"url"	:	"https:\/\/magistr.me\/images\/logo.png"
+			}
+		},
+		"url"	:	"https:\/\/magistr.me\/blog\/the-pain-driven-workflow\/",
+		"wordCount"	:	"476",
+		"image"	:	"https:\/\/magistr.me\/",
+		"keywords"	:	"devops,ai,si"
+	}
+	</script>
+	
+	
+
+	
+
+	
+</head>
+<body><header class="navbar-light bg-white fixed-top mediumnavigation">
+    <div class="container">
+        
+        <div class="row justify-content-center align-items-center brandrow">
+            <div class="col-lg-4 col-md-4 col-xs-12 d-none d-lg-block d-xl-block d-xll-block">
+                
+                
+                
+                
+                
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12 text-start text-sm-center logoarea">
+                <a class="navbar-brand" href="https://magistr.me//">
+                    
+                    <img src="/images/logo.png" alt="logo">
+                    
+                </a>        
+            </div>
+            <div class="col-lg-4 col-md-4 mr-auto col-xs-12 text-end searcharea d-none d-lg-block d-xl-block d-xll-block">
+                <form role="search" method="get" class="search-form" action="/search/">
+                    <input type="search" class="search-field" placeholder="Search..." value="" name="q" title="Search for:">
+                    <button type="submit" class="search-submit">
+                        <i class="fa fa-search"></i>   
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+
+        <div class="navarea">
+            <nav class="navbar navbar-expand-lg">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMediumish" aria-controls="navbarMediumish" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbarMediumish" class="collapse navbar-collapse">
+                    
+                    <ul class="navbar-nav ml-auto col-md-12 justify-content-center">
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/blog/">Thoughts</a>
+                        </li>
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/me/me">About Me</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+        <div class="site-content">   
+            <div class="container">
+<div class="mainheading">
+    <h1 class="sitetitle">Magistr and Maps</h1>
+    <p class="lead">
+         Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.
+    </p>
+</div><div class="main-content">
+        
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset">
+    <p>Share</p>
+    <ul class="shareitnow">
+        <li class="ml-1 mr-1">
+            <a aria-label="Share on Twitter" target="_blank" href="https://twitter.com/intent/tweet?text=The%20Pain-Driven%20Workflow&url=https%3a%2f%2fmagistr.me%2fblog%2fthe-pain-driven-workflow%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=435');return false;">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+        <li class="ml-1 mr-1">
+            <a aria-label="Share on Facebook" target="_blank" href="https://facebook.com/sharer.php?u=https%3a%2f%2fmagistr.me%2fblog%2fthe-pain-driven-workflow%2f" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fa fa-facebook-f"></i>
+            </a>
+        </li>
+        <li>
+            <a aria-label="Share on LinkedIn" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fmagistr.me%2fblog%2fthe-pain-driven-workflow%2f" onclick="window.open(this.href, 'facebook-linkedin', 'width=550,height=435');return false;">
+                <i class="fa fa-linkedin"></i>
+            </a>
+        </li>
+    </ul>
+
+    
+        <div class="sep">
+        </div>				
+        <ul>
+            <li> 
+                <a class="small smoothscroll" href="#disqus_thread" aria-label="Click to scroll to the top"></a>
+            </li>
+        </ul>
+    
+</div>
+</div>
+                                
+                <div class="col-md-9 flex-first flex-md-unordered">
+                    <div class="mainheading">
+                        	
+                        
+                        
+                                                
+                        
+                        <h1 class="posttitle">The Pain-Driven Workflow</h1>
+                        
+                    </div>
+
+                    
+                    
+                        
+                        
+                    
+                    
+
+                    
+                    <div class="article-post">
+                        
+                        <p>A recent post from System Initiative,
+&ldquo;<a href="https://www.systeminit.com/blog/ai-is-an-amplifier-why-engineers-need-better-foundations">AI is an Amplifier, Why Engineers Need Better Foundations</a>,&rdquo;
+got me thinking about our industry workflow. You wonder why I love what they&rsquo;re
+building? Let us walk you through the speed of pain in our current process. It’s
+a masterclass in inefficiency (and a testament to our commitment to robust,
+auditable processes).</p>
+<h3 id="the-task-a-simple-terraform-module">The Task: A &ldquo;Simple&rdquo; Terraform Module</h3>
+<p>It all starts with a seemingly simple task: develop a Terraform module. This
+module, of course, lives in its own isolated repository (as per security best
+practices for blast radius reduction). We work on the happy path, the idealized
+scenario where everything goes according to plan. But then comes the reality
+check.</p>
+<p>The journey begins with a bureaucratic dance. Every single change, no matter how
+trivial, requires <strong>two approvals</strong> from colleagues who may or may not have the
+context (a crucial step for ensuring the four-eyes principle), a <strong>pull
+request</strong> (because process is king, and everything must be documented for our
+yearly audit), and a prayer to the CI/CD gods for a green build. Only after this
+gauntlet can the module be published to the Terraform registry. But we&rsquo;re not
+done yet.</p>
+<p>Next, we need to make this module usable. Enter Backstage, our internal
+developer portal. This means another mono-repository, another set of YAML
+templates, and a bit of glue code to create a new Git repository. And, you
+guessed it, any changes to the Backstage repository require another <strong>two
+approvals</strong> and a <strong>pull request</strong> (change management is a cornerstone of our
+compliance strategy). The irony? The owners don&rsquo;t really scrutinize the code for
+errors; it&rsquo;s a rubber-stamp process (which totally doesn&rsquo;t defeat the purpose of
+the approvals).</p>
+<p>So, we use Backstage to create a new component—a shiny new Git repository with
+our Terraform code and the same variables. We try to run it, and it breaks. Of
+course, it breaks. To fix it, we have to go through the same tedious process:
+<strong>two approvals</strong> and a <strong>pull request</strong>. If the issue is in the original
+module, we have to go back to the first repository, fix it there, trigger a new
+deployment, and then repeat the whole process. It&rsquo;s a never-ending cycle of
+&ldquo;rinse and repeat&rdquo; (ensuring every step is meticulously tracked).</p>
+<h3 id="flying-blind">Flying Blind</h3>
+<p>And the final insult? We can&rsquo;t even test our code against a real account because
+our roles lack the necessary permissions (a clear implementation of the
+principle of least privilege). Only the CD system has the keys to the kingdom.
+We&rsquo;re flying blind, pushing code that we can&rsquo;t even validate ourselves.</p>
+<p>This isn&rsquo;t engineering; it&rsquo;s a slow, painful crawl through a maze of approvals
+and permissions (all in the name of security and compliance, of course). It&rsquo;s a
+perfect illustration of the blog post&rsquo;s point: without a solid foundation, AI
+will only amplify the existing broken processes.</p>
+
+                    </div>
+                    
+                    
+                    <div class="after-post-tags">
+                        <ul class="tags">
+                        
+                        <li>
+                        <a href="/tags/devops/">devops</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/ai/">ai</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/si/">si</a>
+                        </li>
+                        
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                    <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+                    
+                        <a class="d-block col-md-6" href="https://magistr.me/blog/the-sight-of-systems/"> &laquo; The Sight of Systems</a>
+                    
+                    
+                        <a class="d-block col-md-6 text-lg-end" href="https://magistr.me/blog/a-dream-of-ai-dlc/">A dream of AI-DLC &raquo;</a>
+                    
+                    <div class="clearfix"></div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
+    </div>
+
+
+            </div>
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+			<div class="d-md-flex align-items-center justify-content-center h-100">
+				<h2 class="d-md-block d-none align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+			</div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+			
+			<a class="mt-1 mb-1" href="/tags/ai/">ai</a>
+			
+			<a class="mt-1 mb-1" href="/tags/blog/">blog</a>
+			
+			<a class="mt-1 mb-1" href="/tags/cozystack/">cozystack</a>
+			
+			<a class="mt-1 mb-1" href="/tags/devops/">devops</a>
+			
+			<a class="mt-1 mb-1" href="/tags/kubernetes/">kubernetes</a>
+			
+			<a class="mt-1 mb-1" href="/tags/macos/">macos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/me/">me</a>
+			
+			<a class="mt-1 mb-1" href="/tags/moldable-development/">moldable-development</a>
+			
+			<a class="mt-1 mb-1" href="/tags/observability/">observability</a>
+			
+			<a class="mt-1 mb-1" href="/tags/opencore/">opencore</a>
+			
+			<a class="mt-1 mb-1" href="/tags/oxide/">oxide</a>
+			
+			<a class="mt-1 mb-1" href="/tags/qemu/">qemu</a>
+			
+			<a class="mt-1 mb-1" href="/tags/retro/">retro</a>
+			
+			<a class="mt-1 mb-1" href="/tags/si/">si</a>
+			
+			<a class="mt-1 mb-1" href="/tags/swamp/">swamp</a>
+			
+			<a class="mt-1 mb-1" href="/tags/talos/">talos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/tools/">tools</a>
+			
+			<a class="mt-1 mb-1" href="/tags/unraid/">unraid</a>
+			
+			<a class="mt-1 mb-1" href="/tags/virtualization/">virtualization</a>
+			
+			<a class="mt-1 mb-1" href="/tags/wardley-mapping/">wardley-mapping</a>
+			
+		</div>
+	</div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-start">
+                &copy; Copyright CC SA 4.0
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-end">    
+                <a target="_blank" rel="noopener" href="https://github.com/ekampf/mediumish-gohugo-theme">Mediumish Theme</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://magistr.me/js/mediumish.1574b32c12cce790df495bf68909be2585a33e1bbc54b9f2cb080cac17b88472.js" integrity="sha256-FXSzLBLM55DfSVv2iQm&#43;JYWjPhu8VLnyywgMrBe4hHI="></script>
+    </body>
+</html>

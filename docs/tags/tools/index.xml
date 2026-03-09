@@ -11,9 +11,9 @@
     <atom:link href="https://magistr.me/tags/tools/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Sight of Systems</title>
-      <link>https://magistr.me/blog/10/</link>
+      <link>https://magistr.me/blog/the-sight-of-systems/</link>
       <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
-      <guid>https://magistr.me/blog/10/</guid>
+      <guid>https://magistr.me/blog/the-sight-of-systems/</guid>
       <description>I’ll never forget that feeling—ingesting millions of metrics into a tool like Grafana or Honeycomb for the first time. Before that, I was blind. I was guessing.</description>
     </item>
   </channel>

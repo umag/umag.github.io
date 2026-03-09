@@ -11,23 +11,23 @@
     <atom:link href="https://magistr.me/tags/si/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Sight of Systems</title>
-      <link>https://magistr.me/blog/10/</link>
+      <link>https://magistr.me/blog/the-sight-of-systems/</link>
       <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
-      <guid>https://magistr.me/blog/10/</guid>
+      <guid>https://magistr.me/blog/the-sight-of-systems/</guid>
       <description>I’ll never forget that feeling—ingesting millions of metrics into a tool like Grafana or Honeycomb for the first time. Before that, I was blind. I was guessing.</description>
     </item>
     <item>
       <title>The Pain-Driven Workflow</title>
-      <link>https://magistr.me/blog/9/</link>
+      <link>https://magistr.me/blog/the-pain-driven-workflow/</link>
       <pubDate>Thu, 09 Oct 2025 19:40:14 +0200</pubDate>
-      <guid>https://magistr.me/blog/9/</guid>
+      <guid>https://magistr.me/blog/the-pain-driven-workflow/</guid>
       <description>A recent post from System Initiative, &amp;ldquo;AI is an Amplifier, Why Engineers Need Better Foundations,&amp;rdquo; got me thinking about our industry workflow. You wonder why I love what they&amp;rsquo;re building?</description>
     </item>
     <item>
       <title>A dream of AI-DLC</title>
-      <link>https://magistr.me/blog/8/</link>
+      <link>https://magistr.me/blog/a-dream-of-ai-dlc/</link>
       <pubDate>Wed, 01 Oct 2025 21:48:14 +0200</pubDate>
-      <guid>https://magistr.me/blog/8/</guid>
+      <guid>https://magistr.me/blog/a-dream-of-ai-dlc/</guid>
       <description>The Genesis Engine: A Manifesto for the AI-Driven Development Lifecycle Introduction: The Old World Is Dead Saturday evening, September 20, 2025.&#xA;I’m thinking about how we build.</description>
     </item>
   </channel>

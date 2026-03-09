@@ -163,5 +163,12 @@
       <guid>https://magistr.me/blog/9/</guid>
       <description></description>
     </item>
+    <item>
+      <title>Search</title>
+      <link>https://magistr.me/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://magistr.me/search/</guid>
+      <description> </description>
+    </item>
   </channel>
 </rss>

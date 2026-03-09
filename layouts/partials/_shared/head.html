@@ -32,14 +32,16 @@
 	{{ end }}
 	
 	<meta property="og:locale" content="en_US">
-	{{ template "_internal/twitter_cards.html" . }}
+	<meta property="og:site_name" content="{{ .Site.Title }}">
 	{{ template "_internal/opengraph.html" . }}
 	{{- with .Params.image }}
 	<meta property="og:image" content="{{ . | absURL }}">
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="{{ . | absURL }}">
 	{{- else }}
 	<meta property="og:image" content="{{ $.Site.Params.logo | absURL }}">
+	{{- end }}
+	<link rel="me" href="https://bsky.app/profile/magistr.me">
+	{{- if .IsPage }}
+	<meta http-equiv="last-modified" content="{{ dateFormat "2006-01-02T15:04:05-07:00" (default .Date .Lastmod) }}">
 	{{- end }}
 	{{- range .Params.tags }}
 	<meta property="article:tag" content="{{ . }}">

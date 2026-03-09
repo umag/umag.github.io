@@ -1,7 +1,16 @@
 # {{ .Site.Title }}
-{{ .Site.Params.description }}
 
-## Posts
+> {{ .Site.Params.description }}
+
+{{ .Site.Title }} is a personal blog by {{ .Site.Params.author.name }} covering IT infrastructure, DevOps, systems thinking, and AI-driven development.
+
+## Blog Posts
 {{ range where .Site.RegularPages "Section" "blog" }}
-- [{{ .Title }}]({{ .Permalink }}index.md) - {{ .Summary | plainify }}
-{{ end }}
+- [{{ .Title }}]({{ .Permalink | strings.TrimSuffix "/" }}.md): {{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 200 }}{{ end }}
+{{- end }}
+
+## Optional
+
+- [About]({{ "me/me" | absURL }}): About the author
+- [RSS Feed]({{ "blog/index.xml" | absURL }}): RSS feed for blog posts
+- [Full Content for LLMs]({{ "llms-full.txt" | absURL }}): Complete blog content in a single file

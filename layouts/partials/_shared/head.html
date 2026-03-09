@@ -5,9 +5,9 @@
 	{{ with .Site.Params.logo }}
 	<link rel="icon" href="{{ . | urlize | relURL }}">
 	{{ end }}
-	<title>{{ .Page.Title }} | {{ .Site.Title }}</title>
+	<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Page.Title }} | {{ .Site.Title }}{{ end }}</title>
 	<meta name="description" content="{{.Description | default .Site.Params.description}}">
-	<meta name="keywords" content="{{ .Keywords | default .Site.Params.keywords }}">
+	<meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", " }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
 	{{ with .OutputFormats.Get "rss" -}}{{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}{{ end }}
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 	<link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt">
@@ -31,8 +31,19 @@
 		{{ end }}
 	{{ end }}
 	
+	<meta property="og:locale" content="en_US">
 	{{ template "_internal/twitter_cards.html" . }}
 	{{ template "_internal/opengraph.html" . }}
+	{{- with .Params.image }}
+	<meta property="og:image" content="{{ . | absURL }}">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="{{ . | absURL }}">
+	{{- else }}
+	<meta property="og:image" content="{{ $.Site.Params.logo | absURL }}">
+	{{- end }}
+	{{- range .Params.tags }}
+	<meta property="article:tag" content="{{ . }}">
+	{{- end }}
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -60,7 +71,7 @@
 	{{ end }}
 	<script type="application/ld+json">
 	{
-		"@context"	:	"http://schema.org",
+		"@context"	:	"https://schema.org",
 		"@type"		:	"BlogPosting",
 		"@id"		:	"{{ .Permalink }}",
 		"mainEntityOfPage"	:	{

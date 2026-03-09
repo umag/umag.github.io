@@ -27,8 +27,14 @@ baseName = "llms"
 isPlainText = true
 isHTML = false
 
+[outputFormats.LLMSFULL]
+mediaType = "text/plain"
+baseName = "llms-full"
+isPlainText = true
+isHTML = false
+
 [outputs]
-home = ["HTML", "RSS", "LLMS", "Sitemap"]
+home = ["HTML", "RSS", "LLMS", "LLMSFULL", "Sitemap"]
 page = ["HTML", "Markdown"]
 
 [params]

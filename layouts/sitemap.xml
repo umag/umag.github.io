@@ -29,4 +29,7 @@
   <url>
     <loc>{{ .Site.BaseURL }}llms.txt</loc>
   </url>
+  <url>
+    <loc>{{ .Site.BaseURL }}llms-full.txt</loc>
+  </url>
 </urlset>

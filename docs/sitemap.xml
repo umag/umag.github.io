@@ -226,4 +226,7 @@
   <url>
     <loc>https://magistr.me/llms.txt</loc>
   </url>
+  <url>
+    <loc>https://magistr.me/llms-full.txt</loc>
+  </url>
 </urlset>

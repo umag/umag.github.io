@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
 Sitemap: https://magistr.me/sitemap.xml
+LLMs-Txt: https://magistr.me/llms.txt
+LLMs-Full-Txt: https://magistr.me/llms-full.txt

@@ -1,0 +1,14 @@
+# {{ .Site.Title }}
+
+> {{ .Site.Params.description }}
+{{ range where .Site.RegularPages "Section" "blog" }}
+---
+
+# {{ .Title }}
+
+- Date: {{ dateFormat "2006-01-02" .Date }}
+- Tags: {{ delimit .Params.tags ", " }}
+- URL: {{ .Permalink }}
+
+{{ .RawContent }}
+{{ end }}

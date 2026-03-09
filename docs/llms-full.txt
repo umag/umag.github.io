@@ -1,13 +1,395 @@
+# Magistr and Maps
+
+> Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.
+
 ---
-title: "A dream of AI-DLC"
-date: 2025-10-01T21:48:14+02:00
-publishdate: 2025-11-22T14:20:14+02:00
-image: "images/blog/SDLC_to_AI-DLC_Evolution.png"
-tags: ["devops","wardley mapping","ai", "si"]
-description: "A manifesto for the AI-Driven Development Lifecycle, reimagining how we build software when AI handles the coding and humans focus on intent and architecture."
-comments: true
-toc: true
+
+# Today's Session: Cozystack on Tapok Cluster
+
+- Date: 2026-03-09
+- Tags: cozystack, talos, swamp, kubernetes
+- URL: https://magistr.me/blog/12/
+
+
+> **Disclaimer:** The following text is an AI-generated log and summary of a
+> session deploying Cozystack on a Talos cluster. All work was done in a
+> background manner by `claude-code` and `Swamp`, and I only had to approve some
+> steps here and there and add a hint about the ISO boot order issue.
+
+## What Worked Well with Swamp
+
+1. Extension models are powerful — The @talos/node model with applyConfig,
+   bootstrap, health, patchConfig, reboot methods made the entire Talos
+   lifecycle manageable. Adding patchConfig and retry logic was straightforward.
+2. Model methods for step-by-step execution — Running swamp model method run
+   tapok-cp-1 applyConfig --input '{...}' was reliable and gave clear JSON
+   output with success/failure status.
+3. libvirt models — unraid-vms and unraid-storage worked well for VM management
+   (start/stop/resize/attach-disk) and storage pool/volume management.
+4. Retry logic in talosctl helper — The isTransientError() pattern with
+   configurable retries saved the bootstrap phase (which needed ~20 retries over
+   5 minutes).
+
+## Issues / Areas for Improvement
+
+1. Workflow idempotency is hard — The full workflow failed repeatedly because: -
+   start fails if VM is already running - poolDefine fails if pool exists -
+   volCreate fails if volume exists - Required allowFailure: true + completed
+   conditions everywhere, making the YAML verbose
+2. Workflow can't resume from a specific job — After the first run succeeded
+   through job 5 but failed on job 6, we couldn't skip the completed jobs. Had
+   to create a separate phase2 workflow.
+3. ISO boot order issue — The biggest time sink. After Talos installed to disk,
+   the cdrom ISO was still first in boot order. After stop/start, VMs booted the
+   ISO instead of the installed disk, causing all nodes to be unreachable. Fix:
+   detach ISO after first successful boot.
+4. virsh setvcpus --maximum missing — Had to add the maximum parameter to the
+   libvirt model mid-session.
+5. virsh attach-disk --persistent vs --config — --persistent only works on
+   running VMs, --config for stopped VMs. Had to add the config parameter.
+6. Cozystack ConfigMap bundle naming — The docs say paas-full but v1.1.0 uses
+   isp-full, default, etc. Also needed to manually create a Package CR — the
+   operator doesn't auto-create it from the ConfigMap.
+
+## Step-by-Step Deployment Guide
+
+1. WIPE & BOOT
+   - Stop all VMs: virsh destroy tapok-*
+   - Wipe boot disks: qemu-img create -f qcow2 <path> 10G
+   - Start VMs (boot from Talos ISO): virsh start tapok-*
+   - Wait for port 50000 (maintenance mode)
+
+2. PROVISION TALOS
+   - Apply controlplane configs (insecure): talosctl apply-config --insecure
+     --file controlplane.yaml
+   - Apply worker configs (insecure): talosctl apply-config --insecure --file
+     worker.yaml
+   - Wait for nodes to install and reboot
+
+3. BOOTSTRAP
+   - Bootstrap etcd on cp-1: talosctl bootstrap
+   - Wait for cluster health: talosctl health --wait-timeout 10m
+
+4. DRBD EXTENSION
+   - Patch all nodes with drbd-patch.yaml: talosctl patch machineconfig
+     --patch-file drbd-patch.yaml
+   - Rolling reboot: reboot one node, wait for health, repeat
+
+5. DETACH ISO (critical!)
+   - Stop all VMs
+   - Detach cdrom: virsh detach-disk <vm> sda --config
+
+6. ATTACH LINSTOR STORAGE
+   - Create storage pool: virsh pool-define-as / pool-build / pool-start
+   - Create 100G qcow2 volumes per node
+   - Attach as vdb: virsh attach-disk --config
+
+7. START VMs
+   - Start all VMs (now boot from disk, no ISO)
+   - Wait for cluster health
+
+8. INSTALL COZYSTACK
+   - helm upgrade --install cozystack
+     oci://ghcr.io/cozystack/cozystack/cozy-installer --namespace cozy-system
+     --create-namespace
+   - Apply platform ConfigMap (bundle-name: isp-full)
+   - Create Package CR: kubectl apply -f package.yaml (name must match
+     PackageSource)
+   - Wait for Cilium → cert-manager → dashboard chain
+
+9. ACCESS DASHBOARD
+   - https://dashboard.<root-host> (after ingress/metallb/cert-manager are
+     ready)
+
+
 ---
+
+# Running macOS Tiger on QEMU: A Technical Post-Mortem
+
+- Date: 2026-03-08
+- Tags: macos, qemu, virtualization, retro, unraid, opencore, swamp
+- URL: https://magistr.me/blog/11/
+
+
+> **Disclaimer:** The following text is an AI-generated log and summary of a
+> 10-hour attempt by `claude-code` and `Swamp` to virtualize macOS Tiger 10.4.
+> Previously I had no experience running mac os in VM, nor did a I read guides,
+> during the run I had to point claude to guides and reasonable attempts
+
+I wanted to run macOS Tiger 10.4 in a VM on my Unraid box, managed entirely by
+[Swamp](https://github.com/systeminit/swamp).
+
+This is a log of the attempt. It highlights the friction that occurs when trying
+to run a 2006 operating system on 2026 virtualization infrastructure.
+
+## The Goal
+
+Run a genuine Apple macOS Tiger 10.4 (Intel) installation inside QEMU/KVM on
+Unraid. No hackintosh distros. A pure, retail Tiger ISO, provisioned through
+Swamp extension models.
+
+## The 32-bit EFI Problem
+
+The Tiger 10.4.5 Intel retail ISO has a `boot.efi` that is strictly **32-bit**:
+
+```
+boot.efi: PE32 executable Intel 80386, for EFI
+```
+
+Standard OVMF—the modern UEFI firmware for QEMU—is 64-bit. A 64-bit UEFI cannot
+execute a 32-bit EFI binary.
+
+Tiger 10.4.8 and later shipped with a dual 32/64-bit `boot.efi`, which would
+work with standard OVMF. But I only had the 10.4.5 disc, which meant dealing
+with the 32-bit limitation.
+
+## Finding the Right ISO
+
+**Q: Can't you just find a newer ISO?**
+
+A: I tried. I downloaded **XxX OS x86 10.4.11** (3GB of hackintosh history). I
+mounted it and found only legacy Chameleon BIOS boot files (`boot`, `cdboot`,
+`chain0`). No `boot.efi` anywhere. Completely useless for a modern UEFI boot
+chain.
+
+Then I found **TIGERMACOSX10411** (2.7GB). I downloaded it, only to discover a
+**PowerPC disc** from March 2005. It predated Intel Macs entirely. It held
+`BootX`, an artifact from another processor architecture. Furthermore, it was a
+corrupt HFS+ image with an invalid secondary volume header that Linux couldn't
+mount.
+
+No usable retail Tiger 10.4.8+ Intel ISO could be found online. (I did not look
+much into that, just archive)
+
+## The IA32 OVMF Approach
+
+If standard 64-bit OVMF won't run our 32-bit `boot.efi`, we must use 32-bit
+OVMF.
+
+I sourced an **OVMF IA32** build (`rust-osdev/ovmf-prebuilt`) and the **OpenCore
+1.0.6** IA32 binaries, and built a 256MB GPT EFI disk.
+
+This required fixing several configuration issues:
+
+1. **The Case Sensitivity Trap:** `BOOTIA32.efi` was uppercase. The EFI shell
+   expects exact case matching, so the path needed to be updated.
+2. **The Vault:** OpenCore expects security (`Vault=Secure`). I had to set it to
+   `Optional`.
+3. **Firmware Incompatibility:** `OpenRuntime.efi` panicked with IA32 OVMF, so I
+   removed it. `OpenHfsPlus.efi` failed on one nightly OVMF build but worked on
+   another. The specific firmware version mattered.
+4. **The Missing Keyboard:** The OpenCore picker wouldn't register keystrokes
+   despite injecting every PS/2 and USB driver (`Ps2KeyboardDxe`, `XhciDxe`,
+   `OpenUsbKbDxe`). The fix was to bypass human input entirely by setting
+   `ShowPicker=False` and `Timeout=0`.
+5. **The YAML Parsing Issue:** Embedding Python in Swamp `cfgmgmt/exec` YAML
+   broke on colons. The solution was to base64-encode the scripts and decode
+   them at runtime.
+
+### Successful Boot
+
+After fixing the configuration, the boot sequence worked:
+
+The IA32 OVMF loaded IA32 OpenCore. OpenCore read the "Mac OS X Install Disc 1"
+HFS+ filesystem. The 32-bit `boot.efi` executed successfully.
+
+The XNU kernel started loading, verbose boot lines appeared on the screen, and
+the VM hit 100% CPU on a single core. The kernel was running.
+
+## The Black Screen Issue
+
+Then, the screen went completely black.
+
+The VM was running and the kernel was active at 100% CPU, but there was no
+display output.
+
+I cycled through the available QEMU video adapters: `vmvga` (VMware SVGA II),
+`vga` (Standard VGA), `cirrus` (Cirrus CL-GD5446). CPU model changes (Nehalem,
+Penryn) made no difference.
+
+**Q: Why does the display fail if the kernel is running?**
+
+A: Because macOS Tiger 10.4.5 has **zero framebuffer drivers** for any hardware
+that QEMU emulates. `VMwareGfx.kext` wasn't introduced until macOS 10.5 Leopard.
+When the kernel takes over from the OVMF's basic GOP framebuffer, it looks for a
+hardware driver to handle the display. Finding none, the screen goes black.
+
+QEMU's `screendump` command confirmed it: a 1024x768 blank screen.
+
+## System Modeling
+
+Despite the video output failure, the provisioning process worked as intended.
+We managed this setup using Swamp:
+
+- An **`@magistr/libvirt/vm` extension** (`libvirt_vm_tiger.ts`) provisioned the
+  VM with Apple SMC, SATA disks, IA32 OVMF, and exact QEMU arguments.
+- **`@adam/cfgmgmt/exec` models** fetched the ISOs, built the OpenCore EFI disk,
+  and inspected archives.
+
+It was a reproducible, version-controlled system modeling the required
+environment.
+
+## The Takeaway
+
+The 32-bit EFI problem is solvable. IA32 OVMF paired with IA32 OpenCore is a
+working bridge to Tiger's 32-bit `boot.efi`.
+
+The actual blocker is hardware driver support. Tiger predates the virtual
+hardware QEMU provides. The provisioning and boot sequence succeed, but the
+process ultimately stops at missing kernel extensions for the display.
+
+
+---
+
+# The Sight of Systems
+
+- Date: 2026-02-14
+- Tags: observability, devops, tools, moldable development, si, swamp, oxide
+- URL: https://magistr.me/blog/10/
+
+
+I’ll never forget that feeling—ingesting millions of metrics into a tool like
+Grafana or Honeycomb for the first time. Before that, I was blind. I was
+guessing. But suddenly, you build a dashboard, you correlate a spike, and the
+system reveals its soul to you.
+
+It’s a profound shift in cognition. Those dashboards weren't just charts; they
+were tools for getting answers. They changed the way I was able to think about
+the system. That "sight" is why observability matters, but it also made me
+realize how blind we still are when we’re actually writing the code.
+
+**Q: If observability gives us sight into the running system, why does
+development still feel like we’re back in the dark?**
+
+A: Because our IDEs are static. They are "read-only" in how they present
+information. This is where the idea of
+[Moldable Development](https://moldabledevelopment.com/) comes in. It’s the
+philosophy that the environment should adapt to the unique problem you're
+solving.
+
+If a standard debugger doesn’t explain your specific data structure, you
+shouldn't just stare at text—you should write a tool that shows it to you. You
+"mold" the editor to fit the project. Even the folks at Oxide have
+[discussed this](https://oxide-and-friends.transistor.fm/episodes/debugger-driven-development)—how
+writing your own custom debuggers can be more valuable when they lead
+development rather than just following it. It’s about building the "sight" into
+the process itself.
+
+**Q: People usually point to Glamorous Toolkit (GToolkit) when talking about
+this. Why aren't we all using that?**
+
+A: GToolkit is a masterpiece, but it’s built in a cathedral most of us don't
+visit: Pharo Smalltalk. It comes with 1,500 custom tools, which is incredible,
+but the friction is immense. You have to learn a language that feels "alien" to
+modern web devs, and LLMs—our primary coding partners now—struggle to help you
+write it. It’s a powerful island, but it’s isolated. You can't easily bring that
+magic into your daily TypeScript or Go workflow.
+
+**Q: So how do we bring that "magic" to the tools we actually use?**
+
+A: You look at [Swamp](https://github.com/systeminit/swamp).
+
+It is a stepping stone and result of the
+[AI-Driven Development Lifecycle (AI-DLC)](https://magistr.me/blog/8/). Swamp
+takes those core principles of moldable development—capturing state, modeling
+it, and creating custom views—but it does it where we live agentic cli like
+claude.
+
+**Q: How is Swamp different from just writing another CLI tool or a script?**
+
+A: It feels like an extension of your own nervous system. In GToolkit, you mold
+the IDE; in Swamp, you use the LLM to mold models that act as live extensions of
+your system.
+
+Imagine you need to understand a messy API or a deep directory structure.
+Instead of writing a one-off script, you ask Swamp to model it. It builds a
+model, saves the state, and suddenly you can ask questions about that state.
+"Which services depend on this specific config?" or "Show me the blast radius if
+I delete this."
+
+It’s not just "Infrastructure as Code" (IaC). Traditional IaC is too rigid—it’s
+a set of frozen instructions. Swamp is a living cycle. You model, you ask, and
+then you create workflows to change the system based on those answers.
+
+**Q: Is this the end of traditional DevOps tools?**
+
+A: It makes them look like fossils. When you can model any API or shell output
+at the tip of your fingers and treat it as a first-class domain object, the old
+way of "writing YAML and praying" feels like the dark ages. It’s that same
+feeling of "sudden sight" I had with those first Grafana dashboards, but now I'm
+not just watching—I’m molding the world in real-time. It works like magic.
+
+
+---
+
+# The Pain-Driven Workflow
+
+- Date: 2025-10-09
+- Tags: devops, ai, si
+- URL: https://magistr.me/blog/9/
+
+
+A recent post from System Initiative,
+"[AI is an Amplifier, Why Engineers Need Better Foundations](https://www.systeminit.com/blog/ai-is-an-amplifier-why-engineers-need-better-foundations),"
+got me thinking about our industry workflow. You wonder why I love what they're
+building? Let us walk you through the speed of pain in our current process. It’s
+a masterclass in inefficiency (and a testament to our commitment to robust,
+auditable processes).
+
+### The Task: A "Simple" Terraform Module
+
+It all starts with a seemingly simple task: develop a Terraform module. This
+module, of course, lives in its own isolated repository (as per security best
+practices for blast radius reduction). We work on the happy path, the idealized
+scenario where everything goes according to plan. But then comes the reality
+check.
+
+The journey begins with a bureaucratic dance. Every single change, no matter how
+trivial, requires **two approvals** from colleagues who may or may not have the
+context (a crucial step for ensuring the four-eyes principle), a **pull
+request** (because process is king, and everything must be documented for our
+yearly audit), and a prayer to the CI/CD gods for a green build. Only after this
+gauntlet can the module be published to the Terraform registry. But we're not
+done yet.
+
+Next, we need to make this module usable. Enter Backstage, our internal
+developer portal. This means another mono-repository, another set of YAML
+templates, and a bit of glue code to create a new Git repository. And, you
+guessed it, any changes to the Backstage repository require another **two
+approvals** and a **pull request** (change management is a cornerstone of our
+compliance strategy). The irony? The owners don't really scrutinize the code for
+errors; it's a rubber-stamp process (which totally doesn't defeat the purpose of
+the approvals).
+
+So, we use Backstage to create a new component—a shiny new Git repository with
+our Terraform code and the same variables. We try to run it, and it breaks. Of
+course, it breaks. To fix it, we have to go through the same tedious process:
+**two approvals** and a **pull request**. If the issue is in the original
+module, we have to go back to the first repository, fix it there, trigger a new
+deployment, and then repeat the whole process. It's a never-ending cycle of
+"rinse and repeat" (ensuring every step is meticulously tracked).
+
+### Flying Blind
+
+And the final insult? We can't even test our code against a real account because
+our roles lack the necessary permissions (a clear implementation of the
+principle of least privilege). Only the CD system has the keys to the kingdom.
+We're flying blind, pushing code that we can't even validate ourselves.
+
+This isn't engineering; it's a slow, painful crawl through a maze of approvals
+and permissions (all in the name of security and compliance, of course). It's a
+perfect illustration of the blog post's point: without a solid foundation, AI
+will only amplify the existing broken processes.
+
+
+---
+
+# A dream of AI-DLC
+
+- Date: 2025-10-01
+- Tags: devops, wardley mapping, ai, si
+- URL: https://magistr.me/blog/8/
+
 
 ## The Genesis Engine: A Manifesto for the AI-Driven Development Lifecycle
 
@@ -618,3 +1000,222 @@ It's a better job. It's the job we should have been doing all along.
 - [SI multiplayer](https://docs.systeminit.com/reference/architecture/ai)
 - [Moldable development and building tools for the task](https://gtoolkit.com/)
 - [Building tools for the task](https://oxide-and-friends.transistor.fm/episodes/debugger-driven-development)
+
+
+---
+
+# A future ways of working
+
+- Date: 2025-09-19
+- Tags: devops, oxide
+- URL: https://magistr.me/blog/6/
+
+
+A video from another era—2013, suddenly found me. Bryan Cantrill talking with
+the unshakeable confidence of someone who hasn't yet lived through the next
+decade.
+
+His proposition from back then is simple: build a company around brilliant
+engineers, a grand purpose, and almost no structure. I glance at a chart made in
+2021, a prediction for how we'll all work in 2031. It’s funny—the "future" it
+describes with words like "Leaderless Leadership" and "Non-Hierarchical" is a
+perfect echo of this decade-old rant. And he's not just talking; he's building
+his company, Oxide, on these exact principles right now.
+
+His core argument is that many standard corporate practices are actively
+harmful. He frames it like this:
+
+- Hate the ritual of the formal annual performance review? You don't actually
+  need it.
+- Tired of the obsession with hierarchical titles and career ladders? You don't
+  actually need them.
+- Find the idea of stack ranking your colleagues destructive? You don't actually
+  need to do it.
+- Frustrated by non-technical managers creating date-driven death marches? You
+  don't actually need them.
+
+{{< youtube 1KeYzjILqDo >}}
+
+chart from
+https://medium.com/mapresearch/how-organisations-are-changing-cf80f3e2300
+
+
+---
+
+# CfgMgmtCamp Day 0
+
+- Date: 2025-02-03
+- Tags: blog, me
+- URL: https://magistr.me/blog/4/
+
+
+Last year, I went to FOSDEM and Config Management Camp as a place to meet
+colleagues I hadn’t seen for a few years after moving to the Netherlands.
+
+I did that and also met new people from SI, which opened my eyes to the
+English-speaking tech world. Before that, I was mostly in Russian-speaking tech
+circles, and even though I read professional sources, I never truly felt like I
+belonged there. That meetup changed everything—I felt like I had found my tribe
+at Config Management Camp. That’s why I was really looking forward to this
+year’s event.
+
+I skipped FOSDEM, as it’s too busy and overcrowded, and instead planned a direct
+trip to Ghent.
+
+The day started early, at a frosty 8:00 AM. The sun was shining, and the sky was
+clear blue. I went through my usual morning routine: breakfast—quesadilla with
+chicken and a cup of black tea. Packed the last few items—my toothbrush, iPad,
+notebook, and charger. Took a long bath to wash away the night’s sweat and
+refresh myself before the trip. Applied my favorite patchouli-scented perfume.
+Collected the garbage and paper bags from food deliveries, ready to throw them
+away on my way out. And, of course, I skimmed through Twitter, Bluesky, and
+Telegram to wake up and check if anyone else was going.
+
+I was eager to get going, and just before leaving the house, my friend sent me a
+message thanking me for my support. I smiled—that was the best way to start a
+long day.
+
+Off I went, putting on my daily Spotify playlist. It picked some Eldamar songs.
+A short 10-minute walk to the tram stop—it was a bit chilly, but I was
+well-dressed: a T-shirt, a thin SI hoodie, a Uniqlo undercoat, and a Decathlon
+jacket as the top layer. I was warm.
+
+I got to the stop on time, and shortly after, the tram arrived. As usual, I took
+a spot behind the conductor’s booth. My trip had officially begun. At the next
+stop, a pair of partygoers boarded—they had an overpowering, unpleasant perfume.
+The man wore a hoodie, sweatpants, and a banana bag, while the woman, in a white
+hoodie, had the classic Instagram face—platinum blonde, long lashes (some of her
+hair was even stuck in them). Luckily, the man blocked most of the strong
+perfume, and they left after a few stops.
+
+During the ride, I noticed an old, gray-bearded man riding a bike with
+Palestinian flags. His face didn’t match the expected nationality. A few stops
+later, he left his bicycle on the bike path after a bridge.
+
+I arrived early at the railway station, so I passed through it and went to AH.
+It took me two rounds to find Snickers and Twix for the three-hour trip. Bought
+them and headed to the platform. Initially, I went to 13B, which had a shutdown
+timetable and was nearly empty—not that I minded. But after half an hour, a
+ProRail staff member approached me and explained I needed to go to 13A for my
+train. Sure enough, that was the right spot.
+
+It was more crowded there, but I put my backpack on a concrete platform holding
+the signs and relaxed in the sun, scrolling through my phone. After another 30
+minutes, the train finally arrived. As usual, it was the red Thalys—now
+Eurostar.
+
+I queued briefly to board my carriage. Luckily, my seat faced forward. The seat
+beside me was occupied by a French man who, for some reason, was wearing a thick
+black winter jacket. He eventually took it off after a few stops.
+
+I put on a podcast—one featuring Shane Pegg about AGI, Google DeepMind, and
+other related topics. Unfortunately, it wasn’t very useful or interesting,
+except for his prediction about the exponential growth of data and algorithms,
+leading to a boom around 2025.
+
+The window on my side was closed due to the sun, so I looked out the opposite
+one, watching green fields and farms pass by. After about an hour, the podcast
+ended, and I started a new one with Patrick Debois about DevOps and AI. Sadly,
+it was also disappointing—no new thoughts or insights.
+
+I ate my Twix, and after two hours, we arrived in Antwerp. I decided to explore
+a different side of the station, which meant taking a slight detour to reach my
+next train to Ghent. Fortunately, it arrived early, giving me ten minutes to get
+from deep underground at platform 18 to platform 1. Made it in time and boarded.
+
+To my left sat a family with a small girl. Her jacket was left on the seat—it
+was warm inside. Shortly after, a new pair of passengers arrived next to me,
+embodying the classic “gamer and gamer girlfriend” meme.
+
+I ate my Snickers and gazed at the sunlit green fields again. Another hour
+passed, and I arrived in Ghent.
+
+Ghent station is under reconstruction, with some exits closed. I forgot that I
+needed to take a tram and wasted a minute roaming around the bus stops. Ended up
+missing my tram and had to wait another ten minutes. In the meantime, I sent a
+message to the SI Discord to see if anyone wanted to meet up for dinner—silence
+was my reply.
+
+I reached the hotel and was surprised to learn that my room was in another
+building. Got there—it indeed had a garden view and was quiet, but no bathtub,
+which was something I had specifically looked for.
+
+Dropped my backpack, freshened up, and started searching for a nearby
+restaurant. Found Boker Tov, headed there, and ordered shakshuka with a
+pomegranate and star anise mocktail. It was hot and delicious. Also ordered a
+tahini brownie but was too full after the shakshuka, so I had it packed to go.
+
+Leaving the restaurant, I took a scenic detour back. Roamed along the riverbanks
+and old buildings, snapping a few photos of a castle and a church. On a bridge
+under the crescent moon and bright Saturn, a man was sitting, playing a handpan.
+I paused my walk and listened for a few minutes—it was a pleasant, soothing
+melody.
+
+After that, I continued to the main road and stopped by the nearby AH. Bought a
+sandwich, a cheese plate, and bread for breakfast. Got back to my room and took
+a shower.
+
+Afterward, I dove into chats and spent some time in a conversation about rakugo
+and the Monogatari series—it was fun.
+
+Made some tea and ate another few pieces of the brownie.
+
+Calculated when I should wake up to get breakfast and make it to the opening
+talk at 9:00 turns out I’d need to be up by 7:30–8:00. Pretty early. But instead
+of sleeping at 22, I ended up watching YouTube… and now, I’ve decided to write
+this blog post. So here it is.
+
+
+---
+
+# Devops Landscape
+
+- Date: 2024-04-27
+- Tags: devops
+- URL: https://magistr.me/blog/2/
+
+
+In thouse turbulent times it feels like another tectonic shift is happening on a devops landscape,
+so I'm wondering what would future hold and what will be important, like was important more than 10 years ago when devops established itself. So I've ventured into exploration and attempt to gather like-minded people to create devops industry landscape as it is now in order to see where it's going and what will be relevant in near future.
+
+Here is initial maps
+
+![Devops tooling](/images/blog/Devops_tooling.png)
+
+![Tools history](/images/blog/Devops_tools_history_Apr_2024.png)
+
+---
+
+# Devops Roadmap
+
+- Date: 2024-04-27
+- Tags: devops
+- URL: https://magistr.me/blog/1/
+
+
+I was asked by a friend to advise him a devops roadmap, all the ones that I
+found on internet were incomplete or i just didnt like them, so after few months
+of thinking about that topic, and todays nudge in chat from another soon-to-be
+devops about roadmap. Ive took my favortite one size does not fit all pattern
+and tryed to create respective maps for technologies and tools that would be
+applicable on that stages.
+
+So here we go, agile, focus on a speed of change, mostly about local development
+experience
+
+![Agile Devops](/images/blog/Agile_devops_apr_2024.png)
+
+After code is written and somehow tested it's time to check if it works, and
+also can it be merged, makes sense, and all the other fun staff of CI. Also here
+is beggining of bureaucracy with task tracking, PR tracking, test tracking, code
+review debates etc.
+
+![Lean Devops](/images/blog/Lean_Devops_Apr_2024.png) And if its ok you can also
+ship it to your runtime of choice.
+
+After that serious business starts with all the *bility words and SLI SLA SLO
+ROI.
+
+![Six sigma Devops](/images/blog/Six_Sigma_Devops_Apr_2024.png)
+
+

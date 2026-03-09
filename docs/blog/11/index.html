@@ -7,8 +7,8 @@
 	<link rel="icon" href="/images/logo.png">
 	
 	<title>Running macOS Tiger on QEMU: A Technical Post-Mortem | Magistr and Maps</title>
-	<meta name="description" content="Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.">
-	<meta name="keywords" content="">
+	<meta name="description" content="A 10-hour technical post-mortem of attempting to virtualize macOS Tiger 10.4 on QEMU with OpenCore, managed by claude-code and Swamp on Unraid.">
+	<meta name="keywords" content="macos, qemu, virtualization, retro, unraid, opencore, swamp">
 	
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 	<link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt">
@@ -26,17 +26,28 @@
 		
 	
 	
+	<meta property="og:locale" content="en_US">
 	<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Running macOS Tiger on QEMU: A Technical Post-Mortem"/>
-<meta name="twitter:description" content="Disclaimer: The following text is an AI-generated log and summary of a 10-hour attempt by claude-code and Swamp to virtualize macOS Tiger 10.4. Previously I had no experience running mac os in VM, nor did a I read guides, during the run I had to point claude to guides and reasonable attempts"/>
+<meta name="twitter:description" content="A 10-hour technical post-mortem of attempting to virtualize macOS Tiger 10.4 on QEMU with OpenCore, managed by claude-code and Swamp on Unraid."/>
 
 	<meta property="og:title" content="Running macOS Tiger on QEMU: A Technical Post-Mortem" />
-<meta property="og:description" content="Disclaimer: The following text is an AI-generated log and summary of a 10-hour attempt by claude-code and Swamp to virtualize macOS Tiger 10.4. Previously I had no experience running mac os in VM, nor did a I read guides, during the run I had to point claude to guides and reasonable attempts" />
+<meta property="og:description" content="A 10-hour technical post-mortem of attempting to virtualize macOS Tiger 10.4 on QEMU with OpenCore, managed by claude-code and Swamp on Unraid." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://magistr.me/blog/11/" /><meta property="article:section" content="blog" />
 <meta property="article:published_time" content="2026-03-08T21:00:00+01:00" />
 <meta property="article:modified_time" content="2026-03-08T21:00:00+01:00" />
 
 
+	<meta property="og:image" content="https://magistr.me/images/blog/tiger.jpg">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://magistr.me/images/blog/tiger.jpg">
+	<meta property="article:tag" content="macos">
+	<meta property="article:tag" content="qemu">
+	<meta property="article:tag" content="virtualization">
+	<meta property="article:tag" content="retro">
+	<meta property="article:tag" content="unraid">
+	<meta property="article:tag" content="opencore">
+	<meta property="article:tag" content="swamp">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -57,9 +68,11 @@
 	
 	
 	
+	
+	
 	<script type="application/ld+json">
 	{
-		"@context"	:	"http://schema.org",
+		"@context"	:	"https://schema.org",
 		"@type"		:	"BlogPosting",
 		"@id"		:	"https:\/\/magistr.me\/blog\/11\/",
 		"mainEntityOfPage"	:	{
@@ -71,8 +84,8 @@
 		"discussionUrl" : "https:\/\/magistr.me\/blog\/11\/#comments",
 		
 		"headline"	:	"Running macOS Tiger on QEMU: A Technical Post-Mortem",
-		"description"	: "Disclaimer: The following text is an AI-generated log and summary of a 10-hour attempt by claude-code and Swamp to virtualize macOS Tiger 10.4. Previously I had no experience running mac os in VM, nor did a I read guides, during the run I had to point claude to guides and reasonable attempts",
-		"abstract"	:	"Disclaimer: The following text is an AI-generated log and summary of a 10-hour attempt by claude-code and Swamp to virtualize macOS Tiger 10.4. Previously I had no experience running mac os in VM, nor did a I read guides, during the run I had to point claude to guides and reasonable attempts",
+		"description"	: "A 10-hour technical post-mortem of attempting to virtualize macOS Tiger 10.4 on QEMU with OpenCore, managed by claude-code and Swamp on Unraid.",
+		"abstract"	:	"A 10-hour technical post-mortem of attempting to virtualize macOS Tiger 10.4 on QEMU with OpenCore, managed by claude-code and Swamp on Unraid.",
 		"inLanguage"	: "en-US",
 		"isFamilyFriendly"	: 	"true",
 		"author"		: {

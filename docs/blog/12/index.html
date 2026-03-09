@@ -7,8 +7,8 @@
 	<link rel="icon" href="/images/logo.png">
 	
 	<title>Today&#39;s Session: Cozystack on Tapok Cluster | Magistr and Maps</title>
-	<meta name="description" content="Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.">
-	<meta name="keywords" content="">
+	<meta name="description" content="Deploying Cozystack on a Talos Kubernetes cluster using Swamp extension models, with claude-code handling the execution while the author approves steps.">
+	<meta name="keywords" content="cozystack, talos, swamp, kubernetes">
 	
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 	<link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt">
@@ -26,17 +26,25 @@
 		
 	
 	
+	<meta property="og:locale" content="en_US">
 	<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Today&#39;s Session: Cozystack on Tapok Cluster"/>
-<meta name="twitter:description" content="Disclaimer: The following text is an AI-generated log and summary of a session deploying Cozystack on a Talos cluster. All work was done in a background manner by claude-code and Swamp, and I only had to approve some steps here and there and add a hint about the ISO boot order issue."/>
+<meta name="twitter:description" content="Deploying Cozystack on a Talos Kubernetes cluster using Swamp extension models, with claude-code handling the execution while the author approves steps."/>
 
 	<meta property="og:title" content="Today&#39;s Session: Cozystack on Tapok Cluster" />
-<meta property="og:description" content="Disclaimer: The following text is an AI-generated log and summary of a session deploying Cozystack on a Talos cluster. All work was done in a background manner by claude-code and Swamp, and I only had to approve some steps here and there and add a hint about the ISO boot order issue." />
+<meta property="og:description" content="Deploying Cozystack on a Talos Kubernetes cluster using Swamp extension models, with claude-code handling the execution while the author approves steps." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://magistr.me/blog/12/" /><meta property="article:section" content="blog" />
 <meta property="article:published_time" content="2026-03-09T21:00:00+01:00" />
 <meta property="article:modified_time" content="2026-03-09T21:00:00+01:00" />
 
 
+	<meta property="og:image" content="https://magistr.me/images/blog/talos.jpg">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://magistr.me/images/blog/talos.jpg">
+	<meta property="article:tag" content="cozystack">
+	<meta property="article:tag" content="talos">
+	<meta property="article:tag" content="swamp">
+	<meta property="article:tag" content="kubernetes">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -57,9 +65,11 @@
 	
 	
 	
+	
+	
 	<script type="application/ld+json">
 	{
-		"@context"	:	"http://schema.org",
+		"@context"	:	"https://schema.org",
 		"@type"		:	"BlogPosting",
 		"@id"		:	"https:\/\/magistr.me\/blog\/12\/",
 		"mainEntityOfPage"	:	{
@@ -71,8 +81,8 @@
 		"discussionUrl" : "https:\/\/magistr.me\/blog\/12\/#comments",
 		
 		"headline"	:	"Today's Session: Cozystack on Tapok Cluster",
-		"description"	: "Disclaimer: The following text is an AI-generated log and summary of a session deploying Cozystack on a Talos cluster. All work was done in a background manner by claude-code and Swamp, and I only had to approve some steps here and there and add a hint about the ISO boot order issue.",
-		"abstract"	:	"Disclaimer: The following text is an AI-generated log and summary of a session deploying Cozystack on a Talos cluster. All work was done in a background manner by claude-code and Swamp, and I only had to approve some steps here and there and add a hint about the ISO boot order issue.",
+		"description"	: "Deploying Cozystack on a Talos Kubernetes cluster using Swamp extension models, with claude-code handling the execution while the author approves steps.",
+		"abstract"	:	"Deploying Cozystack on a Talos Kubernetes cluster using Swamp extension models, with claude-code handling the execution while the author approves steps.",
 		"inLanguage"	: "en-US",
 		"isFamilyFriendly"	: 	"true",
 		"author"		: {

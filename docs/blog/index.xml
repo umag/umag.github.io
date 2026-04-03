@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Mon, 09 Mar 2026 21:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 03 Apr 2026 12:00:00 +0100</lastBuildDate>
     <atom:link href="https://magistr.me/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building a CAD Pipeline with JSCAD, Swamp, and Claude</title>
+      <link>https://magistr.me/blog/jscad-cad-generation-with-swamp-and-claude/</link>
+      <pubDate>Fri, 03 Apr 2026 12:00:00 +0100</pubDate>
+      <guid>https://magistr.me/blog/jscad-cad-generation-with-swamp-and-claude/</guid>
+      <description>Disclaimer: The following text is an AI-generated summary of the design decisions and evolution of the JSCAD CAD generation system built with Swamp and Claude.</description>
+    </item>
     <item>
       <title>Today&#39;s Session: Cozystack on Tapok Cluster</title>
       <link>https://magistr.me/blog/cozystack-on-tapok-cluster/</link>

@@ -6,6 +6,7 @@ Magistr and Maps is a personal blog by Magistr covering IT infrastructure, DevOp
 
 ## Blog Posts
 
+- [Building a CAD Pipeline with JSCAD, Swamp, and Claude](https://magistr.me/blog/jscad-cad-generation-with-swamp-and-claude.md): How we built an in-process CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system to debugging a genie lamp with 6-view orthographic projections.
 - [Today's Session: Cozystack on Tapok Cluster](https://magistr.me/blog/cozystack-on-tapok-cluster.md): Deploying Cozystack on a Talos Kubernetes cluster using Swamp extension models, with claude-code handling the execution while the author approves steps.
 - [Running macOS Tiger on QEMU: A Technical Post-Mortem](https://magistr.me/blog/running-macos-tiger-on-qemu.md): A 10-hour technical post-mortem of attempting to virtualize macOS Tiger 10.4 on QEMU with OpenCore, managed by claude-code and Swamp on Unraid.
 - [The Sight of Systems](https://magistr.me/blog/the-sight-of-systems.md): From observability dashboards to moldable development tools, exploring why we need the same 'sight' into our code that Grafana gives us into running systems.

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="generator" content="Hugo 0.121.1">
+	
+	<link rel="icon" href="/images/logo.png">
+	
+	<title>Building a CAD Pipeline with JSCAD, Swamp, and Claude | Magistr and Maps</title>
+	<meta name="description" content="How we built an in-process CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system to debugging a genie lamp with 6-view orthographic projections.">
+	<meta name="keywords" content="jscad, cad, swamp, claude, ddd, typescript">
+	
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+	<link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt">
+
+	
+	<link rel="canonical" href="https://magistr.me/blog/jscad-cad-generation-with-swamp-and-claude/">
+	
+
+	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+	<link rel="preconnect" href="//www.google-analytics.com">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	
+		
+		
+	
+	
+	<meta property="og:locale" content="en_US">
+	<meta property="og:site_name" content="Magistr and Maps">
+	<meta property="og:title" content="Building a CAD Pipeline with JSCAD, Swamp, and Claude" />
+<meta property="og:description" content="How we built an in-process CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system to debugging a genie lamp with 6-view orthographic projections." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://magistr.me/blog/jscad-cad-generation-with-swamp-and-claude/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2026-04-03T12:00:00+01:00" />
+<meta property="article:modified_time" content="2026-04-03T12:00:00+01:00" />
+
+
+	<meta property="og:image" content="https://magistr.me/images/blog/jscad.jpg">
+	<link rel="me" href="https://bsky.app/profile/magistr.me">
+	<meta http-equiv="last-modified" content="2026-04-03T12:00:00&#43;01:00">
+	<meta property="article:tag" content="jscad">
+	<meta property="article:tag" content="cad">
+	<meta property="article:tag" content="swamp">
+	<meta property="article:tag" content="claude">
+	<meta property="article:tag" content="ddd">
+	<meta property="article:tag" content="typescript">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+	
+	
+	
+	<link rel="stylesheet" href="https://magistr.me/css/style.min.0b8af6cefc5fb2bf4cf841dfb6904d7935744516dbe24e851253e57a88a7bca1.css" integrity="sha256-C4r2zvxfsr9M&#43;EHftpBNeTV0RRbb4k6FElPleoinvKE=">
+
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context"	:	"https://schema.org",
+		"@type"		:	"BlogPosting",
+		"@id"		:	"https:\/\/magistr.me\/blog\/jscad-cad-generation-with-swamp-and-claude\/",
+		"mainEntityOfPage"	:	{
+			"@type"	: 	"WebPage",
+			"@id"	:	"https:\/\/magistr.me\/blog\/jscad-cad-generation-with-swamp-and-claude\/"
+		},
+		"name"		: 	"Building a CAD Pipeline with JSCAD, Swamp, and Claude",
+		
+		"discussionUrl" : "https:\/\/magistr.me\/blog\/jscad-cad-generation-with-swamp-and-claude\/#comments",
+		
+		"headline"	:	"Building a CAD Pipeline with JSCAD, Swamp, and Claude",
+		"description"	: "How we built an in-process CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system to debugging a genie lamp with 6-view orthographic projections.",
+		"abstract"	:	"How we built an in-process CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system to debugging a genie lamp with 6-view orthographic projections.",
+		"inLanguage"	: "en-US",
+		"isFamilyFriendly"	: 	"true",
+		"author"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"creator"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"accountablePerson"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightHolder"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightYear"	: "2026",
+		"datePublished"	: "2026-04-03",
+		"dateCreated"	: "2026-04-03",
+		"dateModified"  : "2026-04-03",
+		"publisher"	:	{
+			"@type" : "Organization",
+			"name":	"Magistr and Maps",
+			"url": "https:\/\/magistr.me\/",
+			"logo": {
+				"@type"	:	"ImageObject",
+				"contentUrl"	:	"https:\/\/magistr.me\/images\/logo.png",
+				"url"	:	"https:\/\/magistr.me\/images\/logo.png"
+			}
+		},
+		"url"	:	"https:\/\/magistr.me\/blog\/jscad-cad-generation-with-swamp-and-claude\/",
+		"wordCount"	:	"1052",
+		"image"	:	"https:\/\/magistr.me\/images\/blog\/jscad.jpg",
+		"keywords"	:	"jscad,cad,swamp,claude,ddd,typescript"
+	}
+	</script>
+	
+	
+
+	
+
+	
+</head>
+<body><header class="navbar-light bg-white fixed-top mediumnavigation">
+    <div class="container">
+        
+        <div class="row justify-content-center align-items-center brandrow">
+            <div class="col-lg-4 col-md-4 col-xs-12 d-none d-lg-block d-xl-block d-xll-block">
+                
+                
+                
+                
+                
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12 text-start text-sm-center logoarea">
+                <a class="navbar-brand" href="https://magistr.me//">
+                    
+                    <img src="/images/logo.png" alt="logo">
+                    
+                </a>        
+            </div>
+            <div class="col-lg-4 col-md-4 mr-auto col-xs-12 text-end searcharea d-none d-lg-block d-xl-block d-xll-block">
+                <form role="search" method="get" class="search-form" action="/search/">
+                    <input type="search" class="search-field" placeholder="Search..." value="" name="q" title="Search for:">
+                    <button type="submit" class="search-submit">
+                        <i class="fa fa-search"></i>   
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+
+        <div class="navarea">
+            <nav class="navbar navbar-expand-lg">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMediumish" aria-controls="navbarMediumish" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbarMediumish" class="collapse navbar-collapse">
+                    
+                    <ul class="navbar-nav ml-auto col-md-12 justify-content-center">
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/blog/">Thoughts</a>
+                        </li>
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/me/me">About Me</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+        <div class="site-content">   
+            <div class="container">
+<div class="mainheading">
+    <h1 class="sitetitle">Magistr and Maps</h1>
+    <p class="lead">
+         Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.
+    </p>
+</div><div class="main-content">
+        
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset">
+    <p>Share</p>
+    <ul class="shareitnow">
+        <li class="ml-1 mr-1">
+            <a aria-label="Share on Bluesky" target="_blank" href="https://bsky.app/intent/compose?text=Building%20a%20CAD%20Pipeline%20with%20JSCAD%2c%20Swamp%2c%20and%20Claude%20https%3a%2f%2fmagistr.me%2fblog%2fjscad-cad-generation-with-swamp-and-claude%2f" onclick="window.open(this.href, 'bsky-share', 'width=550,height=435');return false;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 600 530" fill="currentColor"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.72 40.255-67.24 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg>
+            </a>
+        </li>
+        <li>
+            <a aria-label="Share on LinkedIn" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fmagistr.me%2fblog%2fjscad-cad-generation-with-swamp-and-claude%2f" onclick="window.open(this.href, 'linkedin-share', 'width=550,height=435');return false;">
+                <i class="fa fa-linkedin"></i>
+            </a>
+        </li>
+    </ul>
+
+    
+        <div class="sep">
+        </div>
+        <ul>
+            <li>
+                <a class="small smoothscroll" href="#disqus_thread" aria-label="Click to scroll to the top"></a>
+            </li>
+        </ul>
+    
+</div>
+</div>
+                                
+                <div class="col-md-9 flex-first flex-md-unordered">
+                    <div class="mainheading">
+                        	
+                        
+                        
+                                                
+                        
+                        <h1 class="posttitle">Building a CAD Pipeline with JSCAD, Swamp, and Claude</h1>
+                        
+                    </div>
+
+                    
+                    
+                        <img class="featured-image img-fluid" src="/images/blog/jscad.jpg" alt="Featured image for Building a CAD Pipeline with JSCAD, Swamp, and Claude">
+                    
+                    
+
+                    
+                    <div class="article-post">
+                        
+                        <blockquote>
+<p><strong>Disclaimer:</strong> The following text is an AI-generated summary of the design
+decisions and evolution of the JSCAD CAD generation system built with Swamp
+and Claude. All work was done iteratively with <code>claude-code</code> handling
+implementation while I approved steps and provided direction.</p>
+</blockquote>
+<h2 id="choosing-the-right-cad-system">Choosing the Right CAD System</h2>
+<p>The starting question was simple: which free CAD system integrates best with
+Claude via Swamp?</p>
+<p>We evaluated FreeCAD, CadQuery, OpenSCAD, JSCAD, OpenCascade, Blender, and
+LibreCAD. The key criteria were subprocess requirements, TypeScript support, and
+LLM-friendliness.</p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Subprocess?</th>
+<th>TypeScript?</th>
+<th>LLM-friendly?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FreeCAD</td>
+<td>Yes (Python)</td>
+<td>No</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>CadQuery</td>
+<td>Yes (Python)</td>
+<td>No</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td>OpenSCAD</td>
+<td>Yes (CLI)</td>
+<td>No</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td><strong>JSCAD</strong></td>
+<td><strong>No</strong></td>
+<td><strong>Native</strong></td>
+<td><strong>Good</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>JSCAD won</strong> because it&rsquo;s the only option that runs fully in-process inside a
+Swamp extension model. No subprocess, no Python, no temp files, no OS
+dependency.</p>
+<p>The trade-off: CadQuery has better LLM research backing and outputs STEP
+natively. We accepted the loss of STEP to gain the in-process advantage.</p>
+<h2 id="applying-ddd-to-a-cad-domain">Applying DDD to a CAD Domain</h2>
+<p>The initial instinct was to write a Swamp model with a <code>run</code> method that
+evaluates a script string. But what are the actual domain concepts? CAD isn&rsquo;t
+naturally expressed in Swamp&rsquo;s data model.</p>
+<p>A ubiquitous language exercise surfaced these domain types:</p>
+<table>
+<thead>
+<tr>
+<th>Raw concept</th>
+<th>Domain type</th>
+<th>Invariant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Script string</td>
+<td><code>CadScript</code></td>
+<td>Non-empty, must define <code>main()</code></td>
+</tr>
+<tr>
+<td>Param map</td>
+<td><code>ScriptParameters</code></td>
+<td>Immutable, defensive copy</td>
+</tr>
+<tr>
+<td>JSCAD geometry</td>
+<td><code>Geometry</code></td>
+<td>At least one shape</td>
+</tr>
+<tr>
+<td>Output bytes</td>
+<td><code>SerializedModel</code></td>
+<td>Carries format alongside bytes</td>
+</tr>
+<tr>
+<td>Execution record</td>
+<td><code>RenderResult</code></td>
+<td>Value object stored as Swamp resource</td>
+</tr>
+</tbody>
+</table>
+<p>All value objects — immutable, equality by value, no identity.</p>
+<p>The domain services (<code>ScriptEvaluator</code> and <code>GeometrySerializer</code>) know nothing
+about Swamp. The application layer (<code>jscad_cad.ts</code>) orchestrates them and owns
+all Swamp I/O. Clean boundary between layers.</p>
+<h2 id="the-new-function-decision">The <code>new Function()</code> Decision</h2>
+<p>How to evaluate user-provided JSCAD scripts safely inside the model?</p>
+<p>Three options: subprocess <code>deno eval</code> (defeats the in-process advantage),
+<code>eval()</code> directly (pollutes global scope), or <code>new Function()</code> with injected
+scope.</p>
+<p>We chose option 3:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">new</span> Function(<span style="color:#e6db74">&#34;primitives&#34;</span>, <span style="color:#e6db74">&#34;transforms&#34;</span>, <span style="color:#e6db74">&#34;booleans&#34;</span>, ...,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">script</span><span style="color:#e6db74">}</span><span style="color:#e6db74">\nreturn main;`</span>
+</span></span><span style="display:flex;"><span>)(<span style="color:#a6e22e">primitives</span>, <span style="color:#a6e22e">transforms</span>, <span style="color:#a6e22e">booleans</span>, ...)
+</span></span></code></pre></div><p>Only the JSCAD modeling API is injected. No <code>Deno</code>, no <code>fetch</code>, no filesystem.
+JSCAD scripts are code-as-data — the same pattern the JSCAD web editor uses.</p>
+<p>One early bug: Claude wraps code in markdown fences (<code>```javascript ```</code>). We
+added <code>stripMarkdownFences()</code> to <code>ScriptEvaluator</code> to strip before evaluation.</p>
+<h2 id="the-serializer-bug--14kb-of-zeros">The Serializer Bug — 14KB of Zeros</h2>
+<p>Generated STL files were 14KB of pure zeros.</p>
+<p>Initial hypothesis: boolean subtract produced empty geometry. Actual cause:
+<code>@jscad/stl-serializer</code> returns <code>ArrayBuffer[]</code> not <code>Uint8Array[]</code> for binary
+mode. Our <code>mergeBuffers()</code> called <code>out.set(p, offset)</code> where <code>p</code> was an
+<code>ArrayBuffer</code> — <code>TypedArray.set()</code> silently writes zeros when given an
+<code>ArrayBuffer</code> instead of a typed view.</p>
+<p>The fix was one line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">views</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parts</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">p</span> <span style="color:#f92672">=&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">p</span> <span style="color:#66d9ef">instanceof</span> <span style="color:#a6e22e">Uint8Array</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">p</span> : <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>(<span style="color:#a6e22e">p</span>)
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p><strong>Lesson:</strong> npm package types lie. Verify actual runtime return types against
+source code, not the README.</p>
+<h2 id="the-validator-as-a-design-tool">The Validator as a Design Tool</h2>
+<p>The STL validator started as a way to catch bad output (zeros, degenerate
+triangles). It evolved into a design verification tool — the bounding box output
+told us exactly what was wrong with each model geometrically.</p>
+<p>The checks evolved:</p>
+<ol>
+<li><strong>v1:</strong> Is the file non-zero? Is the header count consistent with file size?</li>
+<li><strong>v2:</strong> Are there degenerate triangles? What is the bounding box?</li>
+<li><strong>v3 (slicer):</strong> What does it look like from all 6 sides vs reference?</li>
+</ol>
+<p>The validator made the feedback loop tight enough to iterate rapidly. Without it,
+a bad model was just &ldquo;wrong&rdquo;. With it: &ldquo;66mm wide, 75mm deep, should be 260mm —
+fix the handle.&rdquo;</p>
+<h2 id="the-llm-generation-pattern">The LLM Generation Pattern</h2>
+<p>First attempt: call the Claude API directly inside the <code>@jscad/cad</code> model&rsquo;s
+<code>generate</code> method. Rejected immediately — violates Swamp&rsquo;s design principle.
+Models are execution units, not orchestrators.</p>
+<p>Correct pattern: LLM generates the script at workflow level, passes it via CEL:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">script</span>: <span style="color:#ae81ff">${{ data.latest(&#34;jscad-script-gen&#34;, &#34;result&#34;).attributes.stdout }}</span>
+</span></span></code></pre></div><p>Another bug found here: passing multi-line scripts via <code>--input script=...</code>
+caused the shell to hang indefinitely. The shell couldn&rsquo;t quote multi-line
+strings safely. Fix: always write to a YAML input file first:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>swamp model method run box-test run <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --input-file /tmp/jscad-inputs.yaml <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --json &gt; /tmp/render-result.json 2&gt;&amp;<span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><h2 id="the-skill-as-institutional-memory">The Skill as Institutional Memory</h2>
+<p>Every generation re-discovered the same JSCAD v2 API mistakes:</p>
+<ul>
+<li><code>cube()</code> doesn&rsquo;t exist — use <code>cuboid()</code></li>
+<li><code>center: true</code> — must be <code>[x, y, z]</code> array</li>
+<li><code>cylinder({length: 5})</code> — use <code>height</code></li>
+<li>Inline position math — parts protrude outside enclosures</li>
+</ul>
+<p>The <code>jscad-codegen</code> skill encodes all of this with verified examples
+cross-referenced against JSCAD source code. A references subfolder was added
+after each bug with verified API docs and coordinate system rules.</p>
+<h2 id="the-6-view-slicer-as-ground-truth">The 6-View Slicer as Ground Truth</h2>
+<p>&ldquo;It looks wrong&rdquo; isn&rsquo;t actionable. We needed numbers from all angles.</p>
+<p>The slicer was built as a Swamp extension model with two pure domain functions:</p>
+<ul>
+<li><code>slice(bytes, z)</code> — intersect triangles with a Z plane</li>
+<li><code>sixViews(bytes)</code> — project all edges onto 6 orthographic planes</li>
+</ul>
+<p>It takes <code>Uint8Array</code> and returns SVG strings and measurements. No Swamp
+knowledge in the domain service.</p>
+<p>The 6-view layout:</p>
+<pre tabindex="0"><code>Row 0:  FRONT  |  RIGHT  |  BACK
+Row 1:  TOP    |  LEFT   |  BOTTOM
+</code></pre><p>Red dashed outlines from reference proportions overlaid on blue model edges.
+Density of blue lines creates a natural silhouette — no convex hull computation
+needed.</p>
+<h2 id="debugging-the-genie-lamp">Debugging the Genie Lamp</h2>
+<p>Three generations of bugs, all found by measurement not visual inspection:</p>
+<p><strong>Bug 1 — Scale:</strong> 75mm depth vs 260mm target. Body was a symmetric ellipsoid
+blob. Fixed by switching to <code>extrudeRotate</code> of a hand-traced 2D profile and
+<code>hull()</code> of tapering spheres for an organic spout.</p>
+<p><strong>Bug 2 — Handle orientation:</strong> <code>rotate([deg(90), 0, 0], torus)</code> rotates around
+the X axis, putting the torus ring in the XZ plane (wrong). Fixed with
+<code>rotate([0, deg(90), 0], torus)</code> to rotate around Y axis into the YZ plane.</p>
+<p><strong>Bug 3 — Translate/rotate order:</strong> <code>translate</code> followed by <code>rotate</code> moved the
+translation offset onto the wrong axis. Fix: always <code>rotate()</code> first to align,
+then <code>translate()</code> to position.</p>
+<h2 id="design-principles-that-emerged">Design Principles That Emerged</h2>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Origin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain services know nothing about Swamp</td>
+<td>DDD applied upfront</td>
+</tr>
+<tr>
+<td>Static imports only — no dynamic <code>import()</code></td>
+<td>Swamp bundler requirement</td>
+</tr>
+<tr>
+<td>Write to input file, never inline in shell args</td>
+<td>Shell hanging bug</td>
+</tr>
+<tr>
+<td>Declare all coordinates as named constants upfront</td>
+<td>HDD box ribs protruding</td>
+</tr>
+<tr>
+<td><code>rotate()</code> before <code>translate()</code> when aligning an axis</td>
+<td>Genie lamp handle bug</td>
+</tr>
+<tr>
+<td>Validate with numbers, not eyes</td>
+<td>Every iteration</td>
+</tr>
+<tr>
+<td>Throw before write — no partial data on failure</td>
+<td>Swamp shell model pattern</td>
+</tr>
+<tr>
+<td>LLM generates at workflow level, model only executes</td>
+<td>Design review</td>
+</tr>
+</tbody>
+</table>
+
+                    </div>
+                    
+                    
+                    <div class="after-post-tags">
+                        <ul class="tags">
+                        
+                        <li>
+                        <a href="/tags/jscad/">jscad</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/cad/">cad</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/swamp/">swamp</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/claude/">claude</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/ddd/">ddd</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/typescript/">typescript</a>
+                        </li>
+                        
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                    <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+                    
+                    
+                        <a class="d-block col-md-6 text-lg-end" href="https://magistr.me/blog/cozystack-on-tapok-cluster/">Today&#39;s Session: Cozystack on Tapok Cluster &raquo;</a>
+                    
+                    <div class="clearfix"></div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
+    </div>
+
+
+            </div>
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+			<div class="d-md-flex align-items-center justify-content-center h-100">
+				<h2 class="d-md-block d-none align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+			</div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+			
+			<a class="mt-1 mb-1" href="/tags/ai/">ai</a>
+			
+			<a class="mt-1 mb-1" href="/tags/blog/">blog</a>
+			
+			<a class="mt-1 mb-1" href="/tags/cad/">cad</a>
+			
+			<a class="mt-1 mb-1" href="/tags/claude/">claude</a>
+			
+			<a class="mt-1 mb-1" href="/tags/cozystack/">cozystack</a>
+			
+			<a class="mt-1 mb-1" href="/tags/ddd/">ddd</a>
+			
+			<a class="mt-1 mb-1" href="/tags/devops/">devops</a>
+			
+			<a class="mt-1 mb-1" href="/tags/jscad/">jscad</a>
+			
+			<a class="mt-1 mb-1" href="/tags/kubernetes/">kubernetes</a>
+			
+			<a class="mt-1 mb-1" href="/tags/macos/">macos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/me/">me</a>
+			
+			<a class="mt-1 mb-1" href="/tags/moldable-development/">moldable-development</a>
+			
+			<a class="mt-1 mb-1" href="/tags/observability/">observability</a>
+			
+			<a class="mt-1 mb-1" href="/tags/opencore/">opencore</a>
+			
+			<a class="mt-1 mb-1" href="/tags/oxide/">oxide</a>
+			
+			<a class="mt-1 mb-1" href="/tags/qemu/">qemu</a>
+			
+			<a class="mt-1 mb-1" href="/tags/retro/">retro</a>
+			
+			<a class="mt-1 mb-1" href="/tags/si/">si</a>
+			
+			<a class="mt-1 mb-1" href="/tags/swamp/">swamp</a>
+			
+			<a class="mt-1 mb-1" href="/tags/talos/">talos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/tools/">tools</a>
+			
+			<a class="mt-1 mb-1" href="/tags/typescript/">typescript</a>
+			
+			<a class="mt-1 mb-1" href="/tags/unraid/">unraid</a>
+			
+			<a class="mt-1 mb-1" href="/tags/virtualization/">virtualization</a>
+			
+			<a class="mt-1 mb-1" href="/tags/wardley-mapping/">wardley-mapping</a>
+			
+		</div>
+	</div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-start">
+                &copy; Copyright CC SA 4.0
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-end">    
+                <a target="_blank" rel="noopener" href="https://github.com/ekampf/mediumish-gohugo-theme">Mediumish Theme</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://magistr.me/js/mediumish.1574b32c12cce790df495bf68909be2585a33e1bbc54b9f2cb080cac17b88472.js" integrity="sha256-FXSzLBLM55DfSVv2iQm&#43;JYWjPhu8VLnyywgMrBe4hHI="></script>
+    </body>
+</html>

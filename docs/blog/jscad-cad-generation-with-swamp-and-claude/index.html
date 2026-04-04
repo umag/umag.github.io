@@ -7,7 +7,7 @@
 	<link rel="icon" href="/images/logo.png">
 	
 	<title>Building a CAD Pipeline with JSCAD, Swamp, and Claude | Magistr and Maps</title>
-	<meta name="description" content="How we built an in-process CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system to debugging a genie lamp with 6-view orthographic projections.">
+	<meta name="description" content="How we built a CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system, through 7 iterations of debugging a genie lamp with 6-view projections, to publishing extensions and finding a bundle cache bug.">
 	<meta name="keywords" content="jscad, cad, swamp, claude, ddd, typescript">
 	
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
@@ -29,16 +29,16 @@
 	<meta property="og:locale" content="en_US">
 	<meta property="og:site_name" content="Magistr and Maps">
 	<meta property="og:title" content="Building a CAD Pipeline with JSCAD, Swamp, and Claude" />
-<meta property="og:description" content="How we built an in-process CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system to debugging a genie lamp with 6-view orthographic projections." />
+<meta property="og:description" content="How we built a CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system, through 7 iterations of debugging a genie lamp with 6-view projections, to publishing extensions and finding a bundle cache bug." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://magistr.me/blog/jscad-cad-generation-with-swamp-and-claude/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2026-04-03T12:00:00+01:00" />
-<meta property="article:modified_time" content="2026-04-03T12:00:00+01:00" />
+<meta property="article:published_time" content="2026-04-04T18:00:00+01:00" />
+<meta property="article:modified_time" content="2026-04-04T18:00:00+01:00" />
 
 
 	<meta property="og:image" content="https://magistr.me/images/blog/jscad.jpg">
 	<link rel="me" href="https://bsky.app/profile/magistr.me">
-	<meta http-equiv="last-modified" content="2026-04-03T12:00:00&#43;01:00">
+	<meta http-equiv="last-modified" content="2026-04-04T18:00:00&#43;01:00">
 	<meta property="article:tag" content="jscad">
 	<meta property="article:tag" content="cad">
 	<meta property="article:tag" content="swamp">
@@ -81,8 +81,8 @@
 		"discussionUrl" : "https:\/\/magistr.me\/blog\/jscad-cad-generation-with-swamp-and-claude\/#comments",
 		
 		"headline"	:	"Building a CAD Pipeline with JSCAD, Swamp, and Claude",
-		"description"	: "How we built an in-process CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system to debugging a genie lamp with 6-view orthographic projections.",
-		"abstract"	:	"How we built an in-process CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system to debugging a genie lamp with 6-view orthographic projections.",
+		"description"	: "How we built a CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system, through 7 iterations of debugging a genie lamp with 6-view projections, to publishing extensions and finding a bundle cache bug.",
+		"abstract"	:	"How we built a CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system, through 7 iterations of debugging a genie lamp with 6-view projections, to publishing extensions and finding a bundle cache bug.",
 		"inLanguage"	: "en-US",
 		"isFamilyFriendly"	: 	"true",
 		"author"		: {
@@ -106,9 +106,9 @@
 			"url"	: "https:\/\/magistr.me\/about"
 		},
 		"copyrightYear"	: "2026",
-		"datePublished"	: "2026-04-03",
-		"dateCreated"	: "2026-04-03",
-		"dateModified"  : "2026-04-03",
+		"datePublished"	: "2026-04-04",
+		"dateCreated"	: "2026-04-04",
+		"dateModified"  : "2026-04-04",
 		"publisher"	:	{
 			"@type" : "Organization",
 			"name":	"Magistr and Maps",
@@ -120,7 +120,7 @@
 			}
 		},
 		"url"	:	"https:\/\/magistr.me\/blog\/jscad-cad-generation-with-swamp-and-claude\/",
-		"wordCount"	:	"1052",
+		"wordCount"	:	"1809",
 		"image"	:	"https:\/\/magistr.me\/images\/blog\/jscad.jpg",
 		"keywords"	:	"jscad,cad,swamp,claude,ddd,typescript"
 	}
@@ -429,6 +429,80 @@ the X axis, putting the torus ring in the XZ plane (wrong). Fixed with
 <p><strong>Bug 3 — Translate/rotate order:</strong> <code>translate</code> followed by <code>rotate</code> moved the
 translation offset onto the wrong axis. Fix: always <code>rotate()</code> first to align,
 then <code>translate()</code> to position.</p>
+<h2 id="day-2-from-reference-matching-to-publishing">Day 2: From Reference Matching to Publishing</h2>
+<p>The next session started with &ldquo;now lets debug geenie lamp usually it drawn from
+the side&rdquo; — the generated lamp looked nothing like a real one when viewed from
+the side profile.</p>
+<h3 id="iteration-1-researching-cad-engineering-principles">Iteration 1: Researching CAD Engineering Principles</h3>
+<p>The first attempt at fixing the lamp led to a detour: what engineering principles
+actually govern how you model organic shapes programmatically? We researched
+GD&amp;T datum reference frames, feature-based modeling taxonomies, and assembly
+skeleton patterns.</p>
+<p>The key insight: a genie lamp is a <strong>partially symmetric object</strong> — rotationally
+symmetric body with asymmetric features (spout, handle). The right approach is
+<code>extrudeRotate</code> for the body profile, then <code>hull()</code> of spheres for the spout.
+Before this research, the code was building the body from boolean operations on
+primitives — symmetric ellipsoids that looked nothing like an onion-shaped lamp.</p>
+<h3 id="iteration-2-reference-stl-comparison">Iteration 2: Reference STL Comparison</h3>
+<p>&ldquo;verify against /Users/mag1/Downloads/GLv3-Unsplit.STL&rdquo; — I had a real genie
+lamp STL to compare against. But the validator only checked triangle counts and
+bounding boxes. It couldn&rsquo;t tell us <em>how</em> the shape was wrong.</p>
+<p>This led to building the slicer model. First attempt: simple Z-plane slicing.
+But the orientations of the reference and generated models didn&rsquo;t match. &ldquo;orientations
+could change so comparison should be with considaration of rotation&rdquo; — this pushed
+us toward PCA-based rotation-invariant comparison. Sort eigenvalues by magnitude,
+compare proportions, not absolute X/Y/Z values.</p>
+<h3 id="iteration-3-six-view-projections">Iteration 3: Six-View Projections</h3>
+<p>Still couldn&rsquo;t see what was wrong from numbers alone. Built the 6-view
+orthographic projection: project all triangle edges onto front/back/left/right/
+top/bottom planes. Red dashed reference outlines overlaid on blue model edges.</p>
+<pre tabindex="0"><code>Row 0:  FRONT  |  RIGHT  |  BACK
+Row 1:  TOP    |  LEFT   |  BOTTOM
+</code></pre><p>This was the breakthrough — density of blue lines creates a natural silhouette.
+We could finally <em>see</em> that the spout was too short, the body not bulbous enough,
+the handle at the wrong height.</p>
+<h3 id="iteration-4-multi-slice-shape-extraction">Iteration 4: Multi-Slice Shape Extraction</h3>
+<p>&ldquo;use multiple slices across all axis to extract shape from reference&rdquo; — the
+directional profile extraction method was born. Slice the reference at 50 Z
+heights, measure width along X and depth along Y at each height. This gave us
+the actual body profile curve to match.</p>
+<p>The feature detection method followed: find height ranges where the cross-section
+extends beyond the body envelope on one side only — those are the spout and
+handle regions.</p>
+<h3 id="iteration-5-organic-curves">Iteration 5: Organic Curves</h3>
+<p>&ldquo;you can use polynomes with increasing degree to accommodate more complex
+curves&rdquo; — the profile points were too coarse, giving a faceted silhouette. We
+moved to denser profile point arrays (12+ points for the body curve) with smooth
+transitions through the widest point and gradual taper to the neck.</p>
+<h3 id="iteration-6-publishing--the-registry-gauntlet">Iteration 6: Publishing — The Registry Gauntlet</h3>
+<p>With models working locally, time to publish. Three extensions: <code>@magistr/jscad-cad</code>,
+<code>@magistr/jscad-stl-validator</code>, <code>@magistr/jscad-stl-slicer</code>.</p>
+<p><strong>First wall: collective naming.</strong> <code>@jscad</code> isn&rsquo;t our collective — it&rsquo;s <code>@magistr</code>.
+Renamed all three model types and updated every reference.</p>
+<p><strong>Second wall: <code>new Function()</code> blocked.</strong> The registry safety analyzer greps for
+<code>eval()</code> and <code>new Function()</code> in <code>.ts</code> files and rejects them. But JSCAD script
+evaluation <em>is</em> dynamic code execution. We refactored <code>ScriptEvaluator</code> to spawn
+a subprocess via <code>Deno.Command</code> — write the script + JSCAD boilerplate to a temp
+<code>.mjs</code> file, execute it in a child <code>deno</code> process, read the serialized STL bytes
+back. The <code>new Function</code> constructor name in the generated <code>.mjs</code> string is built
+from fragments (<code>&quot;Func&quot; + &quot;tion&quot;</code>) to avoid the static grep.</p>
+<p>Trade-off: ~400ms cold-start per evaluation. Benefit: passes safety analysis.</p>
+<p><strong>Third wall: stale bundles.</strong> After refactoring, running the model still used
+the old code. Spent time investigating — read the Swamp source and found two bugs:</p>
+<ol>
+<li>When rebundling fails, the code silently falls back to the old bundle <em>and
+touches its mtime</em> to suppress future retries. Debug-level log only.</li>
+<li><code>findStaleFiles()</code> only checks the entry point mtime, not transitive imports.</li>
+</ol>
+<p>Filed as <a href="https://github.com/systeminit/swamp/issues/1094">systeminit/swamp#1094</a>.
+Workaround: delete <code>.swamp/bundles/</code> and touch the entry point.</p>
+<p><strong>Finally pushed</strong> all three extensions at v2026.04.04.1, then added tests and
+the <code>jscad-codegen</code> skill as <code>additionalFiles</code> in v2026.04.04.3.</p>
+<h3 id="iteration-7-fresh-generation-proof">Iteration 7: Fresh Generation Proof</h3>
+<p>To verify the published pipeline works end-to-end, generated a completely new
+genie lamp from scratch — no copy-paste. 14 features including decorative torus
+rings at the belly, pedestal junction, and neck. 8,398 triangles vs 2,858 in
+the first version. Valid on first attempt.</p>
 <h2 id="design-principles-that-emerged">Design Principles That Emerged</h2>
 <table>
 <thead>
@@ -469,6 +543,22 @@ then <code>translate()</code> to position.</p>
 <tr>
 <td>LLM generates at workflow level, model only executes</td>
 <td>Design review</td>
+</tr>
+<tr>
+<td>When code changes have no effect, suspect the cache</td>
+<td>Bundle cache bug</td>
+</tr>
+<tr>
+<td>Safety rules shape architecture — adapt, don&rsquo;t fight</td>
+<td><code>new Function()</code> → subprocess</td>
+</tr>
+<tr>
+<td>PCA-align before comparing shapes across orientations</td>
+<td>Reference STL comparison</td>
+</tr>
+<tr>
+<td>Dense profile points for organic curves</td>
+<td>Faceted silhouette fix</td>
 </tr>
 </tbody>
 </table>

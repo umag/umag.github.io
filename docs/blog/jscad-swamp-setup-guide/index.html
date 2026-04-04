@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="generator" content="Hugo 0.121.1">
+	
+	<link rel="icon" href="/images/logo.png">
+	
+	<title>JSCAD CAD Generation with Swamp and Claude Code: Setup Guide | Magistr and Maps</title>
+	<meta name="description" content="Step-by-step guide: install Swamp from scratch, set up @magistr/jscad-cad extensions, configure the Claude Code skill, and generate 3D models from text descriptions.">
+	<meta name="keywords" content="jscad, cad, swamp, claude, guide">
+	
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+	<link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt">
+
+	
+	<link rel="canonical" href="https://magistr.me/blog/jscad-swamp-setup-guide/">
+	
+
+	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+	<link rel="preconnect" href="//www.google-analytics.com">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	
+		
+		
+	
+	
+	<meta property="og:locale" content="en_US">
+	<meta property="og:site_name" content="Magistr and Maps">
+	<meta property="og:title" content="JSCAD CAD Generation with Swamp and Claude Code: Setup Guide" />
+<meta property="og:description" content="Step-by-step guide: install Swamp from scratch, set up @magistr/jscad-cad extensions, configure the Claude Code skill, and generate 3D models from text descriptions." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://magistr.me/blog/jscad-swamp-setup-guide/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2026-04-04T18:05:00+01:00" />
+<meta property="article:modified_time" content="2026-04-04T18:05:00+01:00" />
+
+
+	<meta property="og:image" content="https://magistr.me/images/blog/jscad-lamp.jpg">
+	<link rel="me" href="https://bsky.app/profile/magistr.me">
+	<meta http-equiv="last-modified" content="2026-04-04T18:05:00&#43;01:00">
+	<meta property="article:tag" content="jscad">
+	<meta property="article:tag" content="cad">
+	<meta property="article:tag" content="swamp">
+	<meta property="article:tag" content="claude">
+	<meta property="article:tag" content="guide">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+	
+	
+	
+	<link rel="stylesheet" href="https://magistr.me/css/style.min.0b8af6cefc5fb2bf4cf841dfb6904d7935744516dbe24e851253e57a88a7bca1.css" integrity="sha256-C4r2zvxfsr9M&#43;EHftpBNeTV0RRbb4k6FElPleoinvKE=">
+
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context"	:	"https://schema.org",
+		"@type"		:	"BlogPosting",
+		"@id"		:	"https:\/\/magistr.me\/blog\/jscad-swamp-setup-guide\/",
+		"mainEntityOfPage"	:	{
+			"@type"	: 	"WebPage",
+			"@id"	:	"https:\/\/magistr.me\/blog\/jscad-swamp-setup-guide\/"
+		},
+		"name"		: 	"JSCAD CAD Generation with Swamp and Claude Code: Setup Guide",
+		
+		"discussionUrl" : "https:\/\/magistr.me\/blog\/jscad-swamp-setup-guide\/#comments",
+		
+		"headline"	:	"JSCAD CAD Generation with Swamp and Claude Code: Setup Guide",
+		"description"	: "Step-by-step guide: install Swamp from scratch, set up @magistr/jscad-cad extensions, configure the Claude Code skill, and generate 3D models from text descriptions.",
+		"abstract"	:	"Step-by-step guide: install Swamp from scratch, set up @magistr/jscad-cad extensions, configure the Claude Code skill, and generate 3D models from text descriptions.",
+		"inLanguage"	: "en-US",
+		"isFamilyFriendly"	: 	"true",
+		"author"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"creator"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"accountablePerson"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightHolder"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightYear"	: "2026",
+		"datePublished"	: "2026-04-04",
+		"dateCreated"	: "2026-04-04",
+		"dateModified"  : "2026-04-04",
+		"publisher"	:	{
+			"@type" : "Organization",
+			"name":	"Magistr and Maps",
+			"url": "https:\/\/magistr.me\/",
+			"logo": {
+				"@type"	:	"ImageObject",
+				"contentUrl"	:	"https:\/\/magistr.me\/images\/logo.png",
+				"url"	:	"https:\/\/magistr.me\/images\/logo.png"
+			}
+		},
+		"url"	:	"https:\/\/magistr.me\/blog\/jscad-swamp-setup-guide\/",
+		"wordCount"	:	"421",
+		"image"	:	"https:\/\/magistr.me\/images\/blog\/jscad-lamp.jpg",
+		"keywords"	:	"jscad,cad,swamp,claude,guide"
+	}
+	</script>
+	
+	
+
+	
+
+	
+</head>
+<body><header class="navbar-light bg-white fixed-top mediumnavigation">
+    <div class="container">
+        
+        <div class="row justify-content-center align-items-center brandrow">
+            <div class="col-lg-4 col-md-4 col-xs-12 d-none d-lg-block d-xl-block d-xll-block">
+                
+                
+                
+                
+                
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12 text-start text-sm-center logoarea">
+                <a class="navbar-brand" href="https://magistr.me//">
+                    
+                    <img src="/images/logo.png" alt="logo">
+                    
+                </a>        
+            </div>
+            <div class="col-lg-4 col-md-4 mr-auto col-xs-12 text-end searcharea d-none d-lg-block d-xl-block d-xll-block">
+                <form role="search" method="get" class="search-form" action="/search/">
+                    <input type="search" class="search-field" placeholder="Search..." value="" name="q" title="Search for:">
+                    <button type="submit" class="search-submit">
+                        <i class="fa fa-search"></i>   
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+
+        <div class="navarea">
+            <nav class="navbar navbar-expand-lg">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMediumish" aria-controls="navbarMediumish" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbarMediumish" class="collapse navbar-collapse">
+                    
+                    <ul class="navbar-nav ml-auto col-md-12 justify-content-center">
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/blog/">Thoughts</a>
+                        </li>
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/me/me">About Me</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+        <div class="site-content">   
+            <div class="container">
+<div class="mainheading">
+    <h1 class="sitetitle">Magistr and Maps</h1>
+    <p class="lead">
+         Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.
+    </p>
+</div><div class="main-content">
+        
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset">
+    <p>Share</p>
+    <ul class="shareitnow">
+        <li class="ml-1 mr-1">
+            <a aria-label="Share on Bluesky" target="_blank" href="https://bsky.app/intent/compose?text=JSCAD%20CAD%20Generation%20with%20Swamp%20and%20Claude%20Code%3a%20Setup%20Guide%20https%3a%2f%2fmagistr.me%2fblog%2fjscad-swamp-setup-guide%2f" onclick="window.open(this.href, 'bsky-share', 'width=550,height=435');return false;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 600 530" fill="currentColor"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.72 40.255-67.24 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg>
+            </a>
+        </li>
+        <li>
+            <a aria-label="Share on LinkedIn" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fmagistr.me%2fblog%2fjscad-swamp-setup-guide%2f" onclick="window.open(this.href, 'linkedin-share', 'width=550,height=435');return false;">
+                <i class="fa fa-linkedin"></i>
+            </a>
+        </li>
+    </ul>
+
+    
+        <div class="sep">
+        </div>
+        <ul>
+            <li>
+                <a class="small smoothscroll" href="#disqus_thread" aria-label="Click to scroll to the top"></a>
+            </li>
+        </ul>
+    
+</div>
+</div>
+                                
+                <div class="col-md-9 flex-first flex-md-unordered">
+                    <div class="mainheading">
+                        	
+                        
+                        
+                                                
+                        
+                        <h1 class="posttitle">JSCAD CAD Generation with Swamp and Claude Code: Setup Guide</h1>
+                        
+                    </div>
+
+                    
+                    
+                        <img class="featured-image img-fluid" src="/images/blog/jscad-lamp.jpg" alt="Featured image for JSCAD CAD Generation with Swamp and Claude Code: Setup Guide">
+                    
+                    
+
+                    
+                    <div class="article-post">
+                        
+                        <blockquote>
+<p><strong>Disclaimer:</strong> AI-generated setup guide for the JSCAD CAD pipeline. Tested on
+macOS, April 2026.</p>
+</blockquote>
+<h2 id="what-you-get">What You Get</h2>
+<p>A working pipeline: describe an object in plain text → Claude Code generates a
+JSCAD script → Swamp renders to STL → validator checks the geometry. All in one
+terminal.</p>
+<p>Three extensions:</p>
+<table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@magistr/jscad-cad</code></td>
+<td>Render JSCAD scripts to STL/DXF/SVG/OBJ/3MF</td>
+</tr>
+<tr>
+<td><code>@magistr/jscad-stl-validator</code></td>
+<td>STL validation: triangles, bounding box, defects</td>
+</tr>
+<tr>
+<td><code>@magistr/jscad-stl-slicer</code></td>
+<td>Analysis: slicing, 6-view projections, PCA comparison</td>
+</tr>
+</tbody>
+</table>
+<h2 id="step-1-install-swamp">Step 1: Install Swamp</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://get.swamp.dev | sh
+</span></span><span style="display:flex;"><span>swamp --version
+</span></span><span style="display:flex;"><span>swamp auth login
+</span></span></code></pre></div><h2 id="step-2-create-a-project">Step 2: Create a Project</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir my-cad-project
+</span></span><span style="display:flex;"><span>cd my-cad-project
+</span></span><span style="display:flex;"><span>swamp repo init -t claude
+</span></span></code></pre></div><p>This creates <code>.swamp/</code> (internal storage), <code>.claude/skills/</code> (Swamp skills for
+Claude Code), and <code>CLAUDE.md</code> (instructions for Claude).</p>
+<h2 id="step-3-install-cad-extensions">Step 3: Install CAD Extensions</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>swamp extension pull @magistr/jscad-cad
+</span></span><span style="display:flex;"><span>swamp extension pull @magistr/jscad-stl-validator
+</span></span><span style="display:flex;"><span>swamp extension pull @magistr/jscad-stl-slicer
+</span></span></code></pre></div><p>Verify types registered:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>swamp model type search magistr --json
+</span></span></code></pre></div><p>You should see three types: <code>@magistr/jscad-cad</code>,
+<code>@magistr/jscad-stl-validator</code>, <code>@magistr/jscad-stl-slicer</code>.</p>
+<h2 id="step-4-set-up-the-claude-code-skill">Step 4: Set Up the Claude Code Skill</h2>
+<p>The <code>@magistr/jscad-cad</code> extension includes the <code>jscad-codegen</code> skill, but after
+<code>extension pull</code> the files end up in <code>.swamp/pulled-extensions/models/</code>, not
+where Claude Code looks. Copy manually:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p .claude/skills/jscad-codegen/references
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp .swamp/pulled-extensions/models/SKILL.md <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   .claude/skills/jscad-codegen/SKILL.md
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp .swamp/pulled-extensions/models/feature-based-modeling.md <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   .claude/skills/jscad-codegen/references/
+</span></span><span style="display:flex;"><span>cp .swamp/pulled-extensions/models/geometry-positioning.md <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   .claude/skills/jscad-codegen/references/
+</span></span><span style="display:flex;"><span>cp .swamp/pulled-extensions/models/jscad-v2-api.md <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   .claude/skills/jscad-codegen/references/
+</span></span><span style="display:flex;"><span>cp .swamp/pulled-extensions/models/reverse-engineering.md <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   .claude/skills/jscad-codegen/references/
+</span></span></code></pre></div><p>Expected structure:</p>
+<pre tabindex="0"><code>.claude/skills/jscad-codegen/
+├── SKILL.md
+└── references/
+    ├── feature-based-modeling.md
+    ├── geometry-positioning.md
+    ├── jscad-v2-api.md
+    └── reverse-engineering.md
+</code></pre><h2 id="step-5-create-model-instances">Step 5: Create Model Instances</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>swamp model create @magistr/jscad-cad box-test --json
+</span></span><span style="display:flex;"><span>swamp model create @magistr/jscad-stl-validator stl-check --json
+</span></span><span style="display:flex;"><span>swamp model create @magistr/jscad-stl-slicer slicer --json
+</span></span></code></pre></div><h2 id="step-6-verify--render-a-cube">Step 6: Verify — Render a Cube</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat &gt; /tmp/test-cube.yaml <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">script: |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  const main = (params = {}) =&gt; {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    return primitives.cuboid({ size: [20, 20, 20] });
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  };
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">outputFormat: stl
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>swamp model method run box-test run --input-file /tmp/test-cube.yaml --json
+</span></span><span style="display:flex;"><span>swamp model method run stl-check validate --input cadModelName<span style="color:#f92672">=</span>box-test --json
+</span></span></code></pre></div><p>If you see <code>&quot;status&quot;: &quot;succeeded&quot;</code> and <code>&quot;valid&quot;: true</code> — everything works.</p>
+<h2 id="step-7-generate-with-claude-code">Step 7: Generate with Claude Code</h2>
+<p>Launch Claude Code in the project directory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>claude
+</span></span></code></pre></div><p>Then use the skill:</p>
+<pre tabindex="0"><code>&gt; use swamp skill and design a genie lamp
+</code></pre><p>Claude Code will automatically load the <code>jscad-codegen</code> skill, generate a JSCAD
+script with proper proportions and datums, render via Swamp, validate the STL,
+and copy the result to the current directory.</p>
+<h2 id="useful-commands">Useful Commands</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># List all models</span>
+</span></span><span style="display:flex;"><span>swamp model search --json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get STL file from last render</span>
+</span></span><span style="display:flex;"><span>swamp data get box-test output --json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run 6-view projection on a file</span>
+</span></span><span style="display:flex;"><span>swamp model method run slicer sixViewsFile <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --input filePath<span style="color:#f92672">=</span>/path/to/model.stl --json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Compare generated model against reference</span>
+</span></span><span style="display:flex;"><span>swamp model method run slicer enhancedCompareFiles <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --input refPath<span style="color:#f92672">=</span>/path/to/reference.stl <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --input modelPath<span style="color:#f92672">=</span>/path/to/generated.stl --json
+</span></span></code></pre></div>
+                    </div>
+                    
+                    
+                    <div class="after-post-tags">
+                        <ul class="tags">
+                        
+                        <li>
+                        <a href="/tags/jscad/">jscad</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/cad/">cad</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/swamp/">swamp</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/claude/">claude</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/guide/">guide</a>
+                        </li>
+                        
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                    <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+                    
+                    
+                        <a class="d-block col-md-6 text-lg-end" href="https://magistr.me/blog/jscad-cad-generation-with-swamp-and-claude/">Building a CAD Pipeline with JSCAD, Swamp, and Claude &raquo;</a>
+                    
+                    <div class="clearfix"></div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
+    </div>
+
+
+            </div>
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+			<div class="d-md-flex align-items-center justify-content-center h-100">
+				<h2 class="d-md-block d-none align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+			</div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+			
+			<a class="mt-1 mb-1" href="/tags/ai/">ai</a>
+			
+			<a class="mt-1 mb-1" href="/tags/blog/">blog</a>
+			
+			<a class="mt-1 mb-1" href="/tags/cad/">cad</a>
+			
+			<a class="mt-1 mb-1" href="/tags/claude/">claude</a>
+			
+			<a class="mt-1 mb-1" href="/tags/cozystack/">cozystack</a>
+			
+			<a class="mt-1 mb-1" href="/tags/ddd/">ddd</a>
+			
+			<a class="mt-1 mb-1" href="/tags/devops/">devops</a>
+			
+			<a class="mt-1 mb-1" href="/tags/guide/">guide</a>
+			
+			<a class="mt-1 mb-1" href="/tags/jscad/">jscad</a>
+			
+			<a class="mt-1 mb-1" href="/tags/kubernetes/">kubernetes</a>
+			
+			<a class="mt-1 mb-1" href="/tags/macos/">macos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/me/">me</a>
+			
+			<a class="mt-1 mb-1" href="/tags/moldable-development/">moldable-development</a>
+			
+			<a class="mt-1 mb-1" href="/tags/observability/">observability</a>
+			
+			<a class="mt-1 mb-1" href="/tags/opencore/">opencore</a>
+			
+			<a class="mt-1 mb-1" href="/tags/oxide/">oxide</a>
+			
+			<a class="mt-1 mb-1" href="/tags/qemu/">qemu</a>
+			
+			<a class="mt-1 mb-1" href="/tags/retro/">retro</a>
+			
+			<a class="mt-1 mb-1" href="/tags/si/">si</a>
+			
+			<a class="mt-1 mb-1" href="/tags/swamp/">swamp</a>
+			
+			<a class="mt-1 mb-1" href="/tags/talos/">talos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/tools/">tools</a>
+			
+			<a class="mt-1 mb-1" href="/tags/typescript/">typescript</a>
+			
+			<a class="mt-1 mb-1" href="/tags/unraid/">unraid</a>
+			
+			<a class="mt-1 mb-1" href="/tags/virtualization/">virtualization</a>
+			
+			<a class="mt-1 mb-1" href="/tags/wardley-mapping/">wardley-mapping</a>
+			
+		</div>
+	</div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-start">
+                &copy; Copyright CC SA 4.0
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-end">    
+                <a target="_blank" rel="noopener" href="https://github.com/ekampf/mediumish-gohugo-theme">Mediumish Theme</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://magistr.me/js/mediumish.1574b32c12cce790df495bf68909be2585a33e1bbc54b9f2cb080cac17b88472.js" integrity="sha256-FXSzLBLM55DfSVv2iQm&#43;JYWjPhu8VLnyywgMrBe4hHI="></script>
+    </body>
+</html>

@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Sat, 04 Apr 2026 18:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 18:05:00 +0100</lastBuildDate>
     <atom:link href="https://magistr.me/tags/swamp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JSCAD CAD Generation with Swamp and Claude Code: Setup Guide</title>
+      <link>https://magistr.me/blog/jscad-swamp-setup-guide/</link>
+      <pubDate>Sat, 04 Apr 2026 18:05:00 +0100</pubDate>
+      <guid>https://magistr.me/blog/jscad-swamp-setup-guide/</guid>
+      <description>Disclaimer: AI-generated setup guide for the JSCAD CAD pipeline. Tested on macOS, April 2026.&#xA;What You Get A working pipeline: describe an object in plain text → Claude Code generates a JSCAD script → Swamp renders to STL → validator checks the geometry.</description>
+    </item>
     <item>
       <title>Building a CAD Pipeline with JSCAD, Swamp, and Claude</title>
       <link>https://magistr.me/blog/jscad-cad-generation-with-swamp-and-claude/</link>

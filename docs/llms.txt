@@ -6,6 +6,8 @@ Magistr and Maps is a personal blog by Magistr covering IT infrastructure, DevOp
 
 ## Blog Posts
 
+- [The shape of the decision](https://magistr.me/blog/the-shape-of-the-decision.md): Why the ABN affordability number isn't the real number for an expat in the Netherlands — and how I turned a fuzzy apartment-and-mortgage decision into a plan I can actually steer, with good-planning and Bovolon's four layers.
+- [A feed to think with](https://magistr.me/blog/a-feed-to-think-with.md): How I turned a noisy Amsterdam apartment feed into a clean, high-signal one I can reason with — good-planning underneath, a move.nl dossier on top, public-data enrichment, and my requirements encoded as filters.
 - [JSCAD CAD Generation with Swamp and Claude Code: Setup Guide](https://magistr.me/blog/jscad-swamp-setup-guide.md): Step-by-step guide: install Swamp from scratch, set up @magistr/jscad-cad extensions, configure the Claude Code skill, and generate 3D models from text descriptions.
 - [Building a CAD Pipeline with JSCAD, Swamp, and Claude](https://magistr.me/blog/jscad-cad-generation-with-swamp-and-claude.md): How we built a CAD generation pipeline using JSCAD, Swamp extension models, and Claude — from choosing the right CAD system, through 7 iterations of debugging a genie lamp with 6-view projections, to publishing extensions and finding a bundle cache bug.
 - [Today's Session: Cozystack on Tapok Cluster](https://magistr.me/blog/cozystack-on-tapok-cluster.md): Deploying Cozystack on a Talos Kubernetes cluster using Swamp extension models, with claude-code handling the execution while the author approves steps.

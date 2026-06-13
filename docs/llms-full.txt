@@ -4,6 +4,76 @@
 
 ---
 
+# The shape of the decision
+
+- Date: 2026-06-13
+- Tags: swamp, good-planning, finance, amsterdam
+- URL: https://magistr.me/blog/the-shape-of-the-decision/
+
+
+I meant to buy a flat in my second year here.
+
+Then life had other plans. A hard stretch I won't lay out in full — climbing out of something, mostly — then a year of just making things stable again, then a year given over to the language. That last one wasn't only vocabulary drills: it was the inburgering exams — reading, listening, speaking, and KNM, the Knowledge of Dutch Society paper — the civic-integration set you clear on the way to staying here for good. Suddenly it's the middle of year five, the year residency actually comes into view, the exams close and booked, the language nearly done, and I can feel the capacity opening back up. So: time to actually look.
+
+Two things pushed me from "someday" to "now." One was a clear-eyed write-up by fellow expats on what buying in the Netherlands actually involves — the kind of thing that turns fog into a checklist. The other was watching someone I train with go through it in the next lane over. On paper a simpler case than mine — and still it wasn't simple: between freelance income, some investments and a student loan, he spent two weeks redoing his bookkeeping just so a private-banking consult could tell him whether he'd get a mortgage at all, and for how much. Watching someone do the hard part beside you is weirdly motivating.
+
+There's a tempting shortcut here: put your gross salary into the ABN calculator and out comes a number. If you're a straightforward salaried case, that number is most of your answer. Mine isn't, and I suspect most people's aren't once they actually look. (Patrick McKenzie has quietly rewired how I think about personal finance — treat it as a system you can inspect, not a mood you're in.) The real number isn't just salary. There's the 30% ruling — the expat tax break that ends for me on a known date in September, quietly taking a chunk of net income with it. A raise landing next month. An employee share-purchase plan that pays out a couple of times a year — you buy in at a discount, so a little profit is dependable and the rest rides the market. And *kosten koper* — the cash you need on the table to transact at all, which no affordability calculator ever shows you. Too many moving parts to hold in your head and still call it honest.
+
+I'd done a smaller version of this years ago, in Saint Petersburg. There the Raiffeisen app just *showed* me — a clean breakdown of what I spent, decent analytics built right in. The surprise then, and again now, is that spend is mostly stable; you assume your money life is chaos and it mostly isn't, you just haven't looked at it straight. Here, no Dutch bank gives me anything close to that. If I wanted the picture, I'd have to build it.
+
+So I did. I put my payslips, my income, and my spend into a planning model — [good-planning](https://swamp-club.com/extensions/@magistr/good-planning), the swamp extension I built off Bovolon's framework — and instead of a vibe I got an analysis grounded in facts. Where the money actually goes. What could be trimmed and what can't. What I can genuinely afford. What my cashflow looks like now, in a year, and after the ruling ends in September. What shapes a mortgage could take around all of it.
+
+Here's the part worth stealing, and it's not the spreadsheet. The model isn't a budget. It's a state machine for a decision — [Bovolon's](https://bovolon.substack.com/p/good-planning-bad-planning) four layers, made queryable. What I'm assuming, each assumption tied to a signpost that tells me when it's breaking. What I've actually committed money to — because the real plan is the commitments you've funded and protected, not the boxes on a Gantt chart. How those commitments line up in time. And the part that earns its keep under pressure: a ceiling and a floor. A ceiling — the first place success would bind — with relief pre-cleared before I hit the trigger. A floor — tripwires that fire pre-decided pullbacks, and a maximum loss I've drawn a line at and won't cross. A plan you can only admire tells you the target. A plan you can steer tells you what to do when reality moves.
+
+The benefit I didn't expect was quieter than that. Writing the tripwires down didn't make the risk smaller — it took it out of my head. The thing that used to circle at one in the morning — what if this, what if that — is now a line in a model with an answer I already decided, calmly, in daylight. I don't re-litigate it every night. I decided it once, and the model holds it for me.
+
+What came out the other end was, in effect, the package you'd pay a financial adviser and a mortgage adviser for — except it came out of Claude and the planning skill, in an afternoon. And the same line from [the other piece](/blog/a-feed-to-think-with/) applies: that analysis is most of what those advisers sell, but the responsibility to manage it is still mine. The model doesn't carry the consequence home. I do.
+
+The flat is the visible decision. The plan underneath is the real one — the shape I test every apartment against. Knowing my limits before I started looking didn't make the choice for me. It just means that when the right place shows up, I'll already know whether I can say yes.
+
+
+---
+
+# A feed to think with
+
+- Date: 2026-06-13
+- Tags: swamp, good-planning, moldable-development, amsterdam
+- URL: https://magistr.me/blog/a-feed-to-think-with/
+
+
+The first night I got access to move.nl I spent four hours reading apartment listings and went to bed at one in the morning.
+
+The feed was "filtered" — budget, a couple of postcodes — but filtered the way a firehose is filtered when you put your thumb over the end. Every listing still had to be opened, read, judged. Energy label here, VvE contribution there, is it on a busy road, what's the onderhoud, does it actually have a bathtub or just a photo of a shower. The broad filter handed me volume. What I needed was signal.
+
+I don't do this for a living, exactly. But somewhere along the way it became my default: when I have a question, I build a small tool to answer it — [moldable development](https://moldabledevelopment.com), if you want a name for it. So building one here was the obvious move. The tool wasn't the start, though. The start was a plan.
+
+A while back I read [*Good Planning, Bad Planning*](https://bovolon.substack.com/p/good-planning-bad-planning) and turned its four-layer model into a swamp extension — [`good-planning`](https://swamp-club.com/extensions/@magistr/good-planning) — a self-contained state machine for a strategic choice: the funded commitments, the assumptions under them, the tripwires that tell you an assumption is breaking. I'd been reaching for that shape for a while. I track progress on a kanban board like everyone else, and kanban boards are too manual and hold none of the context that makes a card mean anything. A state machine holds the context. It knows what it's for.
+
+I used `good-planning` first to [understand my own cashflow and my limits](/blog/the-shape-of-the-decision/) — what I could actually commit to, where the edges were. That mattered more than any listing. Once I knew the shape of the decision, the apartments were just instances to test against it.
+
+Same instinct ArcKit gives me when I need to think through something complicated — it asks the questions I'd forget to ask. Same instinct behind [`issue-lifecycle`](https://swamp-club.com/extensions/@magistr/issue-lifecycle), another swamp extension, which drives work to done without me babysitting it. Externalize the thinking into something that holds state, and stop carrying it in your head.
+
+So: move.nl — a perfectly good website and a perfectly useless feed for *reasoning*. The part I still find a little magic is how I got in. I didn't reverse-engineer the auth by hand. I did one normal login in the browser, exported the session as a HAR — a full network capture, cookies and redirects and all — and handed the file to Claude. It read the Keycloak silent-SSO flow straight out of the capture and built it into a swamp model, token auto-renewal included, so the thing logs itself back in and keeps running. I never read a line of the auth code. I gave it a recording of my browser doing it once, and described what I wanted out the other end.
+
+The model — `move-dossier` — pulls my whole saved search into structured data. About fifty fields per listing: type, year, energy label, VvE bijdrage, €/m², bathtub yes/no, floorplans, even the bid deadlines and notary clauses parsed out of the free-text description. The feed is data now, not a wall of ads.
+
+Then I enriched it. The things that actually matter about a place are the things you can't see in the listing: the buurt, the crime rate, the income mix, the sale history, the energy profile of the street. A second swamp model — `nl-property-intel` — takes one address and fans out to half a dozen Dutch public sources to fetch exactly that, built to shrug off a dead scraper instead of falling over. One address in, one clean dossier out.
+
+Then the filtering, and this is the part that mattered most: I encoded my requirements as code, once. Bathtub required. Energy label C or better. Not on a busy road — with the specific Amsterdam streets I won't live on listed by name. Onderhoud at least Goed. A healthy VvE. The requirements stopped living in my head, where they drift and get tired at midnight, and started living in the model, where they don't.
+
+The last move was about attention. I started with real-time email — every new ad the moment it posted. I killed it; those go to a folder I never open now. The whole pipeline — pull, enrich, filter — runs on a cron once an hour. But the ping is rare. Only about 8% of Amsterdam apartments even have a bathtub, and that's before energy label, road, onderhoud, VvE. A listing that clears all of it is scarce: a ping lands maybe once every few days, and when it does, it has already passed every bar I care about. Floorplan included. One rare ping that cleared every filter is worth more than a hundred daily emails that cleared two. The signal went up; the noise went to a folder.
+
+Here's the uncomfortable part. With the dossier, the enrichment, and the planning model, I had most of the information my makelaar and my hypotheek adviser were giving me. The numbers, the comparisons, the "is this reasonable" — I could generate that myself. The tooling quietly replaced a good chunk of what I was paying two professionals for.
+
+Most of it. Not the part that counts when it's close. What they have that I can't scrape is experience and connections — the read on a street that isn't in any dataset, the call that gets a viewing, the deal that gets done. That's what I'm actually paying for. The information was never the scarce thing.
+
+And that's the honest shape of it. The tool doesn't choose. It builds me a clean surface to reason on — a feed I can think with instead of drown in. What I like and don't like about a place I still find by looking, slowly, in person: the cramped ceiling, the noise off the road, the way light falls in a room that no floorplan can tell you.
+
+The machine watches the market so I don't have to. The deciding is still mine. That was always the point.
+
+
+---
+
 # JSCAD CAD Generation with Swamp and Claude Code: Setup Guide
 
 - Date: 2026-04-04

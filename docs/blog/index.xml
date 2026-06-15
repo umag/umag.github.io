@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Sat, 13 Jun 2026 14:36:28 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jun 2026 21:31:01 +0000</lastBuildDate>
     <atom:link href="https://magistr.me/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Build the cage first</title>
+      <link>https://magistr.me/blog/build-the-cage-first/</link>
+      <pubDate>Mon, 15 Jun 2026 21:31:01 +0000</pubDate>
+      <guid>https://magistr.me/blog/build-the-cage-first/</guid>
+      <description>Two of Simon Wardley&amp;rsquo;s predictions have sat on my map for years: that serverless was the next evolution of devops, and that conversational programming was the one after it.</description>
+    </item>
     <item>
       <title>The shape of the decision</title>
       <link>https://magistr.me/blog/the-shape-of-the-decision/</link>

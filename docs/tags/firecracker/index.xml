@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>firecracker on Magistr and Maps</title>
+    <link>https://magistr.me/tags/firecracker/</link>
+    <description>Recent content in firecracker on Magistr and Maps</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>CC SA 4.0</copyright>
+    <lastBuildDate>Mon, 15 Jun 2026 21:31:01 +0000</lastBuildDate>
+    <atom:link href="https://magistr.me/tags/firecracker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Build the cage first</title>
+      <link>https://magistr.me/blog/build-the-cage-first/</link>
+      <pubDate>Mon, 15 Jun 2026 21:31:01 +0000</pubDate>
+      <guid>https://magistr.me/blog/build-the-cage-first/</guid>
+      <description>Two of Simon Wardley&amp;rsquo;s predictions have sat on my map for years: that serverless was the next evolution of devops, and that conversational programming was the one after it.</description>
+    </item>
+  </channel>
+</rss>

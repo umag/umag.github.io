@@ -2,12 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://magistr.me/tags/amsterdam/</loc>
-    <lastmod>2026-06-13T14:36:28+00:00</lastmod>
+    <loc>https://magistr.me/tags/agents/</loc>
+    <lastmod>2026-06-15T21:31:01+00:00</lastmod>
     
     
   </url><url>
     <loc>https://magistr.me/blog/</loc>
+    <lastmod>2026-06-15T21:31:01+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/blog/build-the-cage-first/</loc>
+    <lastmod>2026-06-15T21:31:01+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/firecracker/</loc>
+    <lastmod>2026-06-15T21:31:01+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/</loc>
+    <lastmod>2026-06-15T21:31:01+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/serverless/</loc>
+    <lastmod>2026-06-15T21:31:01+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/swamp/</loc>
+    <lastmod>2026-06-15T21:31:01+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/</loc>
+    <lastmod>2026-06-15T21:31:01+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/wardley/</loc>
+    <lastmod>2026-06-15T21:31:01+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/amsterdam/</loc>
     <lastmod>2026-06-13T14:36:28+00:00</lastmod>
     
     
@@ -18,21 +58,6 @@
     
   </url><url>
     <loc>https://magistr.me/tags/good-planning/</loc>
-    <lastmod>2026-06-13T14:36:28+00:00</lastmod>
-    
-    
-  </url><url>
-    <loc>https://magistr.me/</loc>
-    <lastmod>2026-06-13T14:36:28+00:00</lastmod>
-    
-    
-  </url><url>
-    <loc>https://magistr.me/tags/swamp/</loc>
-    <lastmod>2026-06-13T14:36:28+00:00</lastmod>
-    
-    
-  </url><url>
-    <loc>https://magistr.me/tags/</loc>
     <lastmod>2026-06-13T14:36:28+00:00</lastmod>
     
     
@@ -251,6 +276,11 @@
     
     
     
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/build-the-cage-first.md</loc>
+    <lastmod>2026-06-15T21:31:01+00:00</lastmod>
   </url>
   
   <url>

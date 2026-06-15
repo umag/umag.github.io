@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="generator" content="Hugo 0.121.1">
+	
+	<link rel="icon" href="/images/logo.png">
+	
+	<title>Build the cage first | Magistr and Maps</title>
+	<meta name="description" content="Why I built a Firecracker microVM extension before the autonomous agent loop that needs it: the lethal trifecta, the painful microVM build, and a loop that shipped a real swamp extension end to end.">
+	<meta name="keywords" content="swamp, firecracker, agents, serverless, wardley">
+	
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+	<link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt">
+
+	
+	<link rel="canonical" href="https://magistr.me/blog/build-the-cage-first/">
+	
+
+	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+	<link rel="preconnect" href="//www.google-analytics.com">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	
+		
+		
+	
+	
+	<meta property="og:locale" content="en_US">
+	<meta property="og:site_name" content="Magistr and Maps">
+	<meta property="og:title" content="Build the cage first" />
+<meta property="og:description" content="Why I built a Firecracker microVM extension before the autonomous agent loop that needs it: the lethal trifecta, the painful microVM build, and a loop that shipped a real swamp extension end to end." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://magistr.me/blog/build-the-cage-first/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2026-06-15T21:31:01+00:00" />
+<meta property="article:modified_time" content="2026-06-15T21:31:01+00:00" />
+
+
+	<meta property="og:image" content="https://magistr.me/images/logo.png">
+	<link rel="me" href="https://bsky.app/profile/magistr.me">
+	<meta http-equiv="last-modified" content="2026-06-15T21:31:01&#43;00:00">
+	<meta property="article:tag" content="swamp">
+	<meta property="article:tag" content="firecracker">
+	<meta property="article:tag" content="agents">
+	<meta property="article:tag" content="serverless">
+	<meta property="article:tag" content="wardley">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+	
+	
+	
+	<link rel="stylesheet" href="https://magistr.me/css/style.min.0b8af6cefc5fb2bf4cf841dfb6904d7935744516dbe24e851253e57a88a7bca1.css" integrity="sha256-C4r2zvxfsr9M&#43;EHftpBNeTV0RRbb4k6FElPleoinvKE=">
+
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context"	:	"https://schema.org",
+		"@type"		:	"BlogPosting",
+		"@id"		:	"https:\/\/magistr.me\/blog\/build-the-cage-first\/",
+		"mainEntityOfPage"	:	{
+			"@type"	: 	"WebPage",
+			"@id"	:	"https:\/\/magistr.me\/blog\/build-the-cage-first\/"
+		},
+		"name"		: 	"Build the cage first",
+		
+		"discussionUrl" : "https:\/\/magistr.me\/blog\/build-the-cage-first\/#comments",
+		
+		"headline"	:	"Build the cage first",
+		"description"	: "Why I built a Firecracker microVM extension before the autonomous agent loop that needs it: the lethal trifecta, the painful microVM build, and a loop that shipped a real swamp extension end to end.",
+		"abstract"	:	"Why I built a Firecracker microVM extension before the autonomous agent loop that needs it: the lethal trifecta, the painful microVM build, and a loop that shipped a real swamp extension end to end.",
+		"inLanguage"	: "en-US",
+		"isFamilyFriendly"	: 	"true",
+		"author"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"creator"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"accountablePerson"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightHolder"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightYear"	: "2026",
+		"datePublished"	: "2026-06-15",
+		"dateCreated"	: "2026-06-15",
+		"dateModified"  : "2026-06-15",
+		"publisher"	:	{
+			"@type" : "Organization",
+			"name":	"Magistr and Maps",
+			"url": "https:\/\/magistr.me\/",
+			"logo": {
+				"@type"	:	"ImageObject",
+				"contentUrl"	:	"https:\/\/magistr.me\/images\/logo.png",
+				"url"	:	"https:\/\/magistr.me\/images\/logo.png"
+			}
+		},
+		"url"	:	"https:\/\/magistr.me\/blog\/build-the-cage-first\/",
+		"wordCount"	:	"2106",
+		"image"	:	"https:\/\/magistr.me\/",
+		"keywords"	:	"swamp,firecracker,agents,serverless,wardley"
+	}
+	</script>
+	
+	
+
+	
+
+	
+</head>
+<body><header class="navbar-light bg-white fixed-top mediumnavigation">
+    <div class="container">
+        
+        <div class="row justify-content-center align-items-center brandrow">
+            <div class="col-lg-4 col-md-4 col-xs-12 d-none d-lg-block d-xl-block d-xll-block">
+                
+                
+                
+                
+                
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12 text-start text-sm-center logoarea">
+                <a class="navbar-brand" href="https://magistr.me//">
+                    
+                    <img src="/images/logo.png" alt="logo">
+                    
+                </a>        
+            </div>
+            <div class="col-lg-4 col-md-4 mr-auto col-xs-12 text-end searcharea d-none d-lg-block d-xl-block d-xll-block">
+                <form role="search" method="get" class="search-form" action="/search/">
+                    <input type="search" class="search-field" placeholder="Search..." value="" name="q" title="Search for:">
+                    <button type="submit" class="search-submit">
+                        <i class="fa fa-search"></i>   
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+
+        <div class="navarea">
+            <nav class="navbar navbar-expand-lg">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMediumish" aria-controls="navbarMediumish" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbarMediumish" class="collapse navbar-collapse">
+                    
+                    <ul class="navbar-nav ml-auto col-md-12 justify-content-center">
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/blog/">Thoughts</a>
+                        </li>
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/me/me">About Me</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+        <div class="site-content">   
+            <div class="container">
+<div class="mainheading">
+    <h1 class="sitetitle">Magistr and Maps</h1>
+    <p class="lead">
+         Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.
+    </p>
+</div><div class="main-content">
+        
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset">
+    <p>Share</p>
+    <ul class="shareitnow">
+        <li class="ml-1 mr-1">
+            <a aria-label="Share on Bluesky" target="_blank" href="https://bsky.app/intent/compose?text=Build%20the%20cage%20first%20https%3a%2f%2fmagistr.me%2fblog%2fbuild-the-cage-first%2f" onclick="window.open(this.href, 'bsky-share', 'width=550,height=435');return false;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 600 530" fill="currentColor"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.72 40.255-67.24 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg>
+            </a>
+        </li>
+        <li>
+            <a aria-label="Share on LinkedIn" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fmagistr.me%2fblog%2fbuild-the-cage-first%2f" onclick="window.open(this.href, 'linkedin-share', 'width=550,height=435');return false;">
+                <i class="fa fa-linkedin"></i>
+            </a>
+        </li>
+    </ul>
+
+    
+        <div class="sep">
+        </div>
+        <ul>
+            <li>
+                <a class="small smoothscroll" href="#disqus_thread" aria-label="Click to scroll to the top"></a>
+            </li>
+        </ul>
+    
+</div>
+</div>
+                                
+                <div class="col-md-9 flex-first flex-md-unordered">
+                    <div class="mainheading">
+                        	
+                        
+                        
+                                                
+                        
+                        <h1 class="posttitle">Build the cage first</h1>
+                        
+                    </div>
+
+                    
+                    
+                        
+                        
+                    
+                    
+
+                    
+                    <div class="article-post">
+                        
+                        <p>Two of Simon Wardley&rsquo;s predictions have sat on my map for years: that serverless
+was the next evolution of devops, and that conversational programming was the
+one after it. Both came true — the first quietly, the second all at once.</p>
+<p>I wanted to write about the evolution of serverless for a long time, but I never
+found the hook. I had gone looking for it and was underwhelmed. Serverless was
+real, but adoption stayed narrow, finding use in glue functions and cron jobs,
+but in nothing like the platform shift the map implied. The most interesting
+thing I read in those years was
+<a href="https://www.latent.space/p/modal">Erik Bernhardsson&rsquo;s</a> account of building
+Modal. They threw Docker out and wrote their own container runtime and a
+lazy-loading filesystem in Rust, for Python only, because general-purpose
+containers were simply too slow to feel serverless. As inference and training
+costs climbed, <em>serverless GPU</em> finally started to make sense, where you pay by
+the second and scale to zero, because an idle H100 is a fortune.</p>
+<p>Then the second prediction landed and made the first one matter. Conversational
+programming stopped being a forecast and became how I work. And when I looked at
+what was actually under the boring, CPU side of serverless — under AWS Lambda,
+under Fargate, under <a href="https://github.com/systeminit/si">System Initiative&rsquo;s</a>
+function execution — it was the same engine every time:
+<a href="https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md">Firecracker</a>.
+A microVM AWS built to run strangers&rsquo; code, at Lambda scale, without those
+strangers reaching the host or each other.</p>
+<p>Firecracker is deliberately tiny. No GPU passthrough, barely any devices —
+<a href="https://github.com/firecracker-microvm/firecracker/discussions/4845">a handful of virtio interfaces</a>
+and nothing else. For the GPU crowd that is a dealbreaker; you go to Cloud
+Hypervisor instead. But I did not need a GPU. I needed a box I could trust
+around code I did not write, and Firecracker&rsquo;s whole minimalism <em>is</em> the
+security story. The thing that made serverless safe was about to become the
+thing that makes agents safe. That was the hook.</p>
+<h2 id="the-reason">The reason</h2>
+<p>The problem began with a question about my own work. I already run my
+engineering through a state machine. It is my own flavour of
+<a href="https://swamp-club.com/extensions/@magistr/issue-lifecycle"><code>issue-lifecycle</code></a>,
+built on Paul Stack&rsquo;s Booking talk and swamp-club&rsquo;s own version, then extended
+with DDD, TDD, BDD, and planning loops. It works. Claude researches and plans, I
+review and correct the plan, and it implements against tests. I built a whole
+project, resinsim, from the ground up that way. A nice second-order effect is
+that the repo ends up holding more than code: it contains the methodologies, the
+architecture decisions, the patterns and antipatterns found while Claude worked
+the tasks, and a set of UAT/BDD scenarios that pin the app&rsquo;s behaviour. The
+process writes its own knowledge base.</p>
+<p>It needs my hand on the wheel, however, for every plan and every correction. The
+question would not leave me alone: what if the principles and the tests are
+<em>good enough</em> that I could throw a task at it and walk away? The whole
+foundation already exists, co-designed in <code>issue-lifecycle</code>. So I asked Claude
+to design
+<a href="https://swamp-club.com/extensions/@magistr/swamp-go-brr"><code>swamp-go-brr</code></a>, which
+is the same lifecycle with the human taken out of the execution loop. Not Gas
+Town: I did not want a swarm of built-in agents improvising
+non-deterministically. I wanted the orchestration to be deterministic and living
+in swamp, with the agent only filling in the leaves.</p>
+<p>The plan that came back had a requirement I could not argue with: <strong>isolation</strong>.
+An autonomous loop that web-searches test harnesses and runs untrusted code, on
+my machine, with my credentials, is Simon Willison&rsquo;s
+<a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">lethal trifecta</a>
+with the safety off. It is private data, untrusted content, and a way out, all
+at once. It is remote code execution by design. So I paused work on the brain
+and went to build the body it would need. A microVM is a hardware-isolated blast
+radius for an agent you have let off the leash. <strong>Build the cage first.</strong></p>
+<h2 id="where-the-cage-drew-blood">Where the cage drew blood</h2>
+<p>I built both extensions from zero: the microVM lifecycle and the host↔guest
+control plane. The interesting part, and the part worth a post, is everything
+that fought me.</p>
+<p><strong>The rootfs.</strong> The guest started as Alpine/musl, and musl fought back with
+missing CA certs and BusyBox quirks. It also fought back over a <code>claude</code> binary
+that is glibc-only and did not want to live there. I gave up and rebuilt the
+rootfs with <code>debootstrap --variant=minbase</code> on Ubuntu, layering in the glibc
+<code>claude-linux-x64</code> binary and the few tools the agent needs. It was a
+rediscovery of the first lesson of serverless: stop fighting the general-purpose
+userland and specialise the image.</p>
+<p><strong>The kernel that wouldn&rsquo;t give me randomness.</strong> TLS inside the guest just hung.
+Every Claude API call needs a TLS handshake, every handshake needs random bytes,
+and the legacy 4.14 <code>vmlinux</code>&rsquo;s old <code>crng</code>/<code>getrandom()</code> behaviour <em>blocked</em> on
+entropy at boot. A fresh microVM has no entropy pool. The fix took three belts:
+a modern CI kernel (<code>vmlinux 6.1.128</code>), the PID-1 agent manually seeding 64
+bytes from <code>/dev/urandom</code> into <code>/dev/random</code> via <code>RNDADDENTROPY</code>, and a
+virtio-rng device wired in before boot. A footnote that cost real time is that
+if you change the kernel, you must re-bake the snapshot.</p>
+<p><strong>The agent is the init system.</strong> There is no point booting systemd in a VM that
+lives for one task, so the kernel boots straight into <code>init=/opt/fc-agent.sh</code>.
+The agent runs as PID 1 and never exits. It mounts its own pseudo-filesystems,
+brings up the NIC, and seeds that entropy. Then it does the thing I did not see
+coming: it syncs the clock by reading the <code>Date:</code> header off the task server
+with <code>curl -I</code>. A microVM has no RTC, so it boots in 1970, and a clock in 1970
+fails TLS certificate validation before it can even complain about entropy. Then
+it polls for work. There was one last indignity: <code>claude --print</code> <em>hangs</em> on a
+permission prompt and refuses <code>--dangerously-skip-permissions</code> as root, unless
+you set <code>IS_SANDBOX=1</code>. This is fair. The microVM <strong>is</strong> the sandbox; I just had
+to say so.</p>
+<p><strong>The concurrency fork, where I was confidently wrong.</strong> The moment you want a
+second agent, the baked-in guest address (<code>172.16.0.2</code>) collides. My instinct
+was to de-bake it and pass the address in on the kernel command line. A review
+killed that idea as fundamental: the cmdline is read once at boot, and the
+workflow does not boot, it <em>restores from a warm snapshot</em> — a frozen image
+whose network state is already in memory. My fix was inert on the exact path
+that makes the thing fast. The right answer, from Firecracker&rsquo;s own &ldquo;network for
+clones&rdquo; recipe, is the opposite of my instinct. You do not re-address the guest;
+you <em>isolate</em> it. You keep it byte-identical and wrap each clone in its own
+network namespace, with its own TAP, a veth pair, and a double MASQUERADE. This
+way, one base snapshot restores into N identical clones that cannot see each
+other. I enjoyed one detail: Linux caps interface names at 15 characters, so the
+root-side veth name has to be hashed from the namespace or two clones collide on
+the name instead of the IP.</p>
+<p><strong>The bug I caught before it bit.</strong> This is the one I am proud of. A network
+namespace isolates the <em>network</em>, but it does not isolate <code>/tmp</code>. The
+control-plane server keyed its files by <code>tapPort</code>, which is hardcoded to 8080 in
+every guest. This meant that six concurrent VMs would all share
+<code>/tmp/fc-task-8080.json</code> on the host. A task injected for one could be served to
+another, and results would clobber each other. The netns had fixed the IP
+overlap and left a file overlap one layer down. The fix is a two-line key,
+<code>netns-tapPort</code>, but the lesson is that &ldquo;isolated&rdquo; is always isolated <em>along
+some axis</em>, and you have to name the axis.</p>
+<p>The rest of the issues were small traps, which I will cover briefly. The vsock
+throws an &ldquo;address in use&rdquo; error when you restore concurrent VMs from one
+snapshot because of stale sockets and a baked-in path, which requires a per-VM
+override and cleanup. You cannot tear a VM down with <code>pkill firecracker</code> once a
+second one exists, so a PID sidecar gives you a precision kill. Tearing down a
+namespace leaves the host&rsquo;s NAT rules behind unless you tag each with a comment
+and flush by it. None of these issues are hard. They are all invisible until the
+second VM exists, and then they arrive at once.</p>
+<p>The working shape is a 6.1 kernel and a 512 MiB / 2-vCPU guest that costs ~45
+MiB of host RAM. It is booted once and frozen into a warm snapshot so a restore
+is sub-second. Firecracker&rsquo;s own people quote 150 microVMs a second per host.
+The <code>wait_serial</code> command watches the serial console for the agent printing
+<code>worker ready; polling for tasks</code> before it bakes the snapshot. That is how you
+know what is inside is alive before you freeze it.</p>
+<h2 id="the-token">The token</h2>
+<p>The agent in the guest runs <code>claude -p</code> with my <code>CLAUDE_CODE_OAUTH_TOKEN</code>, and
+that is within terms. The token is scoped to Claude Code, and Claude Code is
+exactly what it is running, on my own work, inside a sandbox. The control plane
+injects it only at serve time on <code>GET /task</code> (it validates the <code>sk-ant…</code>
+prefix), never writes it to the guest&rsquo;s disk, and the guest reaches
+<code>api.anthropic.com</code> directly over its TAP interface and host NAT. Nothing
+proxies it and nothing stores it.</p>
+<h2 id="the-cage-with-something-in-it">The cage, with something in it</h2>
+<p>Then I un-paused the brain and pointed the whole stack at a real task:
+<code>/swamp-go-brr create a swamp extension to self-host a Bluesky PDS and post to it, deployed to Unraid via docker-compose</code>.</p>
+<p>Opus 4.8 was the conductor. It read the goal, decomposed it into a DAG of
+file-disjoint tasks, and <code>gobrr</code> — the deterministic state machine — only
+validated and scheduled them. It refuses a bad decomposition rather than
+improvise one. The <code>fabric_up</code> command brought up five warm microVMs in five
+network namespaces. Round one consisted of four libraries, built in parallel,
+each in its own VM, and each just a <code>claude -p</code> with a crafted work-order. The
+host never ran a line of the agent&rsquo;s code. It parsed the returned diffs and
+applied them behind an allowlist, because of the isolation invariant that code
+is only ever <em>authored</em> inside a VM. Then it gated each change in a
+<code>--network none</code>, read-only container. Two passed on the first try. Two bounced
+on a type error and a wrong field name, and passed on the retry. I rebased the
+green ones into a stack, advanced the base, embedded the exact export signatures
+into round two&rsquo;s prompts so the imports would resolve, and built the two swamp
+models on top. When assembled, it had 51 tests, zero failures, and a clean
+<code>swamp extension push --dry-run</code>.</p>
+<p>My total input across roughly fourteen hours was the kickoff, one interrupt, one
+&ldquo;continue&rdquo;, and one approval. It built <code>@magistr/bluesky-pds</code> end to end. I have
+<em>not</em> published it, as there has been no adversarial-review pass on it yet, and
+that judgement is still mine. The cage works; deciding what is allowed out of it
+does not.</p>
+<p>The tuning to get there was its own set of small cruelties, which is why this
+became two posts. The verify gate runs with <code>--network none</code>, so you need a
+digest-pinned, fully-offline deno toolchain image baked ahead of time. The
+<code>--no-lock</code> flag is mandatory or deno tries to write <code>deno.lock</code> into the
+read-only tree and dies. You must read the result from <code>dv current</code>, not
+<code>dv result</code>, or every task reports <code>exitCode: null</code> and the loop politely
+ignores all of them. And because every task branches off one fixed base,
+anything importing a sibling&rsquo;s brand-new file fails its isolated gate. So you do
+the independent pieces first, rebase, advance the base, and only then seed the
+dependent round.</p>
+<h2 id="back-to-the-map">Back to the map</h2>
+<p>There is nothing surprising about an agent running on a microVM. That is just
+how value chains work: the novel thing at the top of the stack rides on the
+boring, industrialised thing at the bottom, and the more commoditised the bottom
+gets, the more freely the top can move. Autonomous agents are the new
+capability, and hardware-isolated microVMs are the utility underneath. The only
+detail worth noticing is <em>which</em> utility they landed on — the same stripped-down
+box AWS built to run Lambda, doing a second job nobody scoped it for.</p>
+<p>I built the cage first because autonomy without a blast radius is not autonomy;
+it is a liability. The next post will cover what I put in it: <code>swamp-go-brr</code>,
+the brain.</p>
+
+                    </div>
+                    
+                    
+                    <div class="after-post-tags">
+                        <ul class="tags">
+                        
+                        <li>
+                        <a href="/tags/swamp/">swamp</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/firecracker/">firecracker</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/agents/">agents</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/serverless/">serverless</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/wardley/">wardley</a>
+                        </li>
+                        
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                    <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+                    
+                    
+                        <a class="d-block col-md-6 text-lg-end" href="https://magistr.me/blog/the-shape-of-the-decision/">The shape of the decision &raquo;</a>
+                    
+                    <div class="clearfix"></div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
+    </div>
+
+
+            </div>
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+			<div class="d-md-flex align-items-center justify-content-center h-100">
+				<h2 class="d-md-block d-none align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+			</div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+			
+			<a class="mt-1 mb-1" href="/tags/agents/">agents</a>
+			
+			<a class="mt-1 mb-1" href="/tags/ai/">ai</a>
+			
+			<a class="mt-1 mb-1" href="/tags/amsterdam/">amsterdam</a>
+			
+			<a class="mt-1 mb-1" href="/tags/blog/">blog</a>
+			
+			<a class="mt-1 mb-1" href="/tags/cad/">cad</a>
+			
+			<a class="mt-1 mb-1" href="/tags/claude/">claude</a>
+			
+			<a class="mt-1 mb-1" href="/tags/cozystack/">cozystack</a>
+			
+			<a class="mt-1 mb-1" href="/tags/ddd/">ddd</a>
+			
+			<a class="mt-1 mb-1" href="/tags/devops/">devops</a>
+			
+			<a class="mt-1 mb-1" href="/tags/finance/">finance</a>
+			
+			<a class="mt-1 mb-1" href="/tags/firecracker/">firecracker</a>
+			
+			<a class="mt-1 mb-1" href="/tags/good-planning/">good-planning</a>
+			
+			<a class="mt-1 mb-1" href="/tags/guide/">guide</a>
+			
+			<a class="mt-1 mb-1" href="/tags/jscad/">jscad</a>
+			
+			<a class="mt-1 mb-1" href="/tags/kubernetes/">kubernetes</a>
+			
+			<a class="mt-1 mb-1" href="/tags/macos/">macos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/me/">me</a>
+			
+			<a class="mt-1 mb-1" href="/tags/moldable-development/">moldable-development</a>
+			
+			<a class="mt-1 mb-1" href="/tags/observability/">observability</a>
+			
+			<a class="mt-1 mb-1" href="/tags/opencore/">opencore</a>
+			
+			<a class="mt-1 mb-1" href="/tags/oxide/">oxide</a>
+			
+			<a class="mt-1 mb-1" href="/tags/qemu/">qemu</a>
+			
+			<a class="mt-1 mb-1" href="/tags/retro/">retro</a>
+			
+			<a class="mt-1 mb-1" href="/tags/serverless/">serverless</a>
+			
+			<a class="mt-1 mb-1" href="/tags/si/">si</a>
+			
+			<a class="mt-1 mb-1" href="/tags/swamp/">swamp</a>
+			
+			<a class="mt-1 mb-1" href="/tags/talos/">talos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/tools/">tools</a>
+			
+			<a class="mt-1 mb-1" href="/tags/typescript/">typescript</a>
+			
+			<a class="mt-1 mb-1" href="/tags/unraid/">unraid</a>
+			
+			<a class="mt-1 mb-1" href="/tags/virtualization/">virtualization</a>
+			
+			<a class="mt-1 mb-1" href="/tags/wardley/">wardley</a>
+			
+			<a class="mt-1 mb-1" href="/tags/wardley-mapping/">wardley-mapping</a>
+			
+		</div>
+	</div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-start">
+                &copy; Copyright CC SA 4.0
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-end">    
+                <a target="_blank" rel="noopener" href="https://github.com/ekampf/mediumish-gohugo-theme">Mediumish Theme</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://magistr.me/js/mediumish.1574b32c12cce790df495bf68909be2585a33e1bbc54b9f2cb080cac17b88472.js" integrity="sha256-FXSzLBLM55DfSVv2iQm&#43;JYWjPhu8VLnyywgMrBe4hHI="></script>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>automation on Magistr and Maps</title>
+    <link>https://magistr.me/tags/automation/</link>
+    <description>Recent content in automation on Magistr and Maps</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>CC SA 4.0</copyright>
+    <lastBuildDate>Fri, 19 Jun 2026 21:00:55 +0000</lastBuildDate>
+    <atom:link href="https://magistr.me/tags/automation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>swamp-go-brr, the brain</title>
+      <link>https://magistr.me/blog/swamp-go-brr-the-brain/</link>
+      <pubDate>Fri, 19 Jun 2026 21:00:55 +0000</pubDate>
+      <guid>https://magistr.me/blog/swamp-go-brr-the-brain/</guid>
+      <description>Last post I built a cage — a Firecracker microVM to hold an agent I had let off the leash. This post is about what I put in it, and why the thing I put in it is a state machine and not a swarm.</description>
+    </item>
+  </channel>
+</rss>

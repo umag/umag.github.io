@@ -7,20 +7,41 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Mon, 15 Jun 2026 21:31:01 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 19 Jun 2026 21:00:55 +0000</lastBuildDate>
     <atom:link href="https://magistr.me/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>agents</title>
       <link>https://magistr.me/tags/agents/</link>
-      <pubDate>Mon, 15 Jun 2026 21:31:01 +0000</pubDate>
+      <pubDate>Fri, 19 Jun 2026 21:00:55 +0000</pubDate>
       <guid>https://magistr.me/tags/agents/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>automation</title>
+      <link>https://magistr.me/tags/automation/</link>
+      <pubDate>Fri, 19 Jun 2026 21:00:55 +0000</pubDate>
+      <guid>https://magistr.me/tags/automation/</guid>
       <description></description>
     </item>
     <item>
       <title>firecracker</title>
       <link>https://magistr.me/tags/firecracker/</link>
-      <pubDate>Mon, 15 Jun 2026 21:31:01 +0000</pubDate>
+      <pubDate>Fri, 19 Jun 2026 21:00:55 +0000</pubDate>
       <guid>https://magistr.me/tags/firecracker/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>issue-lifecycle</title>
+      <link>https://magistr.me/tags/issue-lifecycle/</link>
+      <pubDate>Fri, 19 Jun 2026 21:00:55 +0000</pubDate>
+      <guid>https://magistr.me/tags/issue-lifecycle/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>swamp</title>
+      <link>https://magistr.me/tags/swamp/</link>
+      <pubDate>Fri, 19 Jun 2026 21:00:55 +0000</pubDate>
+      <guid>https://magistr.me/tags/swamp/</guid>
       <description></description>
     </item>
     <item>
@@ -28,13 +49,6 @@
       <link>https://magistr.me/tags/serverless/</link>
       <pubDate>Mon, 15 Jun 2026 21:31:01 +0000</pubDate>
       <guid>https://magistr.me/tags/serverless/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>swamp</title>
-      <link>https://magistr.me/tags/swamp/</link>
-      <pubDate>Mon, 15 Jun 2026 21:31:01 +0000</pubDate>
-      <guid>https://magistr.me/tags/swamp/</guid>
       <description></description>
     </item>
     <item>

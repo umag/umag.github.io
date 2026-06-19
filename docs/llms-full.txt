@@ -4,6 +4,183 @@
 
 ---
 
+# swamp-go-brr, the brain
+
+- Date: 2026-06-19
+- Tags: swamp, agents, firecracker, issue-lifecycle, automation
+- URL: https://magistr.me/blog/swamp-go-brr-the-brain/
+
+
+Last post I built a cage — a Firecracker microVM to hold an agent I had let off
+the leash. This post is about what I put in it, and why the thing I put in it is
+a state machine and not a swarm.
+
+It started with a question I had been circling for a while. My engineering
+already runs through `issue-lifecycle`: Claude researches and plans, I review
+and correct the plan, and it implements against tests. It works, and over time
+the repository fills with more than code — the methodologies, the architecture
+decisions, the patterns and antipatterns Claude hit along the way, and a set of
+UAT/BDD scenarios that pin the behaviour. The process writes its own knowledge
+base. But it needs my hand on the wheel for every plan and every correction. So
+the question was: what if the principles and the tests are good enough that I
+could throw a task at it and walk away?
+
+## Not a swarm
+
+There is a fashionable answer to that, and I did not want it. You can hand the
+whole thing to a swarm of agents — Gas Town and its kin — and let them improvise
+their way to a result, spawning sub-agents, negotiating, retrying, until
+something falls out the end. It is genuinely impressive, and I cannot reason
+about it. I cannot tell you why it did what it did, I cannot replay it, and when
+it goes wrong I cannot point at the transition that broke. For a loop that runs
+unattended, with my credentials, on real code, "impressive and impossible to
+reason about" is exactly the wrong trade. I wanted the orchestration
+deterministic and the non-determinism quarantined to the leaves.
+
+## Brain and hands
+
+So I asked Claude to design `swamp-go-brr` the way I build everything else —
+through `issue-lifecycle` — but with the human removed from the execution loop.
+What came out has a clean split.
+
+The brain is `gobrr`: a pure state machine, a Run aggregate over a dynamic task
+DAG, and nothing it does is an LLM call. It seeds the DAG in one batch; it
+leases ready tasks to workers, one per call, up to a concurrency cap; it reaps
+any task whose lease lapses on a heartbeat TTL, so a worker that dies in its
+microVM does not wedge the run; it caps total attempts so a task that keeps
+failing surfaces instead of looping forever; and it moves each task through its
+states on the verdicts it is handed. Every one of those is a deterministic
+transition I can inspect and replay, because it is swamp state on disk, not an
+agent's short-term memory.
+
+The hands are a thin driver: ask `gobrr` for the next ready task, build the work
+order, spawn a `claude` to do it, report the result back, repeat until the DAG
+is green. The only non-determinism in the whole system lives inside one leaf at
+a time — inside a microVM, behind a gate.
+
+## The agent proposes; the state machine disposes
+
+The part I like most is how decomposition works, because it is where most
+"autonomous" systems quietly cheat. The agent decomposes the goal: it reads the
+repository and breaks the work into tasks, each with a spec, an explicit
+write-allowlist, and its dependencies. But `gobrr` does not trust it. It
+validates the decomposition mechanically and refuses a bad one — it derives each
+task's gate and forces the tests to be separated from the code, and it rejects a
+task whose write-allowlist smears across both. The creative step is allowed to
+be an LLM; the structural rules that keep it honest are code.
+
+The other half of a good decomposition is sizing, and this is where Claude's
+planning mode quietly earns its keep. Left to plan, it produces tasks at a grain
+where — with the `issue-lifecycle` skill loaded — a single agent carries one
+from zero to completion inside a 1M-token context window, without running out of
+room mid-task. And on the off chance a task's scope is still too large, the
+agent does not thrash against the ceiling: it files a follow-up and finishes
+what it can. Right-sizing is essential here, because it is what lets a leaf run
+to done unattended.
+
+The DAG is the schedule, a role that goes beyond simple bookkeeping.
+File-disjoint tasks with no dependency between them are independent by
+construction, so they run at the same time. A task that needs another's output
+simply waits for it. The shape of the decomposition _is_ the parallelism, which
+is why the validator cares so much about getting it right.
+
+From there the loop is four models, one job each, and no model trusts the next
+one's output. `gobrr` schedules. The driver leases a task and hands the microVM
+fabric a `claude -p` with a crafted work order. The leaf does not write to the
+repository — it emits its files inside a fenced work-contract envelope, and a
+separate integration model parses that envelope and applies it as one
+base-isolated change behind the task's write-allowlist. That is the isolation
+invariant: code is only ever _authored_ inside a VM, and the host applies a
+reviewed diff rather than running anything the agent produced. Then a
+containerised verifier gates the change in a `--network none`, read-only box and
+returns an exit code. If the exit code is green, the base advances; if it is
+red, the task bounces back to pending for another attempt.
+
+The one structural subtlety worth calling out: every task branches off a single
+fixed base, so a task that imports a sibling's brand-new file will fail its own
+isolated gate — the file is not on its base yet. The fix is to sequence by
+dependency. Build the independent units first, rebase the green ones into a
+linear stack, advance the base to the top of that stack, and only then seed the
+dependent round — embedding the exact export signatures from the finished units
+into the next round's prompts so the imports resolve on the first try.
+
+## The fork I did not take
+
+There was a more ambitious design sitting right there, and I want to be honest
+that I looked at it. I could have made the thing recursive: put swamp itself
+inside each microVM and let a leaf spawn its own sub-VMs, a fractal of agents
+decomposing their own subtrees all the way down. It was too much — more blast
+radius, more state to reason about, more ways to deadlock, for a payoff I did
+not need. I kept the orchestration in the one main VM and had Opus split the
+task into subtasks that feed a single flat pool. The final design has one
+conductor, many hands, and no recursion. It is simple, it works for now, and it
+is a good enough place to start.
+
+## Why it is safe to walk away
+
+None of this would be safe to leave alone if the agent were starting cold. It is
+not. The reason I could even consider taking my hand off the wheel is that
+`issue-lifecycle` has spent months writing the foundation down: the architecture
+decisions, the patterns and antipatterns, and — the load-bearing part — the UAT
+and BDD scenarios that say what "working" means. An autonomous loop is only as
+trustworthy as its definition of done, and mine is concrete: it is a test suite
+the process built for itself. The agent in the leaf is free to be creative, but
+the gate it has to pass is deterministic.
+
+## If you are building one of these
+
+I think a lot of people are about to build some version of this, so here is what
+actually held and what bit me.
+
+**The pattern that carries the whole thing: the agent proposes, the state
+machine disposes.** Let the LLM do the creative, fuzzy step — decomposition,
+code — and put every rule you actually depend on into deterministic code that
+can refuse its output. If your orchestrator is itself an LLM, the
+non-determinism remains, just moved up a level.
+
+**Quarantine the non-determinism to the leaves.** This means one agent, one
+task, one sandbox, and one gate. Everything between the leaves should be
+replayable state you can open after the fact and read in order. When something
+goes wrong — and it will — you want a specific transition to point at, which is
+a more direct diagnostic than re-reading a transcript.
+
+**Make "done" a gate the agent cannot argue with.** A green test suite in a
+`--network none`, read-only container is worth more than any amount of the agent
+telling you it is finished. No model trusts the next one's output; each one
+checks.
+
+**What bit me.** The verify gate ran the tests but not the formatter or the
+linter, so those failures only surfaced later at publish time — your gate is
+exactly as good as what you put in it, and no broader. Isolation is always along
+_some_ axis: network namespaces isolated the network but not `/tmp`, and a
+shared control-plane file clobbered across concurrent VMs until I keyed it per
+namespace. A read-only verify box means the toolchain has to be baked in and
+offline ahead of time, with the lockfile-writing turned off, or the run dies on
+a write it is not allowed to make. And I learned that retries are only effective
+with better instructions; a task that bounced on a type error passed only when I
+put the exact cast into its spec, because the second attempt needs improved
+guidance to succeed, which is more deterministic than another roll of the dice.
+
+## The one gate I keep
+
+I keep exactly one transition for myself — the publish gate — for the reason I
+gave in [the cage post](/blog/build-the-cage-first/): the loop is allowed to
+write the code and prove it green, but deciding what is allowed out into the
+world is mine. I proved the rest on a real task, self-hosting a Bluesky PDS end
+to end while I watched, and I have _not_ shipped what it built, because there is
+no adversarial-review pass on it yet.
+
+That is the shape I am comfortable with: autonomy I can reason about, the
+creativity boxed into leaves, the structure held in a state machine, and a human
+on the one gate that matters. The swarm can have the Overton window. I will take
+the thing I can replay.
+
+This is a first working version, and there is more coming. Next I am hardening
+`swamp-go-brr` and wiring it with telemetry.
+
+
+---
+
 # Build the cage first
 
 - Date: 2026-06-15
@@ -213,8 +390,8 @@ detail worth noticing is _which_ utility they landed on — the same stripped-do
 box AWS built to run Lambda, doing a second job nobody scoped it for.
 
 I built the cage first because autonomy without a blast radius is not autonomy;
-it is a liability. The next post will cover what I put in it: `swamp-go-brr`,
-the brain.
+it is a liability. The next post covers what I put in it:
+[`swamp-go-brr`, the brain](/blog/swamp-go-brr-the-brain/).
 
 
 ---

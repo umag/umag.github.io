@@ -201,5 +201,5 @@ detail worth noticing is _which_ utility they landed on — the same stripped-do
 box AWS built to run Lambda, doing a second job nobody scoped it for.
 
 I built the cage first because autonomy without a blast radius is not autonomy;
-it is a liability. The next post will cover what I put in it: `swamp-go-brr`,
-the brain.
+it is a liability. The next post covers what I put in it:
+[`swamp-go-brr`, the brain](/blog/swamp-go-brr-the-brain/).

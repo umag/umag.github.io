@@ -7,21 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Thu, 09 Jul 2026 16:50:42 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 09 Jul 2026 16:59:48 +0000</lastBuildDate>
     <atom:link href="https://magistr.me/tags/strategy/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Nvidia, Oxide, and tinygrad through a Wardley lens — the long version</title>
-      <link>https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens/</link>
-      <pubDate>Thu, 09 Jul 2026 16:50:42 +0000</pubDate>
-      <guid>https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens/</guid>
-      <description>Companion to &amp;ldquo;Reading the board from the stands&amp;rdquo;. The short essay is about what it did to me. This is the working-out: three value chains at three altitudes — the maps and my thoughts.</description>
-    </item>
     <item>
       <title>Reading the board from the stands</title>
       <link>https://magistr.me/blog/reading-the-board-from-the-stands/</link>
-      <pubDate>Thu, 09 Jul 2026 16:08:42 +0000</pubDate>
+      <pubDate>Thu, 09 Jul 2026 16:59:48 +0000</pubDate>
       <guid>https://magistr.me/blog/reading-the-board-from-the-stands/</guid>
       <description>Here are three compute strategies, and the thing I actually felt watching them.&#xA;For the whole LLM circus I did not pay much attention to Nvidia.</description>
+    </item>
+    <item>
+      <title>Nvidia, Oxide, and tinygrad through a Wardley lens — the long version</title>
+      <link>https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens/</link>
+      <pubDate>Thu, 09 Jul 2026 16:59:12 +0000</pubDate>
+      <guid>https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens/</guid>
+      <description>Companion to &amp;ldquo;Reading the board from the stands&amp;rdquo;. The short essay is about what it did to me. This is the working-out: three value chains at three altitudes — the maps and my thoughts.</description>
     </item>
   </channel>
 </rss>

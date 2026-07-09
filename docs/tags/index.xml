@@ -7,48 +7,48 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Thu, 09 Jul 2026 16:50:42 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 09 Jul 2026 16:59:48 +0000</lastBuildDate>
     <atom:link href="https://magistr.me/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ai</title>
       <link>https://magistr.me/tags/ai/</link>
-      <pubDate>Thu, 09 Jul 2026 16:50:42 +0000</pubDate>
+      <pubDate>Thu, 09 Jul 2026 16:59:48 +0000</pubDate>
       <guid>https://magistr.me/tags/ai/</guid>
       <description></description>
     </item>
     <item>
       <title>nvidia</title>
       <link>https://magistr.me/tags/nvidia/</link>
-      <pubDate>Thu, 09 Jul 2026 16:50:42 +0000</pubDate>
+      <pubDate>Thu, 09 Jul 2026 16:59:48 +0000</pubDate>
       <guid>https://magistr.me/tags/nvidia/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>oxide</title>
-      <link>https://magistr.me/tags/oxide/</link>
-      <pubDate>Thu, 09 Jul 2026 16:50:42 +0000</pubDate>
-      <guid>https://magistr.me/tags/oxide/</guid>
       <description></description>
     </item>
     <item>
       <title>strategy</title>
       <link>https://magistr.me/tags/strategy/</link>
-      <pubDate>Thu, 09 Jul 2026 16:50:42 +0000</pubDate>
+      <pubDate>Thu, 09 Jul 2026 16:59:48 +0000</pubDate>
       <guid>https://magistr.me/tags/strategy/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>tinygrad</title>
-      <link>https://magistr.me/tags/tinygrad/</link>
-      <pubDate>Thu, 09 Jul 2026 16:50:42 +0000</pubDate>
-      <guid>https://magistr.me/tags/tinygrad/</guid>
       <description></description>
     </item>
     <item>
       <title>wardley mapping</title>
       <link>https://magistr.me/tags/wardley-mapping/</link>
-      <pubDate>Thu, 09 Jul 2026 16:50:42 +0000</pubDate>
+      <pubDate>Thu, 09 Jul 2026 16:59:48 +0000</pubDate>
       <guid>https://magistr.me/tags/wardley-mapping/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>oxide</title>
+      <link>https://magistr.me/tags/oxide/</link>
+      <pubDate>Thu, 09 Jul 2026 16:59:12 +0000</pubDate>
+      <guid>https://magistr.me/tags/oxide/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>tinygrad</title>
+      <link>https://magistr.me/tags/tinygrad/</link>
+      <pubDate>Thu, 09 Jul 2026 16:59:12 +0000</pubDate>
+      <guid>https://magistr.me/tags/tinygrad/</guid>
       <description></description>
     </item>
     <item>

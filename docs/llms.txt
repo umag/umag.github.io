@@ -6,8 +6,8 @@ Magistr and Maps is a personal blog by Magistr covering IT infrastructure, DevOp
 
 ## Blog Posts
 
-- [Nvidia, Oxide, and tinygrad through a Wardley lens — the long version](https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens.md): The long version: three AI-compute value chains mapped and ranked — Jensen the strategist, Oxide's durable niche, tinygrad's right target and wrong method — plus the bezzle counter-thesis and a live co-design exhibit.
 - [Reading the board from the stands](https://magistr.me/blog/reading-the-board-from-the-stands.md): I ignored Nvidia for two years. Then two interviews flipped me — on Jensen as the best Wardley strategist alive, and on what I actually wanted while watching him.
+- [Nvidia, Oxide, and tinygrad through a Wardley lens — the long version](https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens.md): The long version: three AI-compute value chains mapped and ranked — Jensen the strategist, Oxide's durable niche, tinygrad's right target and wrong method — plus the bezzle counter-thesis and a live co-design exhibit.
 - [swamp-go-brr, the brain](https://magistr.me/blog/swamp-go-brr-the-brain.md): Why the autonomous agent loop inside the Firecracker cage is a deterministic state machine and not a swarm: how gobrr decomposes, schedules, and gates the work, plus what held and what bit me building it.
 - [Build the cage first](https://magistr.me/blog/build-the-cage-first.md): Why I built a Firecracker microVM extension before the autonomous agent loop that needs it: the lethal trifecta, the painful microVM build, and a loop that shipped a real swamp extension end to end.
 - [The shape of the decision](https://magistr.me/blog/the-shape-of-the-decision.md): Why the ABN affordability number isn't the real number for an expat in the Netherlands — and how I turned a fuzzy apartment-and-mortgage decision into a plan I can actually steer, with good-planning and Bovolon's four layers.

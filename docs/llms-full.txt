@@ -4,6 +4,91 @@
 
 ---
 
+# Reading the board from the stands
+
+- Date: 2026-07-09
+- Tags: wardley mapping, ai, nvidia, strategy
+- URL: https://magistr.me/blog/reading-the-board-from-the-stands/
+
+
+*Here are three compute strategies, and the thing I actually felt watching them.*
+
+For the whole LLM circus I did not pay much attention to Nvidia.
+
+I had reached no verdict — I just never looked. I am a maps person; I trust evolution; and evolution tells a familiar story: the chips commoditise, the value moves, whoever sits on top looking expensive gets eaten in the usual way. Nvidia looked expensive — seventy-point margins, a chart detached from physics — so I did not look closer. For two years I just did not look.
+
+I was wrong, and how I found out is the actual subject of this post.
+
+It took two interviews. Dwarkesh sat Jensen Huang down for an hour and forty. And separately I had been listening to Bryan Cantrill talk about Oxide, the way I always do. I went into the Oxide one expecting to enjoy it. I went into the Jensen one just *curious* — I did not expect a CEO at that altitude to sit down for a long-form podcast at all, and I wanted to hear how he would carry it. What I got was the thing a maps person least expects: the man I had ignored turned out to be the best practitioner of *my own framework* I have ever watched. He was never hidden — he is the most visible CEO in tech. I had simply never looked.
+
+Let me show you the board first. I cannot get to the honest part without it.
+
+## What flipped me
+
+Jensen has lines — "the input is electrons, the output is tokens, in the middle is Nvidia," "as much as necessary and as little as possible" — and they are good. The flip did not come from a line. The geometry came closer, and the geometry is damning: put Joaquín Peña Fernández's 2020 Nvidia map next to where the company sits in 2026 and *not a single component drifted left.* Eight of fourteen went right. CUDA did not move at all on the evolution axis while its install base grew roughly a hundredfold. He redefined the anchor set — the user need itself — which is the rarest move on any Wardley map, the kind you normally only see at the birth of an era. CUDA did not move, and that is the point: a moat that absorbs the drift of everything around it without drifting itself.
+
+That should have been enough to convince me. It was not quite enough. What actually flipped me was smaller and more human.
+
+It was Jensen explaining *how he works with people.* He explained that the hundred billion in purchase commitments is the visible part, and that the invisible part is that he sat the Micron CEO down years ago and walked him through the demand curve until Micron believed it enough to build the capacity. He described GTC as something far bigger than a keynote: the room where the downstream finally gets to see the upstream. "I bring them together." The moat runs deeper than the purchase orders. The moat is that he is the only actor with enough credibility to make an entire supply chain see the same future at the same time, and then commit to it years early.
+
+That is bigger than a chip strategy. That is a man making awareness flow up and down a chain on a planetary scale. And I sat there recognising it in my chest before I recognised it in my head.
+
+## The board, ranked
+
+The full analysis is a [companion piece](/blog/nvidia-oxide-tinygrad-wardley-lens/) — three value chains at three altitudes, mapped properly. Here is the short, opinionated version.
+
+**Jensen is the real strategist.** Everything below him in the stack — wafer, HBM, packaging, energy — is already industrialising under other people's steam, so his job is to *accelerate* the drift rather than to own the substrate. He drags CoWoS from specialty to mainstream by "swarming the daylights out of it" for two years. He re-genesises the system layer every single year so it never settles into Product, because Product is where the ASICs catch you. He refuses to become a hyperscaler — "the world has lots of clouds; if I didn't do it, somebody would" — and instead funds a whole neocloud tier so a Nvidia-native utility layer exists without Nvidia owning it. And he funds *every* foundation lab, because the model layer is Genesis and the correct move at Genesis is to buy the whole distribution of outcomes. Every one of those is textbook. He has been playing it in plain sight for six years, and I simply never looked.
+
+**Cantrill and Oxide are strategically real — but I only saw it through the map.** Oxide I had followed for a while — the culture and the ways of working are exactly my kind of thing. What I did not *get* was the strategy. A rack as one computer, their own firmware instead of the AMI BIOS that "somehow remained at the brainstem of server-side computing," their own switch, nine startups inside one startup — I could see the craft; the strategy I could not read. What changed that was Simon Wardley himself, live on one of the weekly Discord calls we had for a while, walking through why *even in a world where cloud and serverless completely won,* there is a durable niche for an on-prem integrated computer. Once I could see the niche on the map I could see the whole strategy: ride the commoditised AWS-shaped API at the top, buy commodity silicon at the bottom, and spend your entire custom-build budget on the wide shallow band in the middle that the server industry froze in place for twenty-five years out of pure margin inertia. That is a real play. I had the culture from day one; I needed the map for the strategy.
+
+**Hotz is not one.** I want to be careful, because the *target* is right and he saw it early. "Commoditize the petaflop" is a genuine Wardley sentence — he correctly spotted that CUDA's Turing-completeness is the load-bearing feature pinning it in Product, and that you attack it by building something deliberately less general. But the target found *him*: tinygrad began in 2020 as a toy, and the CUDA fight arrived through comma.ai needing to run openpilot fast on non-Nvidia silicon. He is a serial breaker of closed systems — iPhone, PS3 — and this was just the next one. The *method* is temperament rather than strategy: one $5.1M raise back in 2023, a computer business that does about $2M a year by his own account, hiring only through merged pull requests, the last mile of his sovereign AMD stack posted as a $1,000 bounty, and a "strategy" that at its most visible was publicly daring AMD's CEO to open-source her firmware. He saw the *what* with real clarity. The *how* is a brilliant man being interesting in public and hoping the flywheel starts from the margin. Sometimes it does start. It is not a plan.
+
+So the board resolves plainly: one master, one sound niche I had to be taught to see, and one lucky arrow aimed at the right wall. My own draft tried to sell it as three altitudes of the same clever move, and on that point my own draft was wrong.
+
+## What it actually did to me
+
+Here is the part I kept dodging while I built all those maps.
+
+Twice now I have listened to people describe how they work — once on an Oxide podcast, once hearing Jensen describe his supply chain — and both times the feeling that arrived went far past *that's clever.* The feeling said: **I want to work there. I want to work with those people.**
+
+The pull was the *people* rather than the technology, and the way they get to work together rather than the strategy as a chess problem I could admire from a distance — all of them seeing the same picture, up and down the chain, building the thing they can see. The maps were how I found the people; the destination, it turns out, was the people all along.
+
+And I do not think that is incidental. I have been about as close to the inside of this way of seeing as you can get without a badge — I had Simon Wardley himself on a weekly call. And the thing two interviews left me with, after all of it, is still, plainly, *I want in.*
+
+## The skill and the role
+
+Because here is the true sentence, and it took me this long and this much Nvidia to write it:
+
+I can draw a map. I can read a map. I can execute the gameplay off it — the whole loop, doctrine and all. And I have never once been given a role where that was the job.
+
+It happened once, and it happened by accident. I became product owner for DataZone, and I deployed it, because they needed it and I happened to be the person standing there who could see what it should be. For a little while I got to run the entire loop — see the board, make the call, ship the thing — and it worked. And then the accident closed and I went back to being the person who can read the map beautifully for other people to act on.
+
+I offer that sentence without modesty and without complaint. It is the most accurate sentence I can write about my own career, and it took watching Jensen do at planetary scale the exact thing I can only do on a map or a canvas for it to surface. The framework is the part we share — I have the framework. The distance is that he got a floor and a room full of people, and I got a framework and a really good vantage point in the stands.
+
+## The board and the floor
+
+The market questions are honest uncertainties — *will tinygrad evict CUDA,* or *whether the whole demand signal Jensen is coordinating around is partly a bezzle* — and I think there is a real case that it is; that case is in the companion. I have map-shaped opinions on both. But this essay ends elsewhere, because neither question is the thing this piece is actually about.
+
+The uncertainty is the gap between reading the board and standing on the floor. What Jensen has — the thing I have been watching from the stands — is, finally, a room full of people who let him play it, and whom he plays *with*; the strategy is the lesser part of it. That is the thing I felt twice and could not name until now. The feeling has a name at last: a longing for the room, with no envy of the man in it.
+
+---
+
+## Further reading
+
+- Dwarkesh Patel, [Jensen Huang interview transcript](https://www.dwarkesh.com/p/jensen-huang).
+- Bryan Cantrill on [Software Engineering Radio #709 — the Data Center Control Plane](https://se-radio.net/2026/02/se-radio-709-bryan-cantrill-on-the-data-center-control-plane/).
+- Oxide Computer, [The Cloud Computer](https://oxide.computer/blog/the-cloud-computer).
+- George Hotz, [Five years of tinygrad](https://geohot.github.io/blog/jekyll/update/2025/12/29/five-years-of-tinygrad.html).
+- Joaquín Peña Fernández, [A Wardley map of the company NVIDIA 2020](https://joapen.com/blog/2020/09/07/a-wardley-map-of-the-company-nvidia-2020) (CC BY-SA 4.0).
+- The long version: [*Nvidia, Oxide, and tinygrad through a Wardley lens*](/blog/nvidia-oxide-tinygrad-wardley-lens/) (companion analysis).
+
+---
+
+*Edited with AI and [swamp](https://github.com/swamp-club/swamp).*
+
+
+---
+
 # Nvidia, Oxide, and tinygrad through a Wardley lens — the long version
 
 - Date: 2026-07-09
@@ -204,86 +289,9 @@ And a cross-cutting risk for both challengers: each bets its downstream will acc
 - Michael Burry, [The Heretic's Guide to AI's Stars Part III — Tracepalooza & the Bezzle](https://michaeljburry.substack.com/p/the-heretics-guide-to-ais-stars-part), *Cassandra Unchained* — the financing / bezzle counter-thesis.
 - SemiAnalysis, [InferenceX™](https://github.com/SemiAnalysisAI/InferenceX) — the June 2026 GB200 NVL72 serving-cost measurement (2.5× in <70 days on the Kimi architecture, via a CuTe-DSL NVFP4 MoE kernel rewrite).
 
-
 ---
 
-# Reading the board from the stands
-
-- Date: 2026-07-09
-- Tags: wardley mapping, ai, nvidia, strategy
-- URL: https://magistr.me/blog/reading-the-board-from-the-stands/
-
-
-*Here are three compute strategies, and the thing I actually felt watching them.*
-
-For the whole LLM circus I did not pay much attention to Nvidia.
-
-I had reached no verdict — I just never looked. I am a maps person; I trust evolution; and evolution tells a familiar story: the chips commoditise, the value moves, whoever sits on top looking expensive gets eaten in the usual way. Nvidia looked expensive — seventy-point margins, a chart detached from physics — so I did not look closer. For two years I just did not look.
-
-I was wrong, and how I found out is the actual subject of this post.
-
-It took two interviews. Dwarkesh sat Jensen Huang down for an hour and forty. And separately I had been listening to Bryan Cantrill talk about Oxide, the way I always do. I went into the Oxide one expecting to enjoy it. I went into the Jensen one just *curious* — I did not expect a CEO at that altitude to sit down for a long-form podcast at all, and I wanted to hear how he would carry it. What I got was the thing a maps person least expects: the man I had ignored turned out to be the best practitioner of *my own framework* I have ever watched. He was never hidden — he is the most visible CEO in tech. I had simply never looked.
-
-Let me show you the board first. I cannot get to the honest part without it.
-
-## What flipped me
-
-Jensen has lines — "the input is electrons, the output is tokens, in the middle is Nvidia," "as much as necessary and as little as possible" — and they are good. The flip did not come from a line. The geometry came closer, and the geometry is damning: put Joaquín Peña Fernández's 2020 Nvidia map next to where the company sits in 2026 and *not a single component drifted left.* Eight of fourteen went right. CUDA did not move at all on the evolution axis while its install base grew roughly a hundredfold. He redefined the anchor set — the user need itself — which is the rarest move on any Wardley map, the kind you normally only see at the birth of an era. CUDA did not move, and that is the point: a moat that absorbs the drift of everything around it without drifting itself.
-
-That should have been enough to convince me. It was not quite enough. What actually flipped me was smaller and more human.
-
-It was Jensen explaining *how he works with people.* He explained that the hundred billion in purchase commitments is the visible part, and that the invisible part is that he sat the Micron CEO down years ago and walked him through the demand curve until Micron believed it enough to build the capacity. He described GTC as something far bigger than a keynote: the room where the downstream finally gets to see the upstream. "I bring them together." The moat runs deeper than the purchase orders. The moat is that he is the only actor with enough credibility to make an entire supply chain see the same future at the same time, and then commit to it years early.
-
-That is bigger than a chip strategy. That is a man making awareness flow up and down a chain on a planetary scale. And I sat there recognising it in my chest before I recognised it in my head.
-
-## The board, ranked
-
-The full analysis is a [companion piece](/blog/nvidia-oxide-tinygrad-wardley-lens/) — three value chains at three altitudes, mapped properly. Here is the short, opinionated version.
-
-**Jensen is the real strategist.** Everything below him in the stack — wafer, HBM, packaging, energy — is already industrialising under other people's steam, so his job is to *accelerate* the drift rather than to own the substrate. He drags CoWoS from specialty to mainstream by "swarming the daylights out of it" for two years. He re-genesises the system layer every single year so it never settles into Product, because Product is where the ASICs catch you. He refuses to become a hyperscaler — "the world has lots of clouds; if I didn't do it, somebody would" — and instead funds a whole neocloud tier so a Nvidia-native utility layer exists without Nvidia owning it. And he funds *every* foundation lab, because the model layer is Genesis and the correct move at Genesis is to buy the whole distribution of outcomes. Every one of those is textbook. He has been playing it in plain sight for six years, and I simply never looked.
-
-**Cantrill and Oxide are strategically real — but I only saw it through the map.** Oxide I had followed for a while — the culture and the ways of working are exactly my kind of thing. What I did not *get* was the strategy. A rack as one computer, their own firmware instead of the AMI BIOS that "somehow remained at the brainstem of server-side computing," their own switch, nine startups inside one startup — I could see the craft; the strategy I could not read. What changed that was Simon Wardley himself, live on one of the weekly Discord calls we had for a while, walking through why *even in a world where cloud and serverless completely won,* there is a durable niche for an on-prem integrated computer. Once I could see the niche on the map I could see the whole strategy: ride the commoditised AWS-shaped API at the top, buy commodity silicon at the bottom, and spend your entire custom-build budget on the wide shallow band in the middle that the server industry froze in place for twenty-five years out of pure margin inertia. That is a real play. I had the culture from day one; I needed the map for the strategy.
-
-**Hotz is not one.** I want to be careful, because the *target* is right and he saw it early. "Commoditize the petaflop" is a genuine Wardley sentence — he correctly spotted that CUDA's Turing-completeness is the load-bearing feature pinning it in Product, and that you attack it by building something deliberately less general. But the target found *him*: tinygrad began in 2020 as a toy, and the CUDA fight arrived through comma.ai needing to run openpilot fast on non-Nvidia silicon. He is a serial breaker of closed systems — iPhone, PS3 — and this was just the next one. The *method* is temperament rather than strategy: one $5.1M raise back in 2023, a computer business that does about $2M a year by his own account, hiring only through merged pull requests, the last mile of his sovereign AMD stack posted as a $1,000 bounty, and a "strategy" that at its most visible was publicly daring AMD's CEO to open-source her firmware. He saw the *what* with real clarity. The *how* is a brilliant man being interesting in public and hoping the flywheel starts from the margin. Sometimes it does start. It is not a plan.
-
-So the board resolves plainly: one master, one sound niche I had to be taught to see, and one lucky arrow aimed at the right wall. My own draft tried to sell it as three altitudes of the same clever move, and on that point my own draft was wrong.
-
-## What it actually did to me
-
-Here is the part I kept dodging while I built all those maps.
-
-Twice now I have listened to people describe how they work — once on an Oxide podcast, once hearing Jensen describe his supply chain — and both times the feeling that arrived went far past *that's clever.* The feeling said: **I want to work there. I want to work with those people.**
-
-The pull was the *people* rather than the technology, and the way they get to work together rather than the strategy as a chess problem I could admire from a distance — all of them seeing the same picture, up and down the chain, building the thing they can see. The maps were how I found the people; the destination, it turns out, was the people all along.
-
-And I do not think that is incidental. I have been about as close to the inside of this way of seeing as you can get without a badge — I had Simon Wardley himself on a weekly call. And the thing two interviews left me with, after all of it, is still, plainly, *I want in.*
-
-## The skill and the role
-
-Because here is the true sentence, and it took me this long and this much Nvidia to write it:
-
-I can draw a map. I can read a map. I can execute the gameplay off it — the whole loop, doctrine and all. And I have never once been given a role where that was the job.
-
-It happened once, and it happened by accident. I became product owner for DataZone, and I deployed it, because they needed it and I happened to be the person standing there who could see what it should be. For a little while I got to run the entire loop — see the board, make the call, ship the thing — and it worked. And then the accident closed and I went back to being the person who can read the map beautifully for other people to act on.
-
-I offer that sentence without modesty and without complaint. It is the most accurate sentence I can write about my own career, and it took watching Jensen do at planetary scale the exact thing I can only do on a map or a canvas for it to surface. The framework is the part we share — I have the framework. The distance is that he got a floor and a room full of people, and I got a framework and a really good vantage point in the stands.
-
-## The board and the floor
-
-The market questions are honest uncertainties — *will tinygrad evict CUDA,* or *whether the whole demand signal Jensen is coordinating around is partly a bezzle* — and I think there is a real case that it is; that case is in the companion. I have map-shaped opinions on both. But this essay ends elsewhere, because neither question is the thing this piece is actually about.
-
-The uncertainty is the gap between reading the board and standing on the floor. What Jensen has — the thing I have been watching from the stands — is, finally, a room full of people who let him play it, and whom he plays *with*; the strategy is the lesser part of it. That is the thing I felt twice and could not name until now. The feeling has a name at last: a longing for the room, with no envy of the man in it.
-
----
-
-## Further reading
-
-- Dwarkesh Patel, [Jensen Huang interview transcript](https://www.dwarkesh.com/p/jensen-huang).
-- Bryan Cantrill on [Software Engineering Radio #709 — the Data Center Control Plane](https://se-radio.net/2026/02/se-radio-709-bryan-cantrill-on-the-data-center-control-plane/).
-- Oxide Computer, [The Cloud Computer](https://oxide.computer/blog/the-cloud-computer).
-- George Hotz, [Five years of tinygrad](https://geohot.github.io/blog/jekyll/update/2025/12/29/five-years-of-tinygrad.html).
-- Joaquín Peña Fernández, [A Wardley map of the company NVIDIA 2020](https://joapen.com/blog/2020/09/07/a-wardley-map-of-the-company-nvidia-2020) (CC BY-SA 4.0).
-- The long version: [*Nvidia, Oxide, and tinygrad through a Wardley lens*](/blog/nvidia-oxide-tinygrad-wardley-lens/) (companion analysis).
+*Analyzed and edited with AI and [swamp](https://github.com/swamp-club/swamp).*
 
 
 ---

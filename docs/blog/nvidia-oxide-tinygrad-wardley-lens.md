@@ -191,3 +191,7 @@ And a cross-cutting risk for both challengers: each bets its downstream will acc
 - Joaquín Peña Fernández, [A Wardley map of the company NVIDIA 2020](https://joapen.com/blog/2020/09/07/a-wardley-map-of-the-company-nvidia-2020) (CC BY-SA 4.0).
 - Michael Burry, [The Heretic's Guide to AI's Stars Part III — Tracepalooza & the Bezzle](https://michaeljburry.substack.com/p/the-heretics-guide-to-ais-stars-part), *Cassandra Unchained* — the financing / bezzle counter-thesis.
 - SemiAnalysis, [InferenceX™](https://github.com/SemiAnalysisAI/InferenceX) — the June 2026 GB200 NVL72 serving-cost measurement (2.5× in <70 days on the Kimi architecture, via a CuTe-DSL NVFP4 MoE kernel rewrite).
+
+---
+
+*Analyzed and edited with AI and [swamp](https://github.com/swamp-club/swamp).*

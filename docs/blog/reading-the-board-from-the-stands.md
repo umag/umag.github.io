@@ -69,3 +69,7 @@ The uncertainty is the gap between reading the board and standing on the floor. 
 - George Hotz, [Five years of tinygrad](https://geohot.github.io/blog/jekyll/update/2025/12/29/five-years-of-tinygrad.html).
 - Joaquín Peña Fernández, [A Wardley map of the company NVIDIA 2020](https://joapen.com/blog/2020/09/07/a-wardley-map-of-the-company-nvidia-2020) (CC BY-SA 4.0).
 - The long version: [*Nvidia, Oxide, and tinygrad through a Wardley lens*](/blog/nvidia-oxide-tinygrad-wardley-lens/) (companion analysis).
+
+---
+
+*Edited with AI and [swamp](https://github.com/swamp-club/swamp).*

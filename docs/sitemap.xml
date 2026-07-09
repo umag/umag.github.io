@@ -2,17 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://magistr.me/tags/ai/</loc>
+    <lastmod>2026-07-09T16:50:42+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/blog/</loc>
+    <lastmod>2026-07-09T16:50:42+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/</loc>
+    <lastmod>2026-07-09T16:50:42+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/nvidia/</loc>
+    <lastmod>2026-07-09T16:50:42+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens/</loc>
+    <lastmod>2026-07-09T16:50:42+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/oxide/</loc>
+    <lastmod>2026-07-09T16:50:42+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/strategy/</loc>
+    <lastmod>2026-07-09T16:50:42+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/</loc>
+    <lastmod>2026-07-09T16:50:42+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/tinygrad/</loc>
+    <lastmod>2026-07-09T16:50:42+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/tags/wardley-mapping/</loc>
+    <lastmod>2026-07-09T16:50:42+00:00</lastmod>
+    
+    
+  </url><url>
+    <loc>https://magistr.me/blog/reading-the-board-from-the-stands/</loc>
+    <lastmod>2026-07-09T16:08:42+00:00</lastmod>
+    
+    
+  </url><url>
     <loc>https://magistr.me/tags/agents/</loc>
     <lastmod>2026-06-19T21:00:55+00:00</lastmod>
     
     
   </url><url>
     <loc>https://magistr.me/tags/automation/</loc>
-    <lastmod>2026-06-19T21:00:55+00:00</lastmod>
-    
-    
-  </url><url>
-    <loc>https://magistr.me/blog/</loc>
     <lastmod>2026-06-19T21:00:55+00:00</lastmod>
     
     
@@ -27,22 +77,12 @@
     
     
   </url><url>
-    <loc>https://magistr.me/</loc>
-    <lastmod>2026-06-19T21:00:55+00:00</lastmod>
-    
-    
-  </url><url>
     <loc>https://magistr.me/tags/swamp/</loc>
     <lastmod>2026-06-19T21:00:55+00:00</lastmod>
     
     
   </url><url>
     <loc>https://magistr.me/blog/swamp-go-brr-the-brain/</loc>
-    <lastmod>2026-06-19T21:00:55+00:00</lastmod>
-    
-    
-  </url><url>
-    <loc>https://magistr.me/tags/</loc>
     <lastmod>2026-06-19T21:00:55+00:00</lastmod>
     
     
@@ -197,11 +237,6 @@
     
     
   </url><url>
-    <loc>https://magistr.me/tags/oxide/</loc>
-    <lastmod>2026-02-14T12:27:00+01:00</lastmod>
-    
-    
-  </url><url>
     <loc>https://magistr.me/tags/si/</loc>
     <lastmod>2026-02-14T12:27:00+01:00</lastmod>
     
@@ -217,22 +252,12 @@
     
     
   </url><url>
-    <loc>https://magistr.me/tags/ai/</loc>
-    <lastmod>2025-10-09T19:40:14+02:00</lastmod>
-    
-    
-  </url><url>
     <loc>https://magistr.me/blog/the-pain-driven-workflow/</loc>
     <lastmod>2025-10-09T19:40:14+02:00</lastmod>
     
     
   </url><url>
     <loc>https://magistr.me/blog/a-dream-of-ai-dlc/</loc>
-    <lastmod>2025-10-01T21:48:14+02:00</lastmod>
-    
-    
-  </url><url>
-    <loc>https://magistr.me/tags/wardley-mapping/</loc>
     <lastmod>2025-10-01T21:48:14+02:00</lastmod>
     
     
@@ -291,6 +316,16 @@
     
     
     
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens.md</loc>
+    <lastmod>2026-07-09T16:50:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://magistr.me/blog/reading-the-board-from-the-stands.md</loc>
+    <lastmod>2026-07-09T16:08:42+00:00</lastmod>
   </url>
   
   <url>

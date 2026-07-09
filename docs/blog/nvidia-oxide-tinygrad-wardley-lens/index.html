@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="generator" content="Hugo 0.121.1">
+	
+	<link rel="icon" href="/images/logo.png">
+	
+	<title>Nvidia, Oxide, and tinygrad through a Wardley lens — the long version | Magistr and Maps</title>
+	<meta name="description" content="The long version: three AI-compute value chains mapped and ranked — Jensen the strategist, Oxide&#39;s durable niche, tinygrad&#39;s right target and wrong method — plus the bezzle counter-thesis and a live co-design exhibit.">
+	<meta name="keywords" content="wardley mapping, ai, nvidia, oxide, tinygrad, strategy">
+	
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+	<link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt">
+
+	
+	<link rel="canonical" href="https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens/">
+	
+
+	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+	<link rel="preconnect" href="//www.google-analytics.com">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	
+		
+		
+	
+	
+	<meta property="og:locale" content="en_US">
+	<meta property="og:site_name" content="Magistr and Maps">
+	<meta property="og:title" content="Nvidia, Oxide, and tinygrad through a Wardley lens — the long version" />
+<meta property="og:description" content="The long version: three AI-compute value chains mapped and ranked — Jensen the strategist, Oxide&#39;s durable niche, tinygrad&#39;s right target and wrong method — plus the bezzle counter-thesis and a live co-design exhibit." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2026-07-09T16:50:42+00:00" />
+<meta property="article:modified_time" content="2026-07-09T16:50:42+00:00" />
+
+
+	<meta property="og:image" content="https://magistr.me/images/blog/nvidia_oxide_tinygrad_wardley.png">
+	<link rel="me" href="https://bsky.app/profile/magistr.me">
+	<meta http-equiv="last-modified" content="2026-07-09T16:50:42&#43;00:00">
+	<meta property="article:tag" content="wardley mapping">
+	<meta property="article:tag" content="ai">
+	<meta property="article:tag" content="nvidia">
+	<meta property="article:tag" content="oxide">
+	<meta property="article:tag" content="tinygrad">
+	<meta property="article:tag" content="strategy">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+	
+	
+	
+	<link rel="stylesheet" href="https://magistr.me/css/style.min.0b8af6cefc5fb2bf4cf841dfb6904d7935744516dbe24e851253e57a88a7bca1.css" integrity="sha256-C4r2zvxfsr9M&#43;EHftpBNeTV0RRbb4k6FElPleoinvKE=">
+
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	<script type="application/ld+json">
+	{
+		"@context"	:	"https://schema.org",
+		"@type"		:	"BlogPosting",
+		"@id"		:	"https:\/\/magistr.me\/blog\/nvidia-oxide-tinygrad-wardley-lens\/",
+		"mainEntityOfPage"	:	{
+			"@type"	: 	"WebPage",
+			"@id"	:	"https:\/\/magistr.me\/blog\/nvidia-oxide-tinygrad-wardley-lens\/"
+		},
+		"name"		: 	"Nvidia, Oxide, and tinygrad through a Wardley lens — the long version",
+		
+		"discussionUrl" : "https:\/\/magistr.me\/blog\/nvidia-oxide-tinygrad-wardley-lens\/#comments",
+		
+		"headline"	:	"Nvidia, Oxide, and tinygrad through a Wardley lens — the long version",
+		"description"	: "The long version: three AI-compute value chains mapped and ranked — Jensen the strategist, Oxide's durable niche, tinygrad's right target and wrong method — plus the bezzle counter-thesis and a live co-design exhibit.",
+		"abstract"	:	"The long version: three AI-compute value chains mapped and ranked — Jensen the strategist, Oxide's durable niche, tinygrad's right target and wrong method — plus the bezzle counter-thesis and a live co-design exhibit.",
+		"inLanguage"	: "en-US",
+		"isFamilyFriendly"	: 	"true",
+		"author"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"creator"		: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"accountablePerson"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightHolder"	: {
+			"@type"	: "Person",
+			"name"	: "Magistr",
+			"url"	: "https:\/\/magistr.me\/about"
+		},
+		"copyrightYear"	: "2026",
+		"datePublished"	: "2026-07-09",
+		"dateCreated"	: "2026-07-09",
+		"dateModified"  : "2026-07-09",
+		"publisher"	:	{
+			"@type" : "Organization",
+			"name":	"Magistr and Maps",
+			"url": "https:\/\/magistr.me\/",
+			"logo": {
+				"@type"	:	"ImageObject",
+				"contentUrl"	:	"https:\/\/magistr.me\/images\/logo.png",
+				"url"	:	"https:\/\/magistr.me\/images\/logo.png"
+			}
+		},
+		"url"	:	"https:\/\/magistr.me\/blog\/nvidia-oxide-tinygrad-wardley-lens\/",
+		"wordCount"	:	"6541",
+		"image"	:	"https:\/\/magistr.me\/images\/blog\/nvidia_oxide_tinygrad_wardley.png",
+		"keywords"	:	"wardley mapping,ai,nvidia,oxide,tinygrad,strategy"
+	}
+	</script>
+	
+	
+
+	
+
+	
+</head>
+<body><header class="navbar-light bg-white fixed-top mediumnavigation">
+    <div class="container">
+        
+        <div class="row justify-content-center align-items-center brandrow">
+            <div class="col-lg-4 col-md-4 col-xs-12 d-none d-lg-block d-xl-block d-xll-block">
+                
+                
+                
+                
+                
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-12 text-start text-sm-center logoarea">
+                <a class="navbar-brand" href="https://magistr.me//">
+                    
+                    <img src="/images/logo.png" alt="logo">
+                    
+                </a>        
+            </div>
+            <div class="col-lg-4 col-md-4 mr-auto col-xs-12 text-end searcharea d-none d-lg-block d-xl-block d-xll-block">
+                <form role="search" method="get" class="search-form" action="/search/">
+                    <input type="search" class="search-field" placeholder="Search..." value="" name="q" title="Search for:">
+                    <button type="submit" class="search-submit">
+                        <i class="fa fa-search"></i>   
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+
+        <div class="navarea">
+            <nav class="navbar navbar-expand-lg">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMediumish" aria-controls="navbarMediumish" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbarMediumish" class="collapse navbar-collapse">
+                    
+                    <ul class="navbar-nav ml-auto col-md-12 justify-content-center">
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/blog/">Thoughts</a>
+                        </li>
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/me/me">About Me</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+        <div class="site-content">   
+            <div class="container">
+<div class="mainheading">
+    <h1 class="sitetitle">Magistr and Maps</h1>
+    <p class="lead">
+         Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.
+    </p>
+</div><div class="main-content">
+        
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset">
+    <p>Share</p>
+    <ul class="shareitnow">
+        <li class="ml-1 mr-1">
+            <a aria-label="Share on Bluesky" target="_blank" href="https://bsky.app/intent/compose?text=Nvidia%2c%20Oxide%2c%20and%20tinygrad%20through%20a%20Wardley%20lens%20%e2%80%94%20the%20long%20version%20https%3a%2f%2fmagistr.me%2fblog%2fnvidia-oxide-tinygrad-wardley-lens%2f" onclick="window.open(this.href, 'bsky-share', 'width=550,height=435');return false;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 600 530" fill="currentColor"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.72 40.255-67.24 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg>
+            </a>
+        </li>
+        <li>
+            <a aria-label="Share on LinkedIn" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fmagistr.me%2fblog%2fnvidia-oxide-tinygrad-wardley-lens%2f" onclick="window.open(this.href, 'linkedin-share', 'width=550,height=435');return false;">
+                <i class="fa fa-linkedin"></i>
+            </a>
+        </li>
+    </ul>
+
+    
+        <div class="sep">
+        </div>
+        <ul>
+            <li>
+                <a class="small smoothscroll" href="#disqus_thread" aria-label="Click to scroll to the top"></a>
+            </li>
+        </ul>
+    
+</div>
+</div>
+                                
+                <div class="col-md-9 flex-first flex-md-unordered">
+                    <div class="mainheading">
+                        	
+                        
+                        
+                                                
+                        
+                        <h1 class="posttitle">Nvidia, Oxide, and tinygrad through a Wardley lens — the long version</h1>
+                        
+                    </div>
+
+                    
+                    
+                        <img class="featured-image img-fluid" src="/images/blog/nvidia_oxide_tinygrad_wardley.png" alt="Featured image for Nvidia, Oxide, and tinygrad through a Wardley lens — the long version">
+                    
+                    
+
+                    
+                    <div class="article-post">
+                        
+                        <div id="toc">
+                            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-what-jensen-actually-said">1. What Jensen actually said</a></li>
+    <li><a href="#2-the-map-quickly">2. The map, quickly</a></li>
+    <li><a href="#3-nvidia-mapped--and-the-six-year-drift-that-finally-convinced-me">3. Nvidia, mapped — and the six-year drift that finally convinced me</a></li>
+    <li><a href="#4-how-jensen-plays-it">4. How Jensen plays it</a></li>
+    <li><a href="#5-oxide-mapped">5. Oxide, mapped</a></li>
+    <li><a href="#6-how-cantrill-plays-it">6. How Cantrill plays it</a></li>
+    <li><a href="#7-tinygrad-mapped">7. tinygrad, mapped</a></li>
+    <li><a href="#8-how-hotz-plays-it--and-why-i-dont-buy-it-as-strategy">8. How Hotz plays it — and why I don&rsquo;t buy it as strategy</a></li>
+    <li><a href="#9-where-the-three-converge-and-where-i-think-they-dont">9. Where the three converge, and where I think they don&rsquo;t</a></li>
+    <li><a href="#10-what-could-break-each-thesis">10. What could break each thesis</a></li>
+    <li><a href="#further-reading">Further reading</a></li>
+  </ul>
+</nav>
+                        </div>
+                        
+                        <p><em>Companion to <a href="/blog/reading-the-board-from-the-stands/">&ldquo;Reading the board from the stands&rdquo;</a>. The short essay is about what it did to me. This is the working-out: three value chains at three altitudes — the maps and my thoughts.</em></p>
+<p><em>Built from the Dwarkesh–Jensen Huang interview, Bryan Cantrill on Oxide, and George Hotz&rsquo;s tinygrad writing. Sources at the bottom.</em></p>
+<hr>
+<h2 id="1-what-jensen-actually-said">1. What Jensen actually said</h2>
+<p><a href="https://www.dwarkesh.com/p/jensen-huang">The interview</a> runs an hour and forty, and a big chunk of it is the China export-control fight. That fight is strategy too — politics is one of the planes strategy is played on, and strategy is always played on several planes at once, which is where the five-layer cake comes from naturally. I take the China fight as a sixth claim at the end; the first five interlock tightly, and every one of them lands cleanly on a Wardley concept — which is exactly why I couldn&rsquo;t stop mapping it.</p>
+<p><strong>One — Nvidia is an electrons-to-tokens transformation company.</strong> Dwarkesh opens by needling him: Nvidia is basically a software company, it ships a GDS2 file to TSMC, SK Hynix and Micron make the HBM, the Taiwanese ODMs bolt the racks together. Jensen doesn&rsquo;t flinch. &ldquo;The input is electrons, the output is tokens. In the middle is Nvidia. Our job is to do as much as necessary and as little as possible.&rdquo; That last clause reads like humility and works like doctrine — the north star of everything else he says.</p>
+<p><strong>Two — AI is a five-layer cake and he wants to win every layer.</strong> Energy, then chips, then systems and networking, then models, then applications. When Dwarkesh tries to argue that conceding China at the chip layer is a fair price for protecting the model layer, Jensen&rsquo;s rebuttal is essentially that you&rsquo;re proposing one layer of the stack surrender its second-largest market to protect a different layer, which is strategic illiteracy. The five-layer frame is how he organises nearly every answer.</p>
+<p><strong>Three — the supply chain is a moat, but only because it&rsquo;s an <em>information-coordination</em> moat.</strong> This is the one that got me, so I&rsquo;ll come back to it properly. The visible number is ~$100B in purchase commitments on the filings, with SemiAnalysis estimating it trends toward $250B. But the interesting part is that most of the upstream investment is <em>implicit</em>: the Micron CEO doubled down on HBM because Jensen sat him down years ago and walked him through the demand curve until he believed it. GTC is cast as the industry&rsquo;s coordination forum — &ldquo;I bring them together so the downstream can see the upstream.&rdquo; The moat runs deeper than the purchase orders: only Nvidia has forecasts credible enough to make the upstream commit capacity years in advance.</p>
+<p><strong>Four — the bottlenecks aren&rsquo;t the ones people name.</strong> His sharpest &ldquo;no&rdquo; comes when Dwarkesh presses on lithography. Doubling revenue is not bottlenecked by EUV machines, because &ldquo;none of the bottlenecks last longer than a couple of years,&rdquo; and meanwhile the Hopper→Blackwell jump is 30–50× on energy efficiency through co-design, not transistor scaling. The binding constraints are downstream — energy, plumbers, policy. That&rsquo;s the five-layer cake talking again: lower layers can be traded off against each other if the layer above is programmable enough to exploit the substitution.</p>
+<p><strong>Five — don&rsquo;t become a hyperscaler; nurture one instead.</strong> The most loaded answer in the interview. Asked why Nvidia, sitting on that cash pile, doesn&rsquo;t just vertically integrate into cloud, he&rsquo;s doctrinal: &ldquo;We should do as much as needed, as little as possible. The world has lots of clouds. If I didn&rsquo;t do it, somebody would show up.&rdquo; He contrasts it with CUDA, NVLink, the CUDA-X libraries — things where, if Nvidia hadn&rsquo;t done them, &ldquo;nobody else would have.&rdquo; The doctrine underneath: do the thing whose <em>absence</em> leaves a vacuum; for everything else, build a market and ride it.</p>
+<p>The China section is the sixth claim, played on the political plane: <strong>conceding a market is itself a cost</strong>, because it accelerates a rival stack (Huawei + SMIC + CANN + domestic open models) that will eventually contest the other four layers too. I think that&rsquo;s the correct Wardley instinct even if neither he nor Dwarkesh lands a knockout on it.</p>
+<h2 id="2-the-map-quickly">2. The map, quickly</h2>
+<p>For anyone reading this cold: a Wardley map plots a value chain on two axes. The y-axis is visibility to the user — the anchor (the user need) sits at the top, the invisible infrastructure sinks to the bottom. The x-axis is evolution, in four bands: Genesis (novel, uncertain), Custom Built (bespoke, expensive), Product (standardised, many vendors), Commodity/Utility (invisible until it fails, priced like electricity). Everything drifts left-to-right over time under competitive pressure, and almost all the strategic interest is in <em>what&rsquo;s moving and what moves with it.</em></p>
+<p>Three climatic patterns matter for this. <em>Co-evolution:</em> a component moving right enables new practice above it (commodity compute enabled DevOps). <em>Inertia:</em> incumbents resist a component industrialising when their margin depends on it staying custom (the kit-car enterprise server is the textbook case). <em>Industrialisation-as-attack:</em> the strongest move on the board is to take something competitors treat as Custom and force it to Commodity, collapsing their margin while you sit on the utility substrate — AWS in 2006 is the canonical one.</p>
+<p>That&rsquo;s the whole toolkit. With it, all three strategies snap into focus.</p>
+<h2 id="3-nvidia-mapped--and-the-six-year-drift-that-finally-convinced-me">3. Nvidia, mapped — and the six-year drift that finally convinced me</h2>
+<p>The anchor on Nvidia&rsquo;s map is something like &ldquo;run AI workloads that generate economically valuable tokens.&rdquo; Under it, in descending visibility: models and applications; the training/inference frameworks (PyTorch, vLLM, SGLang, Triton, verl); the CUDA programming model and CUDA-X libraries; the systems layer (NVLink, the NVL72 rack, Spectrum-X); the silicon (Blackwell, Vera Rubin, Feynman); packaging (CoWoS); memory (HBM); the wafer (TSMC N3/N2); EUV (ASML); and at the very bottom, energy and physical plant.</p>
+<p>Across evolution:</p>
+<ul>
+<li><strong>Energy, wafer, CPU, DRAM, Ethernet</strong> are firmly Commodity/Utility. Jensen treats them as climate rather than strategy — if China has abundant energy, that substitutes for leading-edge chips; if the US lacks it, architectural efficiency has to compensate.</li>
+<li><strong>EUV and HBM</strong> are Product drifting to Commodity, which is exactly why he&rsquo;s so dismissive of EUV as a long-term bottleneck: &ldquo;Once you can build one, you can build ten, and once you can build ten, you can build a million.&rdquo; That&rsquo;s component industrialisation on a 2–3 year cycle, described from the inside.</li>
+<li><strong>CoWoS and silicon photonics</strong> are late-Custom / early-Product, and Nvidia is <em>dragging them rightward on purpose</em> — &ldquo;swarming the daylights out of it&rdquo; for two years. The Lumentum/Coherent/COUPE investments are doing the same to silicon photonics right now: forcing a Genesis-ish component toward Product faster than organic demand would.</li>
+<li><strong>The systems layer (NVL72, NVLink, Spectrum-X)</strong> is Custom Built at the frontier with a Product tail. Every generation re-custom-builds the system while the previous one slides right. &ldquo;You can count on us every single year&rdquo; is literally a commitment to re-genesise this layer annually.</li>
+<li><strong>CUDA and CUDA-X</strong> are the centrepiece. Product in install-base terms (hundreds of millions of GPUs, every cloud, every framework), but Custom in their ability to absorb new workloads. That deliberate straddle is what he means by &ldquo;programmability&rdquo; — CUDA gets to be both the stable substrate and the innovation surface at once.</li>
+<li><strong>Models, frameworks, applications</strong> are in every evolution stage at once, which is why he&rsquo;s happy to watch Triton, vLLM, SGLang, verl, and NeMo RL all proliferate. They&rsquo;re the Cambrian explosion above his utility layer.</li>
+</ul>
+<p>So Nvidia&rsquo;s revenue engine sits in a narrow vertical corridor — silicon, packaging, systems, CUDA — that it keeps pumping <em>leftward</em> back into Custom every year, while shoving everything below it <em>rightward</em> toward Commodity as fast as the supply chain can absorb the capital. That&rsquo;s why his forecasting meetings with Micron and TSMC matter more than his keynotes: he&rsquo;s the only actor with the demand-signal credibility to pull those lower components right.</p>
+<p>And here&rsquo;s the part that broke my dismissal. Take Joaquín Peña Fernández&rsquo;s 2020 Nvidia map — the only substantive public Nvidia map there is — and plot its fourteen components against where the company sits in 2026. <strong>Not a single one drifted left.</strong> Eight of fourteen went decisively right. Three got absorbed or went extinct (&ldquo;general purpose computing is over&rdquo;). Two stayed static. One — AI itself — got <em>promoted from a component to the anchor.</em> And CUDA didn&rsquo;t move at all on the evolution axis while its install base grew roughly a hundredfold.</p>
+<p>Most companies show at least one regression on a six-year window — a bet that went sideways, a component they tried and failed to push. Nvidia has none. That is the climatic pattern &ldquo;everything evolves&rdquo; being ridden by someone who refuses to fight it — a cleaner signature than luck or a bull market could ever leave. CUDA didn&rsquo;t move, and that is the point — a moat that absorbs the drift of everything around it without drifting itself. The rarest thing on the whole drift map is that the <em>anchor set itself</em> changed: 2020&rsquo;s anchors were device categories (Autos, Video games, Mobile), 2026&rsquo;s are user states (augmented worker, sovereign capability, physical autonomy). Redefining what the chain is <em>for</em> is the move you normally only see at the birth of an era. He did it deliberately, and it&rsquo;s the most consequential thing on the page.</p>
+<p><img src="/images/blog/nvidia_drift_2020_2026.png" alt="NVIDIA 2020 → 2026 drift: fourteen of Joaquín Peña Fernández&rsquo;s 2020 components plotted against their 2026 positions — not one drifted left"></p>
+<p>I had been reading evolution for years and never bothered to map the most-mapped company in tech. I just never looked. That is the kind of miss worth admitting plainly.</p>
+<h2 id="4-how-jensen-plays-it">4. How Jensen plays it</h2>
+<p><strong>Industrialise the layer below you so it can&rsquo;t bottleneck the layer above.</strong> CoWoS is the purest example — two years of swarming dragged it from specialty packaging to mainstream, Custom→Product under deliberate pull. The same playbook runs for HBM, silicon photonics, eventually EUV. It is the AWS-with-servers move, except he runs it on <em>someone else&rsquo;s</em> supply chain because he doesn&rsquo;t want to own fabs.</p>
+<p><strong>Keep your differentiation layers perpetually in late-Custom.</strong> Every hardware generation re-genesises the systems layer. NVL72, NVLink, Spectrum-X, kernel co-design with the labs — all of it <em>resists</em> the natural rightward drift. The line about engineers embedded in the AI labs, &ldquo;nobody knows our architecture better than we do,&rdquo; squeezing 2–3× out of a customer&rsquo;s existing fleet, is the same pattern: never let the system layer settle into Product, because Product is where the ASICs catch you. And it isn&rsquo;t just a line. In June 2026 SemiAnalysis&rsquo;s InferenceX measured GB200 NVL72 serving costs for the Kimi architecture (the one behind xAI&rsquo;s Cursor Composer 2.5) falling 2.5× in under seventy days through <em>software alone</em> — largely NVIDIA&rsquo;s own kernel engineers rewriting the NVFP4 MoE kernel in CuTe-DSL to exploit the NVL72 copper backplane, which carries 18× the bandwidth of standard RoCEv2/InfiniBand. Same physical fleet, 2.5× cheaper to serve, because only the people who built the rack can rewrite the kernel down to its backplane. That&rsquo;s the co-design moat compounding in real time — the systems layer being dragged back into Custom faster than anyone outside the building can chase.</p>
+<p><strong>CUDA as the anti-commoditisation anchor.</strong> Dwarkesh&rsquo;s sharpest question — your biggest customers can write their own kernels, so why does CUDA matter? — is a claim that CUDA is sliding from Product toward Commodity. Jensen&rsquo;s answer is install-base rather than technology: hundreds of millions of deployed GPUs across every generation and every cloud; the richness of the contributing ecosystem; being everywhere so developers never have to choose. That&rsquo;s deliberate — install base is the one axis that <em>doesn&rsquo;t</em> evolve leftward. A programming model can be re-implemented; hundreds of millions of deployed sockets cannot be re-created.</p>
+<p><strong>Refuse vertical integration into hyperscaling.</strong> Becoming a cloud means owning a layer that&rsquo;s already Commodity, fighting four players with a decade head start, and turning your own customers into competitors. So instead he funds the neocloud tier — CoreWeave, Nscale, Nebius, Crusoe — backstopping CoreWeave up to $6.3B, $2B in directly, so a diverse Nvidia-native utility layer exists without Nvidia owning a watt of it. This is ecosystem-as-moat, executed with balance-sheet muscle rather than doctrine alone.</p>
+<p><strong>Don&rsquo;t pick winners at the model layer, even though you could.</strong> He invests in all the labs (OpenAI ~$30B, Anthropic ~$10B as reported) precisely so he doesn&rsquo;t have to know which one wins. His stated reason is humility — &ldquo;when Nvidia started there were 60 3D graphics companies, we&rsquo;re the only one that survived, and we&rsquo;d have been at the top of the list <em>not</em> to make it.&rdquo; The Wardley reading is sharper than humility: the model layer is Genesis, Genesis has a failure rate you can&rsquo;t predict, so the correct move is to fund the whole distribution and harvest compute from all of it. The Anthropic-on-TPU &ldquo;regret&rdquo; he voices is the regret of not having had the balance sheet to run that strategy sooner.</p>
+<p><strong>The China argument, in map terms.</strong> Export controls push China to build its own vertical stack — abundant energy, SMIC 7nm, Huawei CANN, domestic open models — which over time industrialises <em>an alternative utility substrate.</em> Once it exists and exports to the Global South, the Middle East, Africa, Southeast Asia, it becomes the default there, and the install-base moat is undermined not in the US but everywhere outside it. Dwarkesh counters that the near-term cyber-offensive risk justifies the price. Nobody lands the knockout. But Jensen&rsquo;s instinct — that conceding a market <em>accelerates</em> a competing stack&rsquo;s evolution rather than freezing it — is the same instinct that made him fund the neoclouds instead of letting the hyperscalers monopolise demand aggregation. It&rsquo;s coherent all the way down.</p>
+<p>One honest caveat before I leave Jensen, because I keep turning it over. The move I admire most — the directed investment that locks up custom, non-fungible TSMC capacity, the coordination that gets the whole chain to commit years early — is the <em>same</em> move that, under a demand shock, turns the moat into a bullwhip. A barrier built from non-fungible supply is a magnificent wall while demand holds and pure stranded cost the moment it wobbles. I come back to it in the risks, because it&rsquo;s the sharpest thing anyone has said against the position, and it&rsquo;s aimed precisely at the part of his game I find most impressive.</p>
+<h2 id="5-oxide-mapped">5. Oxide, mapped</h2>
+<p>Oxide is interesting precisely because it doesn&rsquo;t compete with Nvidia on anything. Cantrill has been explicit about why, and it&rsquo;s the cleanest piece of strategy in the whole story: with Nvidia you either work <em>with</em> them or you compete <em>with</em> them, both are brutal, and because the stack isn&rsquo;t open there&rsquo;s no real value in it for Oxide either way. So they go somewhere else entirely — a different altitude, a different theory of evolution, a different target. That is reading the board and declining a fight you cannot profit from — the opposite of avoidance.</p>
+<p>The anchor Oxide is serving is &ldquo;run our own cloud, on our own premises, without the kit-car tax.&rdquo; The customer already spends meaningfully on infrastructure — a bank, a telco, Samsung — and has hit the wall where they&rsquo;re paying hyperscaler rents for hyperscaler convenience but their workloads don&rsquo;t actually want to live there.</p>
+<p>How I read their map:</p>
+<ul>
+<li>The <strong>user-facing API</strong> (console, CLI, Terraform provider, Kubernetes compatibility) is Product, deliberately AWS/GCP-shaped, because that&rsquo;s what their customers&rsquo; engineers already know. This is the part they refuse to reinvent.</li>
+<li>The <strong>integrated control plane</strong> (Rust, Illumos/bhyve, OpenZFS, on-rack VPC, block storage) is Custom Built stretching to Product — bespoke to the Oxide rack but industrialised relative to stitching OpenStack or VMware together.</li>
+<li>The <strong>rack-scale system</strong> (DC bus bar, blind-mate backplane, 80mm fans at 2K RPM, 32 sleds, 2048 cores, integrated networking) is Custom Built, on purpose. This is the actual bet: that the <em>rack</em>, not the 1U/2U box, is the correct unit of design, and that the industry has inertia preventing the move.</li>
+<li>The <strong>network switch</strong> (Tofino 2 + custom NOS on AMD) is Custom Built — the decision that defines the company and the reason Cantrill jokes they&rsquo;re &ldquo;nine startups within one startup.&rdquo;</li>
+<li>The <strong>BMC / service processor</strong> (custom silicon, Hubris real-time OS, no American Megatrends BIOS) is deep Genesis/Custom — the part where they&rsquo;re most philosophical, treating proprietary firmware as the original sin of the server.</li>
+<li><strong>CPU (AMD Epyc), DRAM, NVMe, the Tofino ASIC</strong> are bought as Commodity/Product. Oxide isn&rsquo;t a silicon company and doesn&rsquo;t pretend to be.</li>
+<li><strong>Energy, floor, colocation</strong> is utility — partnered out to CoreSite and friends.</li>
+</ul>
+<p>The shape is the opposite of Nvidia&rsquo;s. Nvidia&rsquo;s differentiation is a narrow vertical corridor in the <em>middle</em> of the stack. Oxide&rsquo;s is smeared <em>wide and shallow</em> — firmware, OS, hypervisor, network OS, rack mechanicals, control plane — anchored by a deliberately conventional API at the top and commodity silicon at the bottom.</p>
+<p>I&rsquo;ll be honest about what I got and what I didn&rsquo;t. Oxide always interested me — the ways of working, the culture, the engineering taste are exactly my kind of thing, and I&rsquo;d been following them for that long before I followed them for the strategy. What I <em>didn&rsquo;t</em> get was the strategy — I could not read why the niche would hold. That changed the moment Simon Wardley, on one of the weekly Discord calls we ran for a while, walked through why there&rsquo;s a structural niche for an integrated on-prem computer <em>even in a world where cloud and serverless completely won.</em> The utility substrate doesn&rsquo;t eat everything; it leaves a pocket for the customer whose economics have inverted. Once I could see the pocket, the whole wide-shallow band made sense. I had the culture from day one; I needed the map for the strategy.</p>
+<h2 id="6-how-cantrill-plays-it">6. How Cantrill plays it</h2>
+<p><strong>Industrialise the hyperscale rack.</strong> The thesis is that AWS, Google and Meta discovered years ago that the rack is the correct unit of design and kept that knowledge inside their walls. Dell/HP/Supermicro have enormous inertia against rack-as-unit because their margin depends on selling 1U/2U boxes. Oxide takes a component that exists only as Genesis/Custom inside hyperscaler walls and drags it into Product for everyone else — AWS-2006, one layer up. &ldquo;It is basically a racked personal computer&rdquo; is the rhetorical version: a claim that the server industry has been sitting on a component that refused to evolve for 25 years out of incumbent inertia.</p>
+<p><strong>Attack the firmware layer specifically.</strong> Cantrill&rsquo;s animus against AMI BIOS — it &ldquo;somehow remained at the brainstem of server-side computing&rdquo; — is strategically coherent. Proprietary firmware is a Custom component frozen by an oligopoly; nobody industrialises it because the vendors make more leaving it opaque. By open-sourcing Hubris and the whole firmware path, Oxide forces the component rightward, which unlocks all the integration above it. The layer below you is stuck, so you unstick it yourself.</p>
+<p><strong>Bundle the licence problem out of existence.</strong> Traditional on-prem means buying VMware, a switch NOS, a BMC licence, a hypervisor, storage software, a management console — each with its own terms and renewal date, all Product-stage components the vendors prevented from collapsing into utility. &ldquo;Everything included, one SKU&rdquo; is industrialising the licensing layer. The customer reads it as simplification; strategically it&rsquo;s a co-evolution play against the entire on-prem software stack.</p>
+<p><strong>The AWS API as an anti-pattern moat.</strong> The console and API are deliberately AWS-shaped because the <em>shape</em> of the cloud API is now Commodity and inventing a different one would be fighting gravity. Riding the commoditised shape frees the custom-build budget for the layers that matter — rack, switch, firmware. This is structurally identical to Nvidia letting Triton and PyTorch live above CUDA: a commodity interface above your custom layer is a feature rather than a threat.</p>
+<p><strong>Sell to customers who already lost the kit-car patience.</strong> The target is the customer running thousands of cores who has internalised that the hyperscaler bill is a tax, rather than the long tail of enterprise IT. Samsung buying Joyent (where Cantrill&rsquo;s experience came from) is the archetype: cloud spend large enough that &ldquo;go on-prem or die&rdquo; became the CFO&rsquo;s mental model. This is a narrow market rather than a mass one — they had shipped under 20 racks as of mid-2024 — and that is Wardley-fine: harvest the segment where willingness to pay for integration is highest, while the integrated-rack category climbs its S-curve.</p>
+<h2 id="7-tinygrad-mapped">7. tinygrad, mapped</h2>
+<p>tinygrad is the case that makes the whole thing interesting, because it points its weapon directly at the layer Jensen spent the interview defending. The mission, on the front page and in the deck, is &ldquo;we will commoditize the petaflop.&rdquo; That is a Wardley sentence rather than marketing — &ldquo;commoditise X&rdquo; means force X from Product to Commodity, collapsing the margin of whoever sits on X. Hotz is describing the AWS-2006 attack pattern aimed one layer up: at the CUDA/ROCm programming model rather than the hardware.</p>
+<p>The anchor is &ldquo;train or run a model on whatever GPU I can actually buy&rdquo; — without Nvidia&rsquo;s supply allocation, without paying 70%+ CUDA rent, without owning the hyperscaler toolchain to get good performance. The customer is the researcher, the small lab, the openpilot-style embedded deployment, and aspirationally any hardware vendor who wants a framework that runs on their silicon without rebuilding PyTorch&rsquo;s whole compiler surface.</p>
+<p>How I read the map:</p>
+<ul>
+<li>The <strong>PyTorch-like Tensor frontend</strong> is deliberately Product. Like Oxide with the AWS API, Hotz rides the commoditised user surface so he can spend his design budget elsewhere.</li>
+<li>The <strong>12-op UOps IR</strong> is Custom Built with Genesis ambitions — the distinctive bet. Where CUDA is Turing-complete because GPUs are general engines, tinygrad&rsquo;s IR has exactly twelve ADD/MUL primitives with static memory access only. <code>x[3]</code> is allowed; <code>x[y]</code> is not. The claim is that neural networks provably don&rsquo;t need Turing-completeness, so paying for it — caching, warp scheduling, ISA-level branch prediction — is pure waste. Strip the feature that forces the layer to stay Custom, and the layer below gets cheap to replace.</li>
+<li>The <strong>lazy graph rewrite + op-fusion engine</strong> turns the constraint into the advantage: twelve ops and no hidden control flow means the compiler sees the whole computation and can fuse a full forward+backward pass into one kernel. Custom Built, pointed at Product.</li>
+<li>The <strong>&ldquo;AM&rdquo; userspace AMD driver</strong> is the most Wardley-interesting node — ~12,000 lines that memory-map AMD GPU registers directly and bypass ROCm entirely. The bounty for an RDNA3 assembler within 10% of LLVM is the last missing piece of a fully sovereign stack. This is the node the &ldquo;force-it-to-commodity&rdquo; arrow actually comes out of.</li>
+<li><strong>Backend codegen</strong> for PTX, RDNA3, Metal, Qualcomm is Custom Built but explicitly portable — &ldquo;if you can schedule a dozen basic ops on your ASIC, you can run LLaMA on it tomorrow morning.&rdquo;</li>
+<li><strong>tinybox</strong> (~$15K, 6× Radeon 7900 XTX) is Product but deliberately not the money: &ldquo;we make money selling computers for more than they cost to make.&rdquo; The box is a distribution vehicle for the software rather than the product.</li>
+<li><strong>Consumer GPUs, PCIe chassis, PSU, wall power</strong> are fully Commodity. Part of the thesis is that the substrate is <em>already</em> good enough — the $999 7900 XTX has the best FLOPS-per-dollar going; the only reason nobody in ML uses it is that the software doesn&rsquo;t work. Exactly the thing mapping is built to surface: a component already commoditised on one axis (price/perf) held back by an adjacent component (driver/runtime) that refused to industrialise.</li>
+</ul>
+<h2 id="8-how-hotz-plays-it--and-why-i-dont-buy-it-as-strategy">8. How Hotz plays it — and why I don&rsquo;t buy it as strategy</h2>
+<p>I want to be fair, because the <em>target</em> is correct and he was correct early. But &ldquo;saw the right target&rdquo; and &ldquo;has a strategy&rdquo; are different claims, and the evidence pulls them apart.</p>
+<p>Start with where he&rsquo;s genuinely right.</p>
+<p><strong>He found the load-bearing assumption.</strong> CUDA is Product because it&rsquo;s general-purpose, and general-purpose is expensive because it carries features most NN workloads never use. Restrict the programming model to what neural nets provably need and the compiler gets whole-graph visibility while the silicon has far less to support. Hotz named the exact feature — Turing-completeness — that keeps CUDA pinned in Product, and is building a deliberately less-general alternative that&rsquo;s strictly more industrial. As a piece of <em>analysis</em> it&rsquo;s the cleanest example of feature-minimisation as a commoditisation vector I can point to in recent compute. The whole framework is 18,935 lines as of his December 2025 post — about 20,000 cleaned up. The entire assault on a stack measured in the millions of lines fits in a codebase you can read over a weekend.</p>
+<p><strong>He&rsquo;ll write the driver nobody else will.</strong> Their sovereign AMD stack — driver, runtime, libraries, emulator — is roughly 12,000 lines that memory-map the GPU directly and skip ROCm entirely. AMD publishes enough docs to do this; ROCm just never got good. Anyone could have built a clean userspace driver; nobody did, because no party in the existing market had the right mix of skill, hunger, and willingness to take zero revenue for two years. This is negative-space arbitrage: the component stayed stuck because the incentives were wrong, and never because it was hard.</p>
+<p><strong>Software first, chip later.</strong> His five-year post is genuinely sharp: &ldquo;Only a fool begins by taping out a chip; it&rsquo;s expensive and not the hard part. AMD, Amazon, Tesla, and Groq have taped out fine chips, but only Google and NVIDIA chips have ever been seriously used for training. Because they have the software.&rdquo; Reading the AI-ASIC graveyard as a <em>compiler</em> failure rather than a hardware one is real map literacy. If the stack matures, any chip startup sitting on good silicon with no ecosystem gets a software path overnight.</p>
+<p>Now comes the part that stops me calling it strategy.</p>
+<p>Look at how the target actually arrived. tinygrad started in October 2020 as a toy to teach himself neural nets. The CUDA fight came <em>to</em> him through comma.ai — openpilot had to run its driving model fast on whatever embedded GPU was in the car, not an Nvidia datacentre part, and tinygrad on a Snapdragon 845 turned out roughly 2× faster than Qualcomm&rsquo;s own SNPE. He&rsquo;s the guy who unlocked the first iPhone and jailbroke the PS3; closed systems are simply what he breaks. So &ldquo;disrupt CUDA&rdquo; arrived as the next closed system, handed to him by a concrete need, rather than deduced from a map. That is the &ldquo;lucky he saw it&rdquo; part, and the seeing deserves full credit — the point is that it came from temperament and circumstance rather than from a plan.</p>
+<p>And the execution stays temperament all the way down. The company has raised exactly one round — $5.1M on a convertible note in June 2023 — and nothing disclosed since. Five years in, the public repo has real pull — about 33,000 GitHub stars and an active contributor base — but it&rsquo;s still at version 0.13 as of May 2026: genuine mindshare, still short of a 1.0 anyone bets a company on. The hardware business does &ldquo;about $2M revenue a year&rdquo; by his own account in the same December 2025 post; the tinybox is openly a distribution vehicle rather than a margin engine. Hiring is <em>only</em> through merged pull requests — &ldquo;invest with PRs.&rdquo; The final mile of the sovereign stack, the RDNA3 assembler, is posted as a public bounty: get within 10% of LLVM, collect a thousand dollars. And the most visible &ldquo;strategy&rdquo; moment of the whole project was March 2024, when the tinybox Red&rsquo;s 7900 XTXs kept crashing on AMD&rsquo;s closed MES firmware and Hotz&rsquo;s move was to <em>publicly dare Lisa Su to open-source it</em> — which got him a personal &ldquo;the team is on it,&rdquo; patched firmware, and a later MI300X sample, but no open firmware and no partnership. He won a support ticket by going loud.</p>
+<p>Set that next to Jensen sitting the Micron CEO down for three years until an entire memory roadmap bent toward a demand curve only Nvidia could see. <em>That</em> is what forcing a layer looks like when it&rsquo;s a strategy: a second actor convinced, capacity committed, the whole chain moved on purpose. Hotz has none of that machinery and isn&rsquo;t trying to build it. He has a brilliant, tiny, correct codebase, a $2M hardware side-business, and the bet that if the work is good enough the flywheel starts from the margin. Sometimes it does — and if it does here, he was right first and I&rsquo;ll say so out loud. But &ldquo;be brilliant and correct and route around the incumbent and wait to be adopted&rdquo; is a <em>posture</em> rather than a plan, and the difference between the two is the entire subject of this piece.</p>
+<h2 id="9-where-the-three-converge-and-where-i-think-they-dont">9. Where the three converge, and where I think they don&rsquo;t</h2>
+<p>On the surface the philosophies rhyme. Jensen&rsquo;s &ldquo;as much as necessary, as little as possible,&rdquo; Cantrill&rsquo;s &ldquo;it takes the whole stack to build a cloud computer,&rdquo; Hotz&rsquo;s &ldquo;the best part is no part&rdquo; are all statements about where to draw the vertical-integration boundary. But they resolve in three different directions, and the maps say why.</p>
+<p>Jensen&rsquo;s &ldquo;as little as possible&rdquo; works because Nvidia sits <em>above</em> a supply chain other people are already industrialising. Every component below is drifting right under its own steam; his job is to accelerate it, not own it. The integration he refuses — hyperscaler, foundry, model lab — is integration into layers that are already Product or Commodity, where the marginal return is low and the brand-damage risk (competing with your customers) is high.</p>
+<p>Oxide&rsquo;s <em>maximal</em> integration is necessary because it sits above a supply chain that <em>refused</em> to industrialise. Commodity server hardware doesn&rsquo;t deliver hyperscale benefits because the chain locked a bad equilibrium — BIOS, BMC, 1U/2U, white-box-switch-plus-vendor-NOS — into Product and stopped. The only way through the inertia is to do all the integration yourself. &ldquo;Nine startups inside one startup&rdquo; is the cost of operating in a stuck market.</p>
+<p>tinygrad&rsquo;s minimalism works because it sits <em>below</em> a commoditised stack (PyTorch API, consumer GPUs, wall power) and <em>above</em> a substrate (AMD silicon) whose hardware is fine but whose software is broken. Hotz only has to write the thin wire connecting two already-good components that a market failure kept apart — his position never asks him to re-integrate the world. &ldquo;Best part is no part&rdquo; is the doctrine of that position.</p>
+<p>Three things fall out of putting the maps side by side.</p>
+<p><strong>Oxide and tinygrad are attacking the same pathology from opposite ends.</strong> Oxide&rsquo;s target is the server that never industrialised because the vendors made more leaving it custom; tinygrad&rsquo;s target is the GPU driver that never industrialised because Nvidia made more leaving it CUDA-shaped. In both cases the component is technically at Product but economically frozen, and in both cases the move is to force it to Commodity from outside the oligopoly. Oxide does it with firmware and racks; tinygrad with drivers and compilers. The shape is the same; only the altitude differs.</p>
+<p><strong>All three ride a commoditised API upward as a budget-saver.</strong> Nvidia lets PyTorch/vLLM/Triton proliferate above CUDA; Oxide ships an AWS-shaped console; tinygrad ships a PyTorch-shaped frontend. None of them reinvents the user&rsquo;s entry point; all three spend their custom-build budget further down.</p>
+<p><strong>Nvidia is the thing both refuse to buy from, at completely different altitudes.</strong> Oxide doesn&rsquo;t want Nvidia&rsquo;s hardware because an AI-focused rack is wrong for general on-prem compute. tinygrad doesn&rsquo;t want Nvidia&rsquo;s programming model because CUDA&rsquo;s generality is the tax. Neither is a direct competitor — Oxide won&rsquo;t ship training rigs, tinygrad won&rsquo;t sell racks — but both are saying, at their own layer, &ldquo;the thing Jensen sells has too many features and we have the discipline to ship a stripped version most of the market will eventually prefer.&rdquo; That is structural pressure rather than competitive pressure. The Anthropic-on-TPU deal is a competitor; tinygrad and Oxide are something different — early signs that the stack Nvidia occupies has Product-stage components that <em>could</em>, in principle, be forced toward Commodity.</p>
+<p>But &ldquo;in principle&rdquo; is doing a lot of work, and this is where my ranking comes back. Jensen is actively forcing his board, every year, with a coordinated supply chain behind him. Oxide is forcing a real but bounded niche, and knows it. Hotz has the right target and is mostly waiting for physics and the open-source gods to do the forcing for him. The map literacy is the same across all three; the odds of execution are wildly different.</p>
+<h2 id="10-what-could-break-each-thesis">10. What could break each thesis</h2>
+<p><strong>Nvidia — and the bigger risk hides beneath the one a maps person reaches for first.</strong></p>
+<p>The deeper risk is that the demand Jensen is coordinating the whole chain around is partly a <em>bezzle.</em> This is Michael Burry&rsquo;s &ldquo;Heretic&rsquo;s Guide Part III&rdquo; thesis, and once you put it on a map it&rsquo;s hard to unsee. The &ldquo;insatiable AI demand&rdquo; the bulls cite is inflated by <em>tokenmaxxing</em> — a temporary, leaderboard-driven training-and-benchmarking phase whose real mechanic is enterprises racing to harvest <em>traces</em> to train their own in-house models. It sits in Genesis on the value chain and is, by design, temporary: in Wardley terms it&rsquo;s the <em>Leverage</em> phase of a hyperscaler Innovate-Leverage-Commoditize play being mistaken for steady-state demand. And that distorted signal bullwhips straight upstream into the exact move I praised — Nvidia&rsquo;s directed investment into custom, non-fungible TSMC lines. Burry puts the forward purchase commitments at $182B, roughly $119B of it with a single customer, more than Nvidia&rsquo;s annual operating cash flow. Non-fungible capacity is a wonderful barrier while demand holds and stranded cost the instant it doesn&rsquo;t. The receivables tell he flags — the top customer&rsquo;s A/R growing 13.4× against 4.9× revenue, inflecting <em>up</em> as a share of receivables while <em>down</em> as a share of revenue, &ldquo;a zig where there were only zags&rdquo; — is the weak signal that the Leverage phase is being pulled forward to beat the print. Underneath it all is a duration mismatch: GPUs economically obsolete in under a decade, the data-center debt behind them running 15–19 years, taken out through an offshore chain of data-center ABS, private credit, and Bermuda captive reinsurers, with power as the real rate limiter (a ~19 GW shortfall by 2028). And here&rsquo;s the twist the SemiAnalysis number sharpens: efficiency itself is compression — a serving cost falling 2.5× in seventy days means each financed GPU does far more far sooner, great for Jensen&rsquo;s TCO case and brutal for anyone who overbuilt non-fungible capacity against a temporary signal, because the same co-design win that deepens the moat also thins the demand for the capacity it&rsquo;s already committed to. All of this leaves AI real and Jensen right about evolution; the claim is narrower. The single most impressive thing about his game — the coordination that makes an entire supply chain commit years early — is also the mechanism that maximises the damage if what it is committing to turns out to be the benchmarking phase rather than the steady state. The better he coordinates, the more he strands when the signal breaks. Mastery and fragility turn out to be the same move seen from two sides, which is the most interesting thing I can say about him, and the reason the admiration in the short essay isn&rsquo;t the whole story.</p>
+<p><img src="/images/blog/ai_compute_financing_burry.png" alt="The AI compute &amp; financing value chain — the bezzle mapped: temporary tokenmaxxing demand bullwhipping into custom TSMC commitments and an offshore financing chain (after Burry&rsquo;s &ldquo;Heretic&rsquo;s Guide Part III&rdquo;)"></p>
+<p>The shallower, slower risk is the CUDA one. If the hyperscalers&rsquo; custom kernel stacks (OpenAI&rsquo;s Triton work, Anthropic&rsquo;s TPU training, Google&rsquo;s JAX/XLA) mature to genuine substitutability at their level — or a minimal stack like tinygrad&rsquo;s becomes the reference compiler for non-Nvidia silicon — then Nvidia defends on perf/TCO alone, a quantitative fight against ASICs with 65% margins instead of its own 70%+. His answer — that perf/TCO on InferenceMAX and MLPerf is uncontested and the ASIC vendors decline to show up — is strong near-term and fragile long-term. The Anthropic/TPU multi-gigawatt deal is the obvious canary; tinygrad&rsquo;s sovereign AMD stack is the less obvious, more structural one. But next to the bezzle, this is the comfortable risk — the one that plays out over years, and the one Jensen can see coming.</p>
+<p><strong>Oxide.</strong> The early-Product question is behind them — the racks ship and the niche is real. The risk that remains is the size of the pocket: Oxide can be brilliant and still be structurally capped if the integrated rack stays a niche for customers who hit specific on-prem walls rather than becoming a mainstream Dell/HP replacement. The counter-factual is that GPU-heavy AI workloads force the hyperscalers&rsquo; own integrated racks (GB200 NVL72 et al.) to become the category reference, leaving Oxide a real but bounded general-compute pocket.</p>
+<p><strong>tinygrad.</strong> The risk is the one Jensen names without naming tinygrad: the CUDA moat is an <em>install-base</em> moat rather than a technical one, and technical elegance does not evict install bases. tinygrad can be provably better at compiling NN workloads and still fail against hundreds of millions of deployed sockets, thousands of CUDA-tuned research codebases, and a decade of habituated muscle memory. The pessimistic scenario is Plan 9: objectively cleaner than Unix, a niche curiosity for thirty years. The optimistic one is a handful of chip startups with decent silicon adopting the tinygrad stack as their default compiler and the flywheel starting from the margin. Which one obtains should be visible within three years.</p>
+<p>And notice what the June 2026 NVL72 result says about <em>where</em> the moat actually sits. tinygrad aims at CUDA&rsquo;s generality — the Turing-complete &ldquo;tax.&rdquo; But that 2.5× came from system co-design rather than from generality: an embedded kernel team rewriting an FP4 kernel in CuTe-DSL to one specific rack&rsquo;s copper backplane. A portable, rack-less, kernel-team-less stack can&rsquo;t answer that, however clean its IR is. Hotz can be completely right that neural nets don&rsquo;t need Turing-completeness and still be aimed at the wrong layer of the wall — the generality, when the load-bearing part is the rack-plus-kernel-team co-design loop.</p>
+<p>And a cross-cutting risk for both challengers: each bets its downstream will accept a new API surface <em>shaped like the incumbent&rsquo;s</em> — Oxide that enterprise devs treat its rack like an AWS region, tinygrad that researchers treat its frontend like PyTorch. Nvidia has mostly already won that fight and doesn&rsquo;t have to. All three are pushing for the interface they control to become the Commodity interface at its altitude. That&rsquo;s the real long game for each — even though the layers are completely different and none of them, in any conventional sense, competes with the others.</p>
+<hr>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li>Dwarkesh Patel, <a href="https://www.dwarkesh.com/p/jensen-huang">Jensen Huang interview transcript</a>.</li>
+<li>Simon Wardley, <a href="https://www.computerweekly.com/feature/Value-chain-mapping-finding-a-path">Value chain mapping – finding a path</a>, Computer Weekly.</li>
+<li>Oxide Computer, <a href="https://oxide.computer/blog/the-cloud-computer">The Cloud Computer</a>.</li>
+<li>Bryan Cantrill on <a href="https://se-radio.net/2026/02/se-radio-709-bryan-cantrill-on-the-data-center-control-plane/">Software Engineering Radio #709 — the Data Center Control Plane</a>.</li>
+<li>The Pragmatic Engineer, <a href="https://newsletter.pragmaticengineer.com/p/oxide">Startups on hard mode: Oxide Part 1 – Hardware</a>.</li>
+<li>George Hotz, <a href="https://geohot.github.io/blog/jekyll/update/2025/12/29/five-years-of-tinygrad.html">Five years of tinygrad</a>.</li>
+<li>George Hotz, <a href="https://geohot.github.io/blog/jekyll/update/2023/05/24/the-tiny-corp-raised-5M.html">the tiny corp raised $5.1M</a> — the original &ldquo;commoditize the petaflop&rdquo; essay.</li>
+<li>Latent Space, <a href="https://www.latent.space/p/geohot">Commoditizing the Petaflop — with George Hotz</a>.</li>
+<li>Phoronix, <a href="https://www.phoronix.com/news/Tiny-Sovereign-Stack-AMD-Close">Tiny Corp Nearing Completely Sovereign Compute Stack For AMD GPUs</a>.</li>
+<li>Tom&rsquo;s Hardware, <a href="https://www.tomshardware.com/pc-components/gpus/amds-lisa-su-steps-in-to-fix-driver-issues-with-new-tinybox-ai-servers-tiny-corp-calls-for-amd-to-make-its-radeon-7900-xtx-gpu-firmware-open-source">AMD&rsquo;s Lisa Su steps in to fix driver issues with TinyBox AI servers</a> — the March 2024 firmware standoff.</li>
+<li>Joaquín Peña Fernández, <a href="https://joapen.com/blog/2020/09/07/a-wardley-map-of-the-company-nvidia-2020">A Wardley map of the company NVIDIA 2020</a> (CC BY-SA 4.0).</li>
+<li>Michael Burry, <a href="https://michaeljburry.substack.com/p/the-heretics-guide-to-ais-stars-part">The Heretic&rsquo;s Guide to AI&rsquo;s Stars Part III — Tracepalooza &amp; the Bezzle</a>, <em>Cassandra Unchained</em> — the financing / bezzle counter-thesis.</li>
+<li>SemiAnalysis, <a href="https://github.com/SemiAnalysisAI/InferenceX">InferenceX™</a> — the June 2026 GB200 NVL72 serving-cost measurement (2.5× in &lt;70 days on the Kimi architecture, via a CuTe-DSL NVFP4 MoE kernel rewrite).</li>
+</ul>
+
+                    </div>
+                    
+                    
+                    <div class="after-post-tags">
+                        <ul class="tags">
+                        
+                        <li>
+                        <a href="/tags/wardley-mapping/">wardley mapping</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/ai/">ai</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/nvidia/">nvidia</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/oxide/">oxide</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/tinygrad/">tinygrad</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/tags/strategy/">strategy</a>
+                        </li>
+                        
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                    <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+                    
+                    
+                        <a class="d-block col-md-6 text-lg-end" href="https://magistr.me/blog/reading-the-board-from-the-stands/">Reading the board from the stands &raquo;</a>
+                    
+                    <div class="clearfix"></div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+
+
+
+    </div>
+
+
+            </div>
+<div class="jumbotron fortags">
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+			<div class="d-md-flex align-items-center justify-content-center h-100">
+				<h2 class="d-md-block d-none align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+			</div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+			
+			<a class="mt-1 mb-1" href="/tags/agents/">agents</a>
+			
+			<a class="mt-1 mb-1" href="/tags/ai/">ai</a>
+			
+			<a class="mt-1 mb-1" href="/tags/amsterdam/">amsterdam</a>
+			
+			<a class="mt-1 mb-1" href="/tags/automation/">automation</a>
+			
+			<a class="mt-1 mb-1" href="/tags/blog/">blog</a>
+			
+			<a class="mt-1 mb-1" href="/tags/cad/">cad</a>
+			
+			<a class="mt-1 mb-1" href="/tags/claude/">claude</a>
+			
+			<a class="mt-1 mb-1" href="/tags/cozystack/">cozystack</a>
+			
+			<a class="mt-1 mb-1" href="/tags/ddd/">ddd</a>
+			
+			<a class="mt-1 mb-1" href="/tags/devops/">devops</a>
+			
+			<a class="mt-1 mb-1" href="/tags/finance/">finance</a>
+			
+			<a class="mt-1 mb-1" href="/tags/firecracker/">firecracker</a>
+			
+			<a class="mt-1 mb-1" href="/tags/good-planning/">good-planning</a>
+			
+			<a class="mt-1 mb-1" href="/tags/guide/">guide</a>
+			
+			<a class="mt-1 mb-1" href="/tags/issue-lifecycle/">issue-lifecycle</a>
+			
+			<a class="mt-1 mb-1" href="/tags/jscad/">jscad</a>
+			
+			<a class="mt-1 mb-1" href="/tags/kubernetes/">kubernetes</a>
+			
+			<a class="mt-1 mb-1" href="/tags/macos/">macos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/me/">me</a>
+			
+			<a class="mt-1 mb-1" href="/tags/moldable-development/">moldable-development</a>
+			
+			<a class="mt-1 mb-1" href="/tags/nvidia/">nvidia</a>
+			
+			<a class="mt-1 mb-1" href="/tags/observability/">observability</a>
+			
+			<a class="mt-1 mb-1" href="/tags/opencore/">opencore</a>
+			
+			<a class="mt-1 mb-1" href="/tags/oxide/">oxide</a>
+			
+			<a class="mt-1 mb-1" href="/tags/qemu/">qemu</a>
+			
+			<a class="mt-1 mb-1" href="/tags/retro/">retro</a>
+			
+			<a class="mt-1 mb-1" href="/tags/serverless/">serverless</a>
+			
+			<a class="mt-1 mb-1" href="/tags/si/">si</a>
+			
+			<a class="mt-1 mb-1" href="/tags/strategy/">strategy</a>
+			
+			<a class="mt-1 mb-1" href="/tags/swamp/">swamp</a>
+			
+			<a class="mt-1 mb-1" href="/tags/talos/">talos</a>
+			
+			<a class="mt-1 mb-1" href="/tags/tinygrad/">tinygrad</a>
+			
+			<a class="mt-1 mb-1" href="/tags/tools/">tools</a>
+			
+			<a class="mt-1 mb-1" href="/tags/typescript/">typescript</a>
+			
+			<a class="mt-1 mb-1" href="/tags/unraid/">unraid</a>
+			
+			<a class="mt-1 mb-1" href="/tags/virtualization/">virtualization</a>
+			
+			<a class="mt-1 mb-1" href="/tags/wardley/">wardley</a>
+			
+			<a class="mt-1 mb-1" href="/tags/wardley-mapping/">wardley-mapping</a>
+			
+		</div>
+	</div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-start">
+                &copy; Copyright CC SA 4.0
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-end">    
+                <a target="_blank" rel="noopener" href="https://github.com/ekampf/mediumish-gohugo-theme">Mediumish Theme</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://magistr.me/js/mediumish.1574b32c12cce790df495bf68909be2585a33e1bbc54b9f2cb080cac17b88472.js" integrity="sha256-FXSzLBLM55DfSVv2iQm&#43;JYWjPhu8VLnyywgMrBe4hHI="></script>
+    </body>
+</html>

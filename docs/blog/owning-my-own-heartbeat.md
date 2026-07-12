@@ -1,5 +1,5 @@
 
-I wanted my wearable data to live in my own database instead of being rented back to me through an app. So over a few weeks it turned into a small pipeline: Pixel Watch → the [Google Health API](https://developers.google.com/health) → VictoriaMetrics on my Unraid box → Grafana, and now a two-line briefing that a cron pushes to Telegram at 11:00 and 22:00. All of it runs as swamp models plus a `daily-health` workflow, and no pile of throwaway scripts is left behind.
+I wanted my wearable data to live in my own database instead of being rented back to me through an app. So over a few weeks it turned into a small pipeline: Pixel Watch → the [Google Health API](https://developers.google.com/health) → VictoriaMetrics on my Unraid box → Grafana, and now a two-line briefing that a cron pushes to Telegram at 11:00 and 22:00. All of it runs as [swamp](https://github.com/swamp-club/swamp) models plus a `daily-health` workflow, and no pile of throwaway scripts is left behind.
 
 I built it in June, a couple of months after the API's March launch, when it was still fresh and thin on docs. It grew up fast: by summer there was a proper reference, a data-types index, a status dashboard (late June), and a September 2026 sunset on the old Fitbit Web API. The side quest became the main road while I was standing on it — watching a component industrialize under your feet in a few months is its own small lesson.
 
@@ -36,6 +36,8 @@ There are two more traps. Type ids are kebab-case in the URL path (`daily-heart-
 - A `200` with an empty body means the type is valid but you have no device or log for it (for me that was `blood-glucose`, `core-body-temperature`, and all of `nutrition`).
 - A `403` means the type is real and your token is missing the scope.
 - A `400 "List is not supported"` marks a rollup-only type (`floors`, `total-calories`, `calories-in-heart-rate-zone`) — the data is there, but you fetch it through the `:dailyRollUp` method instead of the list endpoint.
+
+All of that exploration ran through swamp: the integration is one extension model, `probe` is a method on it, and every raw answer lands as versioned, queryable data next to the metrics — the exploration itself left an audit trail.
 
 Scopes are all `https://www.googleapis.com/auth/googlehealth.<group>.readonly` — `activity_and_fitness`, `health_metrics_and_measurements` (heart, body, oxygen, respiratory, glucose all live here), `sleep`, and `ecg` / `irn` (irregular-rhythm) as their own consent. They split read from write in May; ECG and IRN are read-only, which is telling. Beyond the obvious `heart-rate` / `steps` / `sleep`, the ids that paid off were: `daily-heart-rate-variability` (deep-sleep RMSSD — the readiness input), `daily-heart-rate-zones` (your real cutoffs; mine are 112/135/163), `daily-sleep-temperature-derivations` (skin temp with a 30-day baseline already computed), `active-zone-minutes`, `respiratory-rate-sleep-summary`, `run-vo2-max`. And the quiet ones you would never think to ask for — `active-minutes`, `sedentary-period`, `altitude` — turned out to be sitting right there too.
 

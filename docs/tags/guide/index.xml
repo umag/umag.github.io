@@ -1,20 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>guide on Magistr and Maps</title>
-    <link>https://magistr.me/tags/guide/</link>
-    <description>Recent content in guide on Magistr and Maps</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Sat, 04 Apr 2026 18:05:00 +0100</lastBuildDate>
-    <atom:link href="https://magistr.me/tags/guide/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>JSCAD CAD Generation with Swamp and Claude Code: Setup Guide</title>
-      <link>https://magistr.me/blog/jscad-swamp-setup-guide/</link>
-      <pubDate>Sat, 04 Apr 2026 18:05:00 +0100</pubDate>
-      <guid>https://magistr.me/blog/jscad-swamp-setup-guide/</guid>
-      <description>Disclaimer: AI-generated setup guide for the JSCAD CAD pipeline. Tested on macOS, April 2026.&#xA;What You Get A working pipeline: describe an object in plain text → Claude Code generates a JSCAD script → Swamp renders to STL → validator checks the geometry.</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>guide on Magistr and Maps</title><link>https://magistr.me/tags/guide/</link><description>Recent content in guide on Magistr and Maps</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>CC SA 4.0</copyright><lastBuildDate>Sat, 04 Apr 2026 18:05:00 +0100</lastBuildDate><atom:link href="https://magistr.me/tags/guide/index.xml" rel="self" type="application/rss+xml"/><item><title>JSCAD CAD Generation with Swamp and Claude Code: Setup Guide</title><link>https://magistr.me/blog/jscad-swamp-setup-guide/</link><pubDate>Sat, 04 Apr 2026 18:05:00 +0100</pubDate><guid>https://magistr.me/blog/jscad-swamp-setup-guide/</guid><description>Disclaimer: AI-generated setup guide for the JSCAD CAD pipeline. Tested on macOS, April 2026.
+What You Get A working pipeline: describe an object in plain text → Claude Code generates a JSCAD script → Swamp renders to STL → validator checks the geometry.</description></item></channel></rss>

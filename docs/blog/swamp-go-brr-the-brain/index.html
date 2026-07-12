@@ -1,252 +1,10 @@
-<!DOCTYPE html>
-<html lang="en-us"><head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="generator" content="Hugo 0.121.1">
-	
-	<link rel="icon" href="/images/logo.png">
-	
-	<title>swamp-go-brr, the brain | Magistr and Maps</title>
-	<meta name="description" content="Why the autonomous agent loop inside the Firecracker cage is a deterministic state machine and not a swarm: how gobrr decomposes, schedules, and gates the work, plus what held and what bit me building it.">
-	<meta name="keywords" content="swamp, agents, firecracker, issue-lifecycle, automation">
-	
-	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
-	<link rel="alternate" type="text/plain" title="LLMs.txt" href="/llms.txt">
-
-	
-	<link rel="canonical" href="https://magistr.me/blog/swamp-go-brr-the-brain/">
-	
-
-	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-	<link rel="preconnect" href="//www.google-analytics.com">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	
-		
-		
-	
-	
-	<meta property="og:locale" content="en_US">
-	<meta property="og:site_name" content="Magistr and Maps">
-	<meta property="og:title" content="swamp-go-brr, the brain" />
-<meta property="og:description" content="Why the autonomous agent loop inside the Firecracker cage is a deterministic state machine and not a swarm: how gobrr decomposes, schedules, and gates the work, plus what held and what bit me building it." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://magistr.me/blog/swamp-go-brr-the-brain/" /><meta property="article:section" content="blog" />
-<meta property="article:published_time" content="2026-06-19T21:00:55+00:00" />
-<meta property="article:modified_time" content="2026-06-19T21:00:55+00:00" />
-
-
-	<meta property="og:image" content="https://magistr.me/images/logo.png">
-	<link rel="me" href="https://bsky.app/profile/magistr.me">
-	<meta http-equiv="last-modified" content="2026-06-19T21:00:55&#43;00:00">
-	<meta property="article:tag" content="swamp">
-	<meta property="article:tag" content="agents">
-	<meta property="article:tag" content="firecracker">
-	<meta property="article:tag" content="issue-lifecycle">
-	<meta property="article:tag" content="automation">
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
-
-	
-	
-	
-	<link rel="stylesheet" href="https://magistr.me/css/style.min.0b8af6cefc5fb2bf4cf841dfb6904d7935744516dbe24e851253e57a88a7bca1.css" integrity="sha256-C4r2zvxfsr9M&#43;EHftpBNeTV0RRbb4k6FElPleoinvKE=">
-
-
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	<script type="application/ld+json">
-	{
-		"@context"	:	"https://schema.org",
-		"@type"		:	"BlogPosting",
-		"@id"		:	"https:\/\/magistr.me\/blog\/swamp-go-brr-the-brain\/",
-		"mainEntityOfPage"	:	{
-			"@type"	: 	"WebPage",
-			"@id"	:	"https:\/\/magistr.me\/blog\/swamp-go-brr-the-brain\/"
-		},
-		"name"		: 	"swamp-go-brr, the brain",
-		
-		"discussionUrl" : "https:\/\/magistr.me\/blog\/swamp-go-brr-the-brain\/#comments",
-		
-		"headline"	:	"swamp-go-brr, the brain",
-		"description"	: "Why the autonomous agent loop inside the Firecracker cage is a deterministic state machine and not a swarm: how gobrr decomposes, schedules, and gates the work, plus what held and what bit me building it.",
-		"abstract"	:	"Why the autonomous agent loop inside the Firecracker cage is a deterministic state machine and not a swarm: how gobrr decomposes, schedules, and gates the work, plus what held and what bit me building it.",
-		"inLanguage"	: "en-US",
-		"isFamilyFriendly"	: 	"true",
-		"author"		: {
-			"@type"	: "Person",
-			"name"	: "Magistr",
-			"url"	: "https:\/\/magistr.me\/about"
-		},
-		"creator"		: {
-			"@type"	: "Person",
-			"name"	: "Magistr",
-			"url"	: "https:\/\/magistr.me\/about"
-		},
-		"accountablePerson"	: {
-			"@type"	: "Person",
-			"name"	: "Magistr",
-			"url"	: "https:\/\/magistr.me\/about"
-		},
-		"copyrightHolder"	: {
-			"@type"	: "Person",
-			"name"	: "Magistr",
-			"url"	: "https:\/\/magistr.me\/about"
-		},
-		"copyrightYear"	: "2026",
-		"datePublished"	: "2026-06-19",
-		"dateCreated"	: "2026-06-19",
-		"dateModified"  : "2026-06-19",
-		"publisher"	:	{
-			"@type" : "Organization",
-			"name":	"Magistr and Maps",
-			"url": "https:\/\/magistr.me\/",
-			"logo": {
-				"@type"	:	"ImageObject",
-				"contentUrl"	:	"https:\/\/magistr.me\/images\/logo.png",
-				"url"	:	"https:\/\/magistr.me\/images\/logo.png"
-			}
-		},
-		"url"	:	"https:\/\/magistr.me\/blog\/swamp-go-brr-the-brain\/",
-		"wordCount"	:	"1759",
-		"image"	:	"https:\/\/magistr.me\/",
-		"keywords"	:	"swamp,agents,firecracker,issue-lifecycle,automation"
-	}
-	</script>
-	
-	
-
-	
-
-	
-</head>
-<body><header class="navbar-light bg-white fixed-top mediumnavigation">
-    <div class="container">
-        
-        <div class="row justify-content-center align-items-center brandrow">
-            <div class="col-lg-4 col-md-4 col-xs-12 d-none d-lg-block d-xl-block d-xll-block">
-                
-                
-                
-                
-                
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-12 text-start text-sm-center logoarea">
-                <a class="navbar-brand" href="https://magistr.me//">
-                    
-                    <img src="/images/logo.png" alt="logo">
-                    
-                </a>        
-            </div>
-            <div class="col-lg-4 col-md-4 mr-auto col-xs-12 text-end searcharea d-none d-lg-block d-xl-block d-xll-block">
-                <form role="search" method="get" class="search-form" action="/search/">
-                    <input type="search" class="search-field" placeholder="Search..." value="" name="q" title="Search for:">
-                    <button type="submit" class="search-submit">
-                        <i class="fa fa-search"></i>   
-                    </button>
-                </form>
-            </div>
-        </div>
-        
-
-        <div class="navarea">
-            <nav class="navbar navbar-expand-lg">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMediumish" aria-controls="navbarMediumish" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div id="navbarMediumish" class="collapse navbar-collapse">
-                    
-                    <ul class="navbar-nav ml-auto col-md-12 justify-content-center">
-                         
-                        <li class="nav-item ">
-                            <a class="nav-link" href="/blog/">Thoughts</a>
-                        </li>
-                         
-                        <li class="nav-item ">
-                            <a class="nav-link" href="/me/me">About Me</a>
-                        </li>
-                        
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-</header>
-        <div class="site-content">   
-            <div class="container">
-<div class="mainheading">
-    <h1 class="sitetitle">Magistr and Maps</h1>
-    <p class="lead">
-         Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.
-    </p>
-</div><div class="main-content">
-        
-        <div class="container">
-            <div class="row">
-                
-                <div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset">
-    <p>Share</p>
-    <ul class="shareitnow">
-        <li class="ml-1 mr-1">
-            <a aria-label="Share on Bluesky" target="_blank" href="https://bsky.app/intent/compose?text=swamp-go-brr%2c%20the%20brain%20https%3a%2f%2fmagistr.me%2fblog%2fswamp-go-brr-the-brain%2f" onclick="window.open(this.href, 'bsky-share', 'width=550,height=435');return false;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 600 530" fill="currentColor"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.72 40.255-67.24 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg>
-            </a>
-        </li>
-        <li>
-            <a aria-label="Share on LinkedIn" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fmagistr.me%2fblog%2fswamp-go-brr-the-brain%2f" onclick="window.open(this.href, 'linkedin-share', 'width=550,height=435');return false;">
-                <i class="fa fa-linkedin"></i>
-            </a>
-        </li>
-    </ul>
-
-    
-        <div class="sep">
-        </div>
-        <ul>
-            <li>
-                <a class="small smoothscroll" href="#disqus_thread" aria-label="Click to scroll to the top"></a>
-            </li>
-        </ul>
-    
-</div>
-</div>
-                                
-                <div class="col-md-9 flex-first flex-md-unordered">
-                    <div class="mainheading">
-                        	
-                        
-                        
-                                                
-                        
-                        <h1 class="posttitle">swamp-go-brr, the brain</h1>
-                        
-                    </div>
-
-                    
-                    
-                        
-                        
-                    
-                    
-
-                    
-                    <div class="article-post">
-                        
-                        <p>Last post I built a cage — a Firecracker microVM to hold an agent I had let off
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=generator content="Hugo 0.121.1"><link rel=icon href=/images/logo.png><title>swamp-go-brr, the brain | Magistr and Maps</title>
+<meta name=description content="Why the autonomous agent loop inside the Firecracker cage is a deterministic state machine and not a swarm: how gobrr decomposes, schedules, and gates the work, plus what held and what bit me building it."><meta name=keywords content="swamp,agents,firecracker,issue-lifecycle,automation"><link rel=sitemap type=application/xml title=Sitemap href=/sitemap.xml><link rel=alternate type=text/plain title=LLMs.txt href=/llms.txt><link rel=canonical href=https://magistr.me/blog/swamp-go-brr-the-brain/><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.google-analytics.com><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><meta property="og:locale" content="en_US"><meta property="og:site_name" content="Magistr and Maps"><meta property="og:title" content="swamp-go-brr, the brain"><meta property="og:description" content="Why the autonomous agent loop inside the Firecracker cage is a deterministic state machine and not a swarm: how gobrr decomposes, schedules, and gates the work, plus what held and what bit me building it."><meta property="og:type" content="article"><meta property="og:url" content="https://magistr.me/blog/swamp-go-brr-the-brain/"><meta property="article:section" content="blog"><meta property="article:published_time" content="2026-06-19T21:00:55+00:00"><meta property="article:modified_time" content="2026-06-19T21:00:55+00:00"><meta property="og:image" content="https://magistr.me/images/logo.png"><link rel=me href=https://bsky.app/profile/magistr.me><meta http-equiv=last-modified content="2026-06-19T21:00:55+00:00"><meta property="article:tag" content="swamp"><meta property="article:tag" content="agents"><meta property="article:tag" content="firecracker"><meta property="article:tag" content="issue-lifecycle"><meta property="article:tag" content="automation"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin=anonymous referrerpolicy=no-referrer><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin=anonymous referrerpolicy=no-referrer><link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel=stylesheet><link rel=stylesheet href=https://magistr.me/css/style.min.0b8af6cefc5fb2bf4cf841dfb6904d7935744516dbe24e851253e57a88a7bca1.css integrity="sha256-C4r2zvxfsr9M+EHftpBNeTV0RRbb4k6FElPleoinvKE="><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","@id":"https:\/\/magistr.me\/blog\/swamp-go-brr-the-brain\/","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/magistr.me\/blog\/swamp-go-brr-the-brain\/"},"name":"swamp-go-brr, the brain","discussionUrl":"https:\/\/magistr.me\/blog\/swamp-go-brr-the-brain\/#comments","headline":"swamp-go-brr, the brain","description":"Why the autonomous agent loop inside the Firecracker cage is a deterministic state machine and not a swarm: how gobrr decomposes, schedules, and gates the work, plus what held and what bit me building it.","abstract":"Why the autonomous agent loop inside the Firecracker cage is a deterministic state machine and not a swarm: how gobrr decomposes, schedules, and gates the work, plus what held and what bit me building it.","inLanguage":"en-US","isFamilyFriendly":"true","author":{"@type":"Person","name":"Magistr","url":"https:\/\/magistr.me\/about"},"creator":{"@type":"Person","name":"Magistr","url":"https:\/\/magistr.me\/about"},"accountablePerson":{"@type":"Person","name":"Magistr","url":"https:\/\/magistr.me\/about"},"copyrightHolder":{"@type":"Person","name":"Magistr","url":"https:\/\/magistr.me\/about"},"copyrightYear":"2026","datePublished":"2026-06-19","dateCreated":"2026-06-19","dateModified":"2026-06-19","publisher":{"@type":"Organization","name":"Magistr and Maps","url":"https:\/\/magistr.me\/","logo":{"@type":"ImageObject","contentUrl":"https:\/\/magistr.me\/images\/logo.png","url":"https:\/\/magistr.me\/images\/logo.png"}},"url":"https:\/\/magistr.me\/blog\/swamp-go-brr-the-brain\/","wordCount":"1759","image":"https:\/\/magistr.me\/","keywords":"swamp,agents,firecracker,issue-lifecycle,automation"}</script></head><body><header class="navbar-light bg-white fixed-top mediumnavigation"><div class=container><div class="row justify-content-center align-items-center brandrow"><div class="col-lg-4 col-md-4 col-xs-12 d-none d-lg-block d-xl-block d-xll-block"></div><div class="col-lg-4 col-md-4 col-xs-12 text-start text-sm-center logoarea"><a class=navbar-brand href=https://magistr.me//><img src=/images/logo.png alt=logo></a></div><div class="col-lg-4 col-md-4 mr-auto col-xs-12 text-end searcharea d-none d-lg-block d-xl-block d-xll-block"><form role=search method=get class=search-form action=/search/><input type=search class=search-field placeholder=Search... name=q title="Search for:">
+<button type=submit class=search-submit>
+<i class="fa fa-search"></i></button></form></div></div><div class=navarea><nav class="navbar navbar-expand-lg"><button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarMediumish aria-controls=navbarMediumish aria-expanded=false aria-label="Toggle navigation">
+<span class=navbar-toggler-icon></span></button><div id=navbarMediumish class="collapse navbar-collapse"><ul class="navbar-nav ml-auto col-md-12 justify-content-center"><li class=nav-item><a class=nav-link href=/blog/>Thoughts</a></li><li class=nav-item><a class=nav-link href=/me/me>About Me</a></li></ul></div></nav></div></div></header><div class=site-content><div class=container><div class=mainheading><h1 class=sitetitle>Magistr and Maps</h1><p class=lead>Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.</p></div><div class=main-content><div class=container><div class=row><div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset"><p>Share</p><ul class=shareitnow><li class="ml-1 mr-1"><a aria-label="Share on Bluesky" target=_blank href="https://bsky.app/intent/compose?text=swamp-go-brr%2c%20the%20brain%20https%3a%2f%2fmagistr.me%2fblog%2fswamp-go-brr-the-brain%2f" onclick='return window.open(this.href,"bsky-share","width=550,height=435"),!1'><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 600 530" fill="currentcolor"><path d="m135.72 44.03C202.216 93.951 273.74 195.17 3e2 249.49c26.262-54.316 97.782-155.54 164.28-205.46C512.26 8.009 590-19.862 590 68.825c0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-.0174-2.9357-1.1937.51669-3.7077 7.8964-13.72 40.255-67.24 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07.0-88.687 77.742-60.816 125.72-24.795z"/></svg></a></li><li><a aria-label="Share on LinkedIn" target=_blank href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fmagistr.me%2fblog%2fswamp-go-brr-the-brain%2f" onclick='return window.open(this.href,"linkedin-share","width=550,height=435"),!1'><i class="fa fa-linkedin"></i></a></li></ul><div class=sep></div><ul><li><a class="small smoothscroll" href=#disqus_thread aria-label="Click to scroll to the top"></a></li></ul></div></div><div class="col-md-9 flex-first flex-md-unordered"><div class=mainheading><h1 class=posttitle>swamp-go-brr, the brain</h1></div><div class=article-post><p>Last post I built a cage — a Firecracker microVM to hold an agent I had let off
 the leash. This post is about what I put in it, and why the thing I put in it is
-a state machine and not a swarm.</p>
-<p>It started with a question I had been circling for a while. My engineering
+a state machine and not a swarm.</p><p>It started with a question I had been circling for a while. My engineering
 already runs through <code>issue-lifecycle</code>: Claude researches and plans, I review
 and correct the plan, and it implements against tests. It works, and over time
 the repository fills with more than code — the methodologies, the architecture
@@ -254,9 +12,7 @@ decisions, the patterns and antipatterns Claude hit along the way, and a set of
 UAT/BDD scenarios that pin the behaviour. The process writes its own knowledge
 base. But it needs my hand on the wheel for every plan and every correction. So
 the question was: what if the principles and the tests are good enough that I
-could throw a task at it and walk away?</p>
-<h2 id="not-a-swarm">Not a swarm</h2>
-<p>There is a fashionable answer to that, and I did not want it. You can hand the
+could throw a task at it and walk away?</p><h2 id=not-a-swarm>Not a swarm</h2><p>There is a fashionable answer to that, and I did not want it. You can hand the
 whole thing to a swarm of agents — Gas Town and its kin — and let them improvise
 their way to a result, spawning sub-agents, negotiating, retrying, until
 something falls out the end. It is genuinely impressive, and I cannot reason
@@ -264,12 +20,9 @@ about it. I cannot tell you why it did what it did, I cannot replay it, and when
 it goes wrong I cannot point at the transition that broke. For a loop that runs
 unattended, with my credentials, on real code, &ldquo;impressive and impossible to
 reason about&rdquo; is exactly the wrong trade. I wanted the orchestration
-deterministic and the non-determinism quarantined to the leaves.</p>
-<h2 id="brain-and-hands">Brain and hands</h2>
-<p>So I asked Claude to design <code>swamp-go-brr</code> the way I build everything else —
+deterministic and the non-determinism quarantined to the leaves.</p><h2 id=brain-and-hands>Brain and hands</h2><p>So I asked Claude to design <code>swamp-go-brr</code> the way I build everything else —
 through <code>issue-lifecycle</code> — but with the human removed from the execution loop.
-What came out has a clean split.</p>
-<p>The brain is <code>gobrr</code>: a pure state machine, a Run aggregate over a dynamic task
+What came out has a clean split.</p><p>The brain is <code>gobrr</code>: a pure state machine, a Run aggregate over a dynamic task
 DAG, and nothing it does is an LLM call. It seeds the DAG in one batch; it
 leases ready tasks to workers, one per call, up to a concurrency cap; it reaps
 any task whose lease lapses on a heartbeat TTL, so a worker that dies in its
@@ -277,34 +30,28 @@ microVM does not wedge the run; it caps total attempts so a task that keeps
 failing surfaces instead of looping forever; and it moves each task through its
 states on the verdicts it is handed. Every one of those is a deterministic
 transition I can inspect and replay, because it is swamp state on disk, not an
-agent&rsquo;s short-term memory.</p>
-<p>The hands are a thin driver: ask <code>gobrr</code> for the next ready task, build the work
+agent&rsquo;s short-term memory.</p><p>The hands are a thin driver: ask <code>gobrr</code> for the next ready task, build the work
 order, spawn a <code>claude</code> to do it, report the result back, repeat until the DAG
 is green. The only non-determinism in the whole system lives inside one leaf at
-a time — inside a microVM, behind a gate.</p>
-<h2 id="the-agent-proposes-the-state-machine-disposes">The agent proposes; the state machine disposes</h2>
-<p>The part I like most is how decomposition works, because it is where most
+a time — inside a microVM, behind a gate.</p><h2 id=the-agent-proposes-the-state-machine-disposes>The agent proposes; the state machine disposes</h2><p>The part I like most is how decomposition works, because it is where most
 &ldquo;autonomous&rdquo; systems quietly cheat. The agent decomposes the goal: it reads the
 repository and breaks the work into tasks, each with a spec, an explicit
 write-allowlist, and its dependencies. But <code>gobrr</code> does not trust it. It
 validates the decomposition mechanically and refuses a bad one — it derives each
 task&rsquo;s gate and forces the tests to be separated from the code, and it rejects a
 task whose write-allowlist smears across both. The creative step is allowed to
-be an LLM; the structural rules that keep it honest are code.</p>
-<p>The other half of a good decomposition is sizing, and this is where Claude&rsquo;s
+be an LLM; the structural rules that keep it honest are code.</p><p>The other half of a good decomposition is sizing, and this is where Claude&rsquo;s
 planning mode quietly earns its keep. Left to plan, it produces tasks at a grain
 where — with the <code>issue-lifecycle</code> skill loaded — a single agent carries one
 from zero to completion inside a 1M-token context window, without running out of
 room mid-task. And on the off chance a task&rsquo;s scope is still too large, the
 agent does not thrash against the ceiling: it files a follow-up and finishes
 what it can. Right-sizing is essential here, because it is what lets a leaf run
-to done unattended.</p>
-<p>The DAG is the schedule, a role that goes beyond simple bookkeeping.
+to done unattended.</p><p>The DAG is the schedule, a role that goes beyond simple bookkeeping.
 File-disjoint tasks with no dependency between them are independent by
 construction, so they run at the same time. A task that needs another&rsquo;s output
 simply waits for it. The shape of the decomposition <em>is</em> the parallelism, which
-is why the validator cares so much about getting it right.</p>
-<p>From there the loop is four models, one job each, and no model trusts the next
+is why the validator cares so much about getting it right.</p><p>From there the loop is four models, one job each, and no model trusts the next
 one&rsquo;s output. <code>gobrr</code> schedules. The driver leases a task and hands the microVM
 fabric a <code>claude -p</code> with a crafted work order. The leaf does not write to the
 repository — it emits its files inside a fenced work-contract envelope, and a
@@ -314,16 +61,13 @@ invariant: code is only ever <em>authored</em> inside a VM, and the host applies
 reviewed diff rather than running anything the agent produced. Then a
 containerised verifier gates the change in a <code>--network none</code>, read-only box and
 returns an exit code. If the exit code is green, the base advances; if it is
-red, the task bounces back to pending for another attempt.</p>
-<p>The one structural subtlety worth calling out: every task branches off a single
+red, the task bounces back to pending for another attempt.</p><p>The one structural subtlety worth calling out: every task branches off a single
 fixed base, so a task that imports a sibling&rsquo;s brand-new file will fail its own
 isolated gate — the file is not on its base yet. The fix is to sequence by
 dependency. Build the independent units first, rebase the green ones into a
 linear stack, advance the base to the top of that stack, and only then seed the
 dependent round — embedding the exact export signatures from the finished units
-into the next round&rsquo;s prompts so the imports resolve on the first try.</p>
-<h2 id="the-fork-i-did-not-take">The fork I did not take</h2>
-<p>There was a more ambitious design sitting right there, and I want to be honest
+into the next round&rsquo;s prompts so the imports resolve on the first try.</p><h2 id=the-fork-i-did-not-take>The fork I did not take</h2><p>There was a more ambitious design sitting right there, and I want to be honest
 that I looked at it. I could have made the thing recursive: put swamp itself
 inside each microVM and let a leaf spawn its own sub-VMs, a fractal of agents
 decomposing their own subtrees all the way down. It was too much — more blast
@@ -331,34 +75,26 @@ radius, more state to reason about, more ways to deadlock, for a payoff I did
 not need. I kept the orchestration in the one main VM and had Opus split the
 task into subtasks that feed a single flat pool. The final design has one
 conductor, many hands, and no recursion. It is simple, it works for now, and it
-is a good enough place to start.</p>
-<h2 id="why-it-is-safe-to-walk-away">Why it is safe to walk away</h2>
-<p>None of this would be safe to leave alone if the agent were starting cold. It is
+is a good enough place to start.</p><h2 id=why-it-is-safe-to-walk-away>Why it is safe to walk away</h2><p>None of this would be safe to leave alone if the agent were starting cold. It is
 not. The reason I could even consider taking my hand off the wheel is that
 <code>issue-lifecycle</code> has spent months writing the foundation down: the architecture
 decisions, the patterns and antipatterns, and — the load-bearing part — the UAT
 and BDD scenarios that say what &ldquo;working&rdquo; means. An autonomous loop is only as
 trustworthy as its definition of done, and mine is concrete: it is a test suite
 the process built for itself. The agent in the leaf is free to be creative, but
-the gate it has to pass is deterministic.</p>
-<h2 id="if-you-are-building-one-of-these">If you are building one of these</h2>
-<p>I think a lot of people are about to build some version of this, so here is what
-actually held and what bit me.</p>
-<p><strong>The pattern that carries the whole thing: the agent proposes, the state
+the gate it has to pass is deterministic.</p><h2 id=if-you-are-building-one-of-these>If you are building one of these</h2><p>I think a lot of people are about to build some version of this, so here is what
+actually held and what bit me.</p><p><strong>The pattern that carries the whole thing: the agent proposes, the state
 machine disposes.</strong> Let the LLM do the creative, fuzzy step — decomposition,
 code — and put every rule you actually depend on into deterministic code that
 can refuse its output. If your orchestrator is itself an LLM, the
-non-determinism remains, just moved up a level.</p>
-<p><strong>Quarantine the non-determinism to the leaves.</strong> This means one agent, one
+non-determinism remains, just moved up a level.</p><p><strong>Quarantine the non-determinism to the leaves.</strong> This means one agent, one
 task, one sandbox, and one gate. Everything between the leaves should be
 replayable state you can open after the fact and read in order. When something
 goes wrong — and it will — you want a specific transition to point at, which is
-a more direct diagnostic than re-reading a transcript.</p>
-<p><strong>Make &ldquo;done&rdquo; a gate the agent cannot argue with.</strong> A green test suite in a
+a more direct diagnostic than re-reading a transcript.</p><p><strong>Make &ldquo;done&rdquo; a gate the agent cannot argue with.</strong> A green test suite in a
 <code>--network none</code>, read-only container is worth more than any amount of the agent
 telling you it is finished. No model trusts the next one&rsquo;s output; each one
-checks.</p>
-<p><strong>What bit me.</strong> The verify gate ran the tests but not the formatter or the
+checks.</p><p><strong>What bit me.</strong> The verify gate ran the tests but not the formatter or the
 linter, so those failures only surfaced later at publish time — your gate is
 exactly as good as what you put in it, and no broader. Isolation is always along
 <em>some</em> axis: network namespaces isolated the network but not <code>/tmp</code>, and a
@@ -368,185 +104,54 @@ offline ahead of time, with the lockfile-writing turned off, or the run dies on
 a write it is not allowed to make. And I learned that retries are only effective
 with better instructions; a task that bounced on a type error passed only when I
 put the exact cast into its spec, because the second attempt needs improved
-guidance to succeed, which is more deterministic than another roll of the dice.</p>
-<h2 id="the-one-gate-i-keep">The one gate I keep</h2>
-<p>I keep exactly one transition for myself — the publish gate — for the reason I
-gave in <a href="/blog/build-the-cage-first/">the cage post</a>: the loop is allowed to
+guidance to succeed, which is more deterministic than another roll of the dice.</p><h2 id=the-one-gate-i-keep>The one gate I keep</h2><p>I keep exactly one transition for myself — the publish gate — for the reason I
+gave in <a href=/blog/build-the-cage-first/>the cage post</a>: the loop is allowed to
 write the code and prove it green, but deciding what is allowed out into the
 world is mine. I proved the rest on a real task, self-hosting a Bluesky PDS end
 to end while I watched, and I have <em>not</em> shipped what it built, because there is
-no adversarial-review pass on it yet.</p>
-<p>That is the shape I am comfortable with: autonomy I can reason about, the
+no adversarial-review pass on it yet.</p><p>That is the shape I am comfortable with: autonomy I can reason about, the
 creativity boxed into leaves, the structure held in a state machine, and a human
 on the one gate that matters. The swarm can have the Overton window. I will take
-the thing I can replay.</p>
-<p>This is a first working version, and there is more coming. Next I am hardening
-<code>swamp-go-brr</code> and wiring it with telemetry.</p>
-
-                    </div>
-                    
-                    
-                    <div class="after-post-tags">
-                        <ul class="tags">
-                        
-                        <li>
-                        <a href="/tags/swamp/">swamp</a>
-                        </li>
-                        
-                        <li>
-                        <a href="/tags/agents/">agents</a>
-                        </li>
-                        
-                        <li>
-                        <a href="/tags/firecracker/">firecracker</a>
-                        </li>
-                        
-                        <li>
-                        <a href="/tags/issue-lifecycle/">issue-lifecycle</a>
-                        </li>
-                        
-                        <li>
-                        <a href="/tags/automation/">automation</a>
-                        </li>
-                        
-                        </ul>
-                    </div>
-                    
-                    
-                    
-                    <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
-                    
-                        <a class="d-block col-md-6" href="https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens/"> &laquo; Nvidia, Oxide, and tinygrad through a Wardley lens — the long version</a>
-                    
-                    
-                        <a class="d-block col-md-6 text-lg-end" href="https://magistr.me/blog/build-the-cage-first/">Build the cage first &raquo;</a>
-                    
-                    <div class="clearfix"></div>
-                    </div>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-
-
-
-    </div>
-
-
-            </div>
-<div class="jumbotron fortags">
-	<div class="d-md-flex h-100">
-		<div class="col-md-4 transpdark align-self-center text-center h-100">
-			<div class="d-md-flex align-items-center justify-content-center h-100">
-				<h2 class="d-md-block d-none align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
-			</div>
-		</div>
-		<div class="col-md-8 p-5 align-self-center text-center">
-			
-			<a class="mt-1 mb-1" href="/tags/agents/">agents</a>
-			
-			<a class="mt-1 mb-1" href="/tags/ai/">ai</a>
-			
-			<a class="mt-1 mb-1" href="/tags/amsterdam/">amsterdam</a>
-			
-			<a class="mt-1 mb-1" href="/tags/automation/">automation</a>
-			
-			<a class="mt-1 mb-1" href="/tags/blog/">blog</a>
-			
-			<a class="mt-1 mb-1" href="/tags/cad/">cad</a>
-			
-			<a class="mt-1 mb-1" href="/tags/claude/">claude</a>
-			
-			<a class="mt-1 mb-1" href="/tags/cozystack/">cozystack</a>
-			
-			<a class="mt-1 mb-1" href="/tags/ddd/">ddd</a>
-			
-			<a class="mt-1 mb-1" href="/tags/devops/">devops</a>
-			
-			<a class="mt-1 mb-1" href="/tags/finance/">finance</a>
-			
-			<a class="mt-1 mb-1" href="/tags/firecracker/">firecracker</a>
-			
-			<a class="mt-1 mb-1" href="/tags/good-planning/">good-planning</a>
-			
-			<a class="mt-1 mb-1" href="/tags/guide/">guide</a>
-			
-			<a class="mt-1 mb-1" href="/tags/issue-lifecycle/">issue-lifecycle</a>
-			
-			<a class="mt-1 mb-1" href="/tags/jscad/">jscad</a>
-			
-			<a class="mt-1 mb-1" href="/tags/kubernetes/">kubernetes</a>
-			
-			<a class="mt-1 mb-1" href="/tags/macos/">macos</a>
-			
-			<a class="mt-1 mb-1" href="/tags/me/">me</a>
-			
-			<a class="mt-1 mb-1" href="/tags/moldable-development/">moldable-development</a>
-			
-			<a class="mt-1 mb-1" href="/tags/nvidia/">nvidia</a>
-			
-			<a class="mt-1 mb-1" href="/tags/observability/">observability</a>
-			
-			<a class="mt-1 mb-1" href="/tags/opencore/">opencore</a>
-			
-			<a class="mt-1 mb-1" href="/tags/oxide/">oxide</a>
-			
-			<a class="mt-1 mb-1" href="/tags/qemu/">qemu</a>
-			
-			<a class="mt-1 mb-1" href="/tags/retro/">retro</a>
-			
-			<a class="mt-1 mb-1" href="/tags/serverless/">serverless</a>
-			
-			<a class="mt-1 mb-1" href="/tags/si/">si</a>
-			
-			<a class="mt-1 mb-1" href="/tags/strategy/">strategy</a>
-			
-			<a class="mt-1 mb-1" href="/tags/swamp/">swamp</a>
-			
-			<a class="mt-1 mb-1" href="/tags/talos/">talos</a>
-			
-			<a class="mt-1 mb-1" href="/tags/tinygrad/">tinygrad</a>
-			
-			<a class="mt-1 mb-1" href="/tags/tools/">tools</a>
-			
-			<a class="mt-1 mb-1" href="/tags/typescript/">typescript</a>
-			
-			<a class="mt-1 mb-1" href="/tags/unraid/">unraid</a>
-			
-			<a class="mt-1 mb-1" href="/tags/virtualization/">virtualization</a>
-			
-			<a class="mt-1 mb-1" href="/tags/wardley/">wardley</a>
-			
-			<a class="mt-1 mb-1" href="/tags/wardley-mapping/">wardley-mapping</a>
-			
-		</div>
-	</div>
-</div>
-
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 text-center text-lg-start">
-                &copy; Copyright CC SA 4.0
-            </div>
-            <div class="col-md-6 col-sm-6 text-center text-lg-end">    
-                <a target="_blank" rel="noopener" href="https://github.com/ekampf/mediumish-gohugo-theme">Mediumish Theme</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-        </div>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
-<script src="https://magistr.me/js/mediumish.1574b32c12cce790df495bf68909be2585a33e1bbc54b9f2cb080cac17b88472.js" integrity="sha256-FXSzLBLM55DfSVv2iQm&#43;JYWjPhu8VLnyywgMrBe4hHI="></script>
-    </body>
-</html>
+the thing I can replay.</p><p>This is a first working version, and there is more coming. Next I am hardening
+<code>swamp-go-brr</code> and wiring it with telemetry.</p></div><div class=after-post-tags><ul class=tags><li><a href=/tags/swamp/>swamp</a></li><li><a href=/tags/agents/>agents</a></li><li><a href=/tags/firecracker/>firecracker</a></li><li><a href=/tags/issue-lifecycle/>issue-lifecycle</a></li><li><a href=/tags/automation/>automation</a></li></ul></div><div class="row PageNavigation d-flex justify-content-between font-weight-bold"><a class="d-block col-md-6" href=https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens/>&#171; Nvidia, Oxide, and tinygrad through a Wardley lens — the long version</a>
+<a class="d-block col-md-6 text-lg-end" href=https://magistr.me/blog/build-the-cage-first/>Build the cage first &#187;</a><div class=clearfix></div></div></div></div></div></div></div><div class="jumbotron fortags"><div class="d-md-flex h-100"><div class="col-md-4 transpdark align-self-center text-center h-100"><div class="d-md-flex align-items-center justify-content-center h-100"><h2 class="d-md-block d-none align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2></div></div><div class="col-md-8 p-5 align-self-center text-center"><a class="mt-1 mb-1" href=/tags/agents/>agents</a>
+<a class="mt-1 mb-1" href=/tags/ai/>ai</a>
+<a class="mt-1 mb-1" href=/tags/amsterdam/>amsterdam</a>
+<a class="mt-1 mb-1" href=/tags/automation/>automation</a>
+<a class="mt-1 mb-1" href=/tags/blog/>blog</a>
+<a class="mt-1 mb-1" href=/tags/cad/>cad</a>
+<a class="mt-1 mb-1" href=/tags/claude/>claude</a>
+<a class="mt-1 mb-1" href=/tags/cozystack/>cozystack</a>
+<a class="mt-1 mb-1" href=/tags/ddd/>ddd</a>
+<a class="mt-1 mb-1" href=/tags/devops/>devops</a>
+<a class="mt-1 mb-1" href=/tags/finance/>finance</a>
+<a class="mt-1 mb-1" href=/tags/firecracker/>firecracker</a>
+<a class="mt-1 mb-1" href=/tags/good-planning/>good-planning</a>
+<a class="mt-1 mb-1" href=/tags/google-health/>google-health</a>
+<a class="mt-1 mb-1" href=/tags/guide/>guide</a>
+<a class="mt-1 mb-1" href=/tags/health/>health</a>
+<a class="mt-1 mb-1" href=/tags/issue-lifecycle/>issue-lifecycle</a>
+<a class="mt-1 mb-1" href=/tags/jscad/>jscad</a>
+<a class="mt-1 mb-1" href=/tags/kubernetes/>kubernetes</a>
+<a class="mt-1 mb-1" href=/tags/macos/>macos</a>
+<a class="mt-1 mb-1" href=/tags/me/>me</a>
+<a class="mt-1 mb-1" href=/tags/moldable-development/>moldable-development</a>
+<a class="mt-1 mb-1" href=/tags/nvidia/>nvidia</a>
+<a class="mt-1 mb-1" href=/tags/observability/>observability</a>
+<a class="mt-1 mb-1" href=/tags/opencore/>opencore</a>
+<a class="mt-1 mb-1" href=/tags/oxide/>oxide</a>
+<a class="mt-1 mb-1" href=/tags/qemu/>qemu</a>
+<a class="mt-1 mb-1" href=/tags/quantified-self/>quantified-self</a>
+<a class="mt-1 mb-1" href=/tags/retro/>retro</a>
+<a class="mt-1 mb-1" href=/tags/serverless/>serverless</a>
+<a class="mt-1 mb-1" href=/tags/si/>si</a>
+<a class="mt-1 mb-1" href=/tags/strategy/>strategy</a>
+<a class="mt-1 mb-1" href=/tags/swamp/>swamp</a>
+<a class="mt-1 mb-1" href=/tags/talos/>talos</a>
+<a class="mt-1 mb-1" href=/tags/tinygrad/>tinygrad</a>
+<a class="mt-1 mb-1" href=/tags/tools/>tools</a>
+<a class="mt-1 mb-1" href=/tags/typescript/>typescript</a>
+<a class="mt-1 mb-1" href=/tags/unraid/>unraid</a>
+<a class="mt-1 mb-1" href=/tags/virtualization/>virtualization</a>
+<a class="mt-1 mb-1" href=/tags/wardley/>wardley</a>
+<a class="mt-1 mb-1" href=/tags/wardley-mapping/>wardley-mapping</a></div></div></div><footer class=footer><div class=container><div class=row><div class="col-md-6 col-sm-6 text-center text-lg-start">&copy; Copyright CC SA 4.0</div><div class="col-md-6 col-sm-6 text-center text-lg-end"><a target=_blank rel=noopener href=https://github.com/ekampf/mediumish-gohugo-theme>Mediumish Theme</a></div></div></div></footer></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin=anonymous referrerpolicy=no-referrer></script><script src=https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin=anonymous referrerpolicy=no-referrer></script><script src=https://magistr.me/js/mediumish.1574b32c12cce790df495bf68909be2585a33e1bbc54b9f2cb080cac17b88472.js integrity="sha256-FXSzLBLM55DfSVv2iQm+JYWjPhu8VLnyywgMrBe4hHI="></script></body></html>

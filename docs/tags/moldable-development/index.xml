@@ -1,27 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>moldable development on Magistr and Maps</title>
-    <link>https://magistr.me/tags/moldable-development/</link>
-    <description>Recent content in moldable development on Magistr and Maps</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>CC SA 4.0</copyright>
-    <lastBuildDate>Sat, 13 Jun 2026 13:42:14 +0000</lastBuildDate>
-    <atom:link href="https://magistr.me/tags/moldable-development/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>A feed to think with</title>
-      <link>https://magistr.me/blog/a-feed-to-think-with/</link>
-      <pubDate>Sat, 13 Jun 2026 13:42:14 +0000</pubDate>
-      <guid>https://magistr.me/blog/a-feed-to-think-with/</guid>
-      <description>The first night I got access to move.nl I spent four hours reading apartment listings and went to bed at one in the morning.&#xA;I built a tool to watch the market so I do not have to.</description>
-    </item>
-    <item>
-      <title>The Sight of Systems</title>
-      <link>https://magistr.me/blog/the-sight-of-systems/</link>
-      <pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate>
-      <guid>https://magistr.me/blog/the-sight-of-systems/</guid>
-      <description>I’ll never forget that feeling—ingesting millions of metrics into a tool like Grafana or Honeycomb for the first time. Before that, I was blind. I was guessing.</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>moldable development on Magistr and Maps</title><link>https://magistr.me/tags/moldable-development/</link><description>Recent content in moldable development on Magistr and Maps</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>CC SA 4.0</copyright><lastBuildDate>Sat, 13 Jun 2026 13:42:14 +0000</lastBuildDate><atom:link href="https://magistr.me/tags/moldable-development/index.xml" rel="self" type="application/rss+xml"/><item><title>A feed to think with</title><link>https://magistr.me/blog/a-feed-to-think-with/</link><pubDate>Sat, 13 Jun 2026 13:42:14 +0000</pubDate><guid>https://magistr.me/blog/a-feed-to-think-with/</guid><description>The first night I got access to move.nl I spent four hours reading apartment listings and went to bed at one in the morning.
+I built a tool to watch the market so I do not have to.</description></item><item><title>The Sight of Systems</title><link>https://magistr.me/blog/the-sight-of-systems/</link><pubDate>Sat, 14 Feb 2026 12:27:00 +0100</pubDate><guid>https://magistr.me/blog/the-sight-of-systems/</guid><description>I’ll never forget that feeling—ingesting millions of metrics into a tool like Grafana or Honeycomb for the first time. Before that, I was blind. I was guessing.</description></item></channel></rss>

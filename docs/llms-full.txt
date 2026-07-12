@@ -4,6 +4,67 @@
 
 ---
 
+# Owning my own heartbeat
+
+- Date: 2026-07-12
+- Tags: health, quantified-self, google-health, swamp
+- URL: https://magistr.me/blog/owning-my-own-heartbeat/
+
+
+I wanted my wearable data to live in my own database instead of being rented back to me through an app. So over a few weeks it turned into a small pipeline: Pixel Watch → the [Google Health API](https://developers.google.com/health) → VictoriaMetrics on my Unraid box → Grafana, and now a two-line briefing that a cron pushes to Telegram at 11:00 and 22:00. All of it runs as swamp models plus a `daily-health` workflow, and no pile of throwaway scripts is left behind.
+
+I built it in June, a couple of months after the API's March launch, when it was still fresh and thin on docs. It grew up fast: by summer there was a proper reference, a data-types index, a status dashboard (late June), and a September 2026 sunset on the old Fitbit Web API. The side quest became the main road while I was standing on it — watching a component industrialize under your feet in a few months is its own small lesson.
+
+The path was not straight.
+
+- I started with my old Amazfit and hit a Xiaomi login wall: a five-year-old account, `Missing ssecurity or location`, adb over USB, a certificate the app will not trust. It was a dead end. The move that mattered was *stopping* and switching the source instead of grinding the tactic: I pivoted to the Pixel Watch.
+- Restricted scopes plus an OAuth app stuck in "Testing" means the refresh token dies every 7 days. I re-authorized by hand for weeks before finding the fix: publish the consent screen to Production.
+- Then there were the small sharp ones: a timezone bug, where I re-localized the daily `date` the server had already normalized and bucketed a whole day wrong; intraday SpO2 that turned to garbage after a March Pixel feature drop (that one was a documented Google bug on their side); and VictoriaMetrics silently *not* overwriting samples at the same timestamp, which made every re-derivation look like a no-op.
+
+**The data shape will cost you an afternoon if nobody warns you.** There is no `value` field. Each DataPoint nests its reading and timestamp under a camelCased key *named after the data type* — `heartRate`, `steps`, `dailyRestingHeartRate` — and every number comes back as a **string**. Here is a real heart-rate point, trimmed:
+
+```json
+{
+  "dataSource": { "...": "..." },
+  "heartRate": {
+    "sampleTime": { "physicalTime": "2026-06-20T07:14:03Z" },
+    "beatsPerMinute": "61"
+  }
+}
+```
+
+Where the timestamp lives is decided by the type's **cardinality**, which the docs now state for every type — match your extractor to it and the guessing stops:
+
+- **Sample** (heart-rate, HRV, weight, VO2max) → `sampleTime.physicalTime`
+- **Interval** (steps, distance, zone-minutes, active-energy) → `interval.startTime` / `endTime`
+- **Daily** rollups (resting-HR, daily-HRV, skin-temp) → a `date: {year, month, day}`, already timezone/DST-normalized server-side (so *do not* re-localize it — see the bug above)
+- **Session** (sleep, exercise, ECG) → an interval plus a nested summary object
+
+There are two more traps. Type ids are kebab-case in the URL path (`daily-heart-rate-variability`) but snake_case in filter params (`daily_heart_rate_variability`); and distances arrive in millimeters and weight in grams — deliberately, to keep precision — so the units are in the field names (`distanceMillimeters`, `heightMillimeters`, `weightGrams`) and you scale down. I stopped guessing altogether: I take the one object that is not `dataSource`, read the first scalar that is not a time or metadata field, and `Number()` it — and I dump a `raw` sample of every type to disk so I can see the real shape before I trust the mapping.
+
+**Here is what to ask, and how to probe.** The endpoint is `GET /v4/users/me/dataTypes/{type}/dataPoints`, paginated newest-first with `nextPageToken`. When I started there was no index and you probed blind; now the [data types index](https://developers.google.com/health/data-types) lists every valid id (and there is a discovery document too), so you can see what *exists*. What no endpoint tells you is which types *you* actually have — so you still probe, and read the answer as a map:
+
+- A `200` with points means the type is real and you have data.
+- A `200` with an empty body means the type is valid but you have no device or log for it (for me that was `blood-glucose`, `core-body-temperature`, and all of `nutrition`).
+- A `403` means the type is real and your token is missing the scope.
+- A `400 "List is not supported"` marks a rollup-only type (`floors`, `total-calories`, `calories-in-heart-rate-zone`) — the data is there, but you fetch it through the `:dailyRollUp` method instead of the list endpoint.
+
+Scopes are all `https://www.googleapis.com/auth/googlehealth.<group>.readonly` — `activity_and_fitness`, `health_metrics_and_measurements` (heart, body, oxygen, respiratory, glucose all live here), `sleep`, and `ecg` / `irn` (irregular-rhythm) as their own consent. They split read from write in May; ECG and IRN are read-only, which is telling. Beyond the obvious `heart-rate` / `steps` / `sleep`, the ids that paid off were: `daily-heart-rate-variability` (deep-sleep RMSSD — the readiness input), `daily-heart-rate-zones` (your real cutoffs; mine are 112/135/163), `daily-sleep-temperature-derivations` (skin temp with a 30-day baseline already computed), `active-zone-minutes`, `respiratory-rate-sleep-summary`, `run-vo2-max`. And the quiet ones you would never think to ask for — `active-minutes`, `sedentary-period`, `altitude` — turned out to be sitting right there too.
+
+The richest stuff is nested inside the Session types. `exercise` carries a `metricsSummary` — pace, calories, per-zone durations — and, on runs only, a `mobilityMetrics` block: cadence, stride length, vertical oscillation, ground-contact time. That is real biomechanics buried behind a summary screen; 178 sessions since November came back carrying it. And the watch will hand you the raw ECG for the `ecg` scope — a single lead, 250 Hz, 30 seconds, 7500 samples, with a `millivoltsScalingFactor` to convert. I ran mine through [NeuroKit2](https://neuropsychology.github.io/NeuroKit/) for QTc / QRS / HRV and pushed it back into the same stack. It is screening rather than diagnosis — a single lead over-reads — but the waveform is mine, on disk.
+
+Here is how I would approach this kind of task now, distilled:
+
+1. **Pull the raw signal first, tighten the mapping later.** Store a `raw` sample per type, use tolerant extractors, and confirm the real shape from live data. Do not block on a perfect schema.
+2. **Probe the boundary before you build on it.** The docs tell you what exists; only probing tells you what *you* have — and half of it is things you did not know to ask for.
+3. **Own the derivation.** If they will not sell you the number, rebuild it from raw — and calibrate against ground truth. It turns out readiness is basically one measurement: `≈ 2.85 × last-night-deep-HRV − 31`, r ≈ 0.97. The proprietary score is a straight line.
+4. **Build a tool that outlives the task.** A model plus a workflow you run every day beats a clever one-off script.
+
+And there is the quiet part. Once the data was mine, formulas in front of me, it stopped flattering me. The honest read turned out to be mundane, plainer than any of the fancy metrics: eight hours at a desk with my heart at 68, and a year of runs where I had quietly traded all my intensity for easy volume. A graph I own will tell you that. A dial you rent will not.
+
+
+---
+
 # Reading the board from the stands
 
 - Date: 2026-07-09

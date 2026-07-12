@@ -6,6 +6,7 @@ Magistr and Maps is a personal blog by Magistr covering IT infrastructure, DevOp
 
 ## Blog Posts
 
+- [Owning my own heartbeat](https://magistr.me/blog/owning-my-own-heartbeat.md): Building a self-hosted health pipeline — Pixel Watch → Google Health API → VictoriaMetrics → Grafana: the data shapes, the probe map, and what to ask the API for.
 - [Reading the board from the stands](https://magistr.me/blog/reading-the-board-from-the-stands.md): I ignored Nvidia for two years. Then two interviews flipped me — on Jensen as the best Wardley strategist alive, and on what I actually wanted while watching him.
 - [Nvidia, Oxide, and tinygrad through a Wardley lens — the long version](https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens.md): The long version: three AI-compute value chains mapped and ranked — Jensen the strategist, Oxide's durable niche, tinygrad's right target and wrong method — plus the bezzle counter-thesis and a live co-design exhibit.
 - [swamp-go-brr, the brain](https://magistr.me/blog/swamp-go-brr-the-brain.md): Why the autonomous agent loop inside the Firecracker cage is a deterministic state machine and not a swarm: how gobrr decomposes, schedules, and gates the work, plus what held and what bit me building it.

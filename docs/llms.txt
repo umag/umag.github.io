@@ -6,7 +6,6 @@ Magistr and Maps is a personal blog by Magistr covering IT infrastructure, DevOp
 
 ## Blog Posts
 
-- [3ml of Crop 2017](https://magistr.me/blog/3ml-of-crop-2017.md): I loved a perfume I can't buy, couldn't hand the feeling to a perfume shop, so I built a Fragrantica model to find alternatives. It proved there are none.
 - [Building a Health Data Pipeline with Google Health API, Swamp, and Claude](https://magistr.me/blog/google-health-pipeline-with-swamp-and-claude.md): How we built a self-hosted health pipeline with the Google Health API, Swamp extension models, and Claude — from a Xiaomi login dead end, through probing a closed API and reverse-engineering Fitbit's readiness score, to ECG waveforms and a twice-daily Telegram briefing.
 - [Reading the board from the stands](https://magistr.me/blog/reading-the-board-from-the-stands.md): I ignored Nvidia for two years. Then two interviews flipped me — on Jensen as the best Wardley strategist alive, and on what I actually wanted while watching him.
 - [Nvidia, Oxide, and tinygrad through a Wardley lens — the long version](https://magistr.me/blog/nvidia-oxide-tinygrad-wardley-lens.md): The long version: three AI-compute value chains mapped and ranked — Jensen the strategist, Oxide's durable niche, tinygrad's right target and wrong method — plus the bezzle counter-thesis and a live co-design exhibit.

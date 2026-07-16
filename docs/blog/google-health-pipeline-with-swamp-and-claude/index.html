@@ -1,0 +1,160 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=generator content="Hugo 0.121.1"><link rel=icon href=/images/logo.png><title>Building a Health Data Pipeline with Google Health API, Swamp, and Claude | Magistr and Maps</title>
+<meta name=description content="How we built a self-hosted health pipeline with the Google Health API, Swamp extension models, and Claude — from a Xiaomi login dead end, through probing a closed API and reverse-engineering Fitbit's readiness score, to ECG waveforms and a twice-daily Telegram briefing."><meta name=keywords content="health,quantified-self,google-health,swamp,claude"><link rel=sitemap type=application/xml title=Sitemap href=/sitemap.xml><link rel=alternate type=text/plain title=LLMs.txt href=/llms.txt><link rel=canonical href=https://magistr.me/blog/google-health-pipeline-with-swamp-and-claude/><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.google-analytics.com><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><meta property="og:locale" content="en_US"><meta property="og:site_name" content="Magistr and Maps"><meta property="og:title" content="Building a Health Data Pipeline with Google Health API, Swamp, and Claude"><meta property="og:description" content="How we built a self-hosted health pipeline with the Google Health API, Swamp extension models, and Claude — from a Xiaomi login dead end, through probing a closed API and reverse-engineering Fitbit's readiness score, to ECG waveforms and a twice-daily Telegram briefing."><meta property="og:type" content="article"><meta property="og:url" content="https://magistr.me/blog/google-health-pipeline-with-swamp-and-claude/"><meta property="article:section" content="blog"><meta property="article:published_time" content="2026-07-12T21:51:30+00:00"><meta property="article:modified_time" content="2026-07-12T21:51:30+00:00"><meta property="og:image" content="https://magistr.me/images/logo.png"><link rel=me href=https://bsky.app/profile/magistr.me><meta http-equiv=last-modified content="2026-07-12T21:51:30+00:00"><meta property="article:tag" content="health"><meta property="article:tag" content="quantified-self"><meta property="article:tag" content="google-health"><meta property="article:tag" content="swamp"><meta property="article:tag" content="claude"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin=anonymous referrerpolicy=no-referrer><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin=anonymous referrerpolicy=no-referrer><link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel=stylesheet><link rel=stylesheet href=https://magistr.me/css/style.min.0b8af6cefc5fb2bf4cf841dfb6904d7935744516dbe24e851253e57a88a7bca1.css integrity="sha256-C4r2zvxfsr9M+EHftpBNeTV0RRbb4k6FElPleoinvKE="><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","@id":"https:\/\/magistr.me\/blog\/google-health-pipeline-with-swamp-and-claude\/","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/magistr.me\/blog\/google-health-pipeline-with-swamp-and-claude\/"},"name":"Building a Health Data Pipeline with Google Health API, Swamp, and Claude","discussionUrl":"https:\/\/magistr.me\/blog\/google-health-pipeline-with-swamp-and-claude\/#comments","headline":"Building a Health Data Pipeline with Google Health API, Swamp, and Claude","description":"How we built a self-hosted health pipeline with the Google Health API, Swamp extension models, and Claude — from a Xiaomi login dead end, through probing a closed API and reverse-engineering Fitbit's readiness score, to ECG waveforms and a twice-daily Telegram briefing.","abstract":"How we built a self-hosted health pipeline with the Google Health API, Swamp extension models, and Claude — from a Xiaomi login dead end, through probing a closed API and reverse-engineering Fitbit's readiness score, to ECG waveforms and a twice-daily Telegram briefing.","inLanguage":"en-US","isFamilyFriendly":"true","author":{"@type":"Person","name":"Magistr","url":"https:\/\/magistr.me\/about"},"creator":{"@type":"Person","name":"Magistr","url":"https:\/\/magistr.me\/about"},"accountablePerson":{"@type":"Person","name":"Magistr","url":"https:\/\/magistr.me\/about"},"copyrightHolder":{"@type":"Person","name":"Magistr","url":"https:\/\/magistr.me\/about"},"copyrightYear":"2026","datePublished":"2026-07-12","dateCreated":"2026-07-12","dateModified":"2026-07-12","publisher":{"@type":"Organization","name":"Magistr and Maps","url":"https:\/\/magistr.me\/","logo":{"@type":"ImageObject","contentUrl":"https:\/\/magistr.me\/images\/logo.png","url":"https:\/\/magistr.me\/images\/logo.png"}},"url":"https:\/\/magistr.me\/blog\/google-health-pipeline-with-swamp-and-claude\/","wordCount":"1997","image":"https:\/\/magistr.me\/","keywords":"health,quantified-self,google-health,swamp,claude"}</script></head><body><header class="navbar-light bg-white fixed-top mediumnavigation"><div class=container><div class="row justify-content-center align-items-center brandrow"><div class="col-lg-4 col-md-4 col-xs-12 d-none d-lg-block d-xl-block d-xll-block"></div><div class="col-lg-4 col-md-4 col-xs-12 text-start text-sm-center logoarea"><a class=navbar-brand href=https://magistr.me//><img src=/images/logo.png alt=logo></a></div><div class="col-lg-4 col-md-4 mr-auto col-xs-12 text-end searcharea d-none d-lg-block d-xl-block d-xll-block"><form role=search method=get class=search-form action=/search/><input type=search class=search-field placeholder=Search... name=q title="Search for:">
+<button type=submit class=search-submit>
+<i class="fa fa-search"></i></button></form></div></div><div class=navarea><nav class="navbar navbar-expand-lg"><button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarMediumish aria-controls=navbarMediumish aria-expanded=false aria-label="Toggle navigation">
+<span class=navbar-toggler-icon></span></button><div id=navbarMediumish class="collapse navbar-collapse"><ul class="navbar-nav ml-auto col-md-12 justify-content-center"><li class=nav-item><a class=nav-link href=/blog/>Thoughts</a></li><li class=nav-item><a class=nav-link href=/me/me>About Me</a></li></ul></div></nav></div></div></header><div class=site-content><div class=container><div class=mainheading><h1 class=sitetitle>Magistr and Maps</h1><p class=lead>Deep thoughts, notes, reposts and thinking aloud bout IT, architecture and maps.</p></div><div class=main-content><div class=container><div class=row><div class="col-md-2 pl-0"><div class="share sticky-top sticky-top-offset"><p>Share</p><ul class=shareitnow><li class="ml-1 mr-1"><a aria-label="Share on Bluesky" target=_blank href="https://bsky.app/intent/compose?text=Building%20a%20Health%20Data%20Pipeline%20with%20Google%20Health%20API%2c%20Swamp%2c%20and%20Claude%20https%3a%2f%2fmagistr.me%2fblog%2fgoogle-health-pipeline-with-swamp-and-claude%2f" onclick='return window.open(this.href,"bsky-share","width=550,height=435"),!1'><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 600 530" fill="currentcolor"><path d="m135.72 44.03C202.216 93.951 273.74 195.17 3e2 249.49c26.262-54.316 97.782-155.54 164.28-205.46C512.26 8.009 590-19.862 590 68.825c0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-.0174-2.9357-1.1937.51669-3.7077 7.8964-13.72 40.255-67.24 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07.0-88.687 77.742-60.816 125.72-24.795z"/></svg></a></li><li><a aria-label="Share on LinkedIn" target=_blank href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fmagistr.me%2fblog%2fgoogle-health-pipeline-with-swamp-and-claude%2f" onclick='return window.open(this.href,"linkedin-share","width=550,height=435"),!1'><i class="fa fa-linkedin"></i></a></li></ul><div class=sep></div><ul><li><a class="small smoothscroll" href=#disqus_thread aria-label="Click to scroll to the top"></a></li></ul></div></div><div class="col-md-9 flex-first flex-md-unordered"><div class=mainheading><h1 class=posttitle>Building a Health Data Pipeline with Google Health API, Swamp, and Claude</h1></div><div class=article-post><blockquote><p><strong>Disclaimer:</strong> The following text is an AI-generated summary of the design
+decisions and evolution of the Google Health data pipeline built with Swamp
+and Claude. All work was done iteratively with <code>claude-code</code> handling
+implementation while I approved steps and provided direction.</p></blockquote><h2 id=choosing-the-data-source>Choosing the Data Source</h2><p>The starting prompt was simple: <em>&ldquo;how to extract my health metrics from zepp
+mobile app, I want to stream them into my victoria metrics.&rdquo;</em></p><p>I wanted my wearable data in my own time-series database — VictoriaMetrics on
+my Unraid box — instead of renting it back through an app. The first candidate
+was an old Amazfit paired to the Zepp app. Every path into it failed:</p><table><thead><tr><th>Path</th><th>Method</th><th>Result</th></tr></thead><tbody><tr><td>Zepp cloud (huami-token)</td><td>Xiaomi OAuth</td><td><code>Missing ssecurity or location in auth response</code></td></tr><tr><td>App traffic capture</td><td>http-toolkit + adb MITM</td><td>app refuses the TLS cert</td></tr><tr><td>Local DB off the phone</td><td>adb pull</td><td>Android app sandbox</td></tr><tr><td>Legacy Fitbit Web API</td><td>new app registration</td><td>closed — funnels to Google Health</td></tr><tr><td><strong>Google Health API</strong></td><td><strong>standard Google OAuth + REST</strong></td><td><strong>works</strong></td></tr></tbody></table><p>The move that mattered was stopping: <em>&ldquo;actually lets pause here for a moment,
+how to extract data from pixel watches.&rdquo;</em> Switching the source beat grinding
+the tactic. A <code>@magistr/fitbit</code> model was built for the legacy API and deleted
+the same day — registration is closed, the API sunsets September 2026. The
+Google Health API (<code>health.googleapis.com/v4</code>) is the only road forward, and in
+June it was weeks old and thin on docs.</p><p>Everything became one Swamp extension model — <code>@magistr/google-health</code>, with
+<code>authorize</code>, <code>exchange</code>, <code>probe</code>, <code>sync</code>, and <code>derive</code> methods — so every answer
+the API ever gave landed as versioned, queryable data instead of scrollback.</p><h2 id=the-oauth-tax>The OAuth Tax</h2><p>All Google Health scopes are <strong>Restricted</strong>. The consent screen started in
+&ldquo;Testing&rdquo; mode, and in that mode Google expires the refresh token after ~7
+days. For weeks the pipeline demanded a manual re-auth ritual — open consent
+URL, approve, paste a <code>4/0AdkVLP...</code> code into <code>exchange</code>.</p><p>The fix was one console click, found late: <strong>publish the OAuth consent screen
+to Production</strong>. An unverified single-user app is fine; the refresh token then
+persists until revoked. The weekly tax was self-inflicted.</p><p><strong>Lesson:</strong> read the token-expiry rules of the publishing status before
+accepting a re-auth ritual as the cost of doing business.</p><h2 id=the-datapoint-shape--numbers-are-strings>The DataPoint Shape — Numbers Are Strings</h2><p>There is no <code>value</code> field. Each DataPoint nests its reading under a camelCased
+key <em>named after the data type</em>, and every number arrives as a string:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;dataSource&#34;</span>: { <span style=color:#f92672>&#34;...&#34;</span>: <span style=color:#e6db74>&#34;...&#34;</span> },
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;heartRate&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;sampleTime&#34;</span>: { <span style=color:#f92672>&#34;physicalTime&#34;</span>: <span style=color:#e6db74>&#34;2026-06-20T07:14:03Z&#34;</span> },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;beatsPerMinute&#34;</span>: <span style=color:#e6db74>&#34;61&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Where the timestamp lives depends on the type&rsquo;s cardinality:</p><table><thead><tr><th>Cardinality</th><th>Types</th><th>Timestamp lives in</th></tr></thead><tbody><tr><td>Sample</td><td>heart-rate, HRV, weight</td><td><code>sampleTime.physicalTime</code></td></tr><tr><td>Interval</td><td>steps, distance, active-energy</td><td><code>interval.startTime</code> / <code>endTime</code></td></tr><tr><td>Daily</td><td>resting-HR, daily-HRV, skin-temp</td><td><code>date: {year, month, day}</code></td></tr><tr><td>Session</td><td>sleep, exercise, ECG</td><td>interval + nested summary object</td></tr></tbody></table><p>Two more traps: type ids are kebab-case in URLs but snake_case in filter
+params, and units are baked into field names — <code>distanceMillimeters</code>,
+<code>weightGrams</code> — deliberately, to avoid losing precision.</p><p>Rather than guess, <code>sync</code> uses tolerant extractors (take the one object that
+isn&rsquo;t <code>dataSource</code>, read the first scalar that isn&rsquo;t time or metadata,
+<code>Number()</code> it) and stores the first DataPoint of every type as a <code>raw-&lt;type></code>
+resource. <code>swamp data get google-health raw-exercise</code> shows the exact shape the
+API really returns before the mapping gets trusted.</p><p><strong>Lesson:</strong> verify shapes against live data, not docs. The <code>raw</code> resources are
+the audit trail — I can still query the sample that proved the numbers arrive
+as strings.</p><h2 id=probing-a-closed-enum>Probing a Closed Enum</h2><p><em>&ldquo;probe api what else there is exist and undocumented and could be usefull&rdquo;</em></p><p>At build time there was no index of data types and no list endpoint
+(<code>GET users/me/dataTypes</code> 404s). The API is a closed enum, so a <code>probe</code> method
+was added: give it candidate type ids, it fetches a small sample of each and
+stores the raw shape. The status code is the answer:</p><ul><li><code>200</code> with points — real, and I have data</li><li><code>200</code> empty — valid, but no device or log for it (blood-glucose, nutrition)</li><li><code>403</code> — real, needs a scope I haven&rsquo;t granted (that&rsquo;s how ECG was found)</li><li><code>400 "data type ID not supported"</code> — not a thing</li><li><code>400 "List is not supported"</code> — rollup-only type, different endpoint entirely</li></ul><p>The probe sweep paid off beyond the obvious <code>heart-rate</code>/<code>steps</code>/<code>sleep</code>:
+<code>daily-heart-rate-variability</code> (deep-sleep RMSSD — the readiness input),
+<code>daily-heart-rate-zones</code> (my real zone cutoffs: 112/135/163),
+<code>daily-sleep-temperature-derivations</code> (skin temp with a 30-day baseline already
+computed), <code>active-zone-minutes</code>, <code>respiratory-rate-sleep-summary</code>,
+<code>run-vo2-max</code>.</p><p>The most important probe result was negative: every derived score — readiness,
+cardio load, stress, sleep score — returns <code>400</code>. Google computes them
+client-side and does not expose them. Stress (cEDA &ldquo;Body Response&rdquo;) has no data
+type at all. If I wanted those numbers, I had to rebuild them from raw.</p><h2 id=backfill-and-the-victoriametrics-gotchas>Backfill and the VictoriaMetrics Gotchas</h2><p><em>&ldquo;backfill data to nov 2025&rdquo;</em></p><p>Pixel Watch heart rate is high-frequency — ~26 samples/minute, about 8 million
+HR points over 7 months. Backfill paginates newest-first via <code>nextPageToken</code>
+until points predate the target date, flushing to VM every 200k lines to stay
+under the 64MB ingest limit. A full run takes 20–40 minutes.</p><p>Three bugs came out of this phase, none of them where they first appeared:</p><p><strong>Bug 1 — the timezone day-shift.</strong> Daily metrics were bucketed with
+<code>new Date(y, m, d)</code> — local midnight, which is 22:00 UTC the <em>previous</em> day.
+Every daily point landed in the wrong UTC day. Fix: <code>Date.UTC()</code>. The server
+had already normalized the civil date; re-localizing it was the bug.</p><p><strong>Bug 2 — the re-derive no-op.</strong> Recalibrated derivation formulas, re-ran
+<code>derive</code>, nothing changed. Suspected stale bundles, suspected schema defaults —
+both misattributions. A clean repro showed the real cause: <strong>VictoriaMetrics
+does not overwrite samples at identical timestamps</strong>. Old midnight-stamped
+values simply won. Fix: <code>derive</code> now deletes its own output series before
+re-pushing. Idempotency required delete-then-write.</p><p><strong>Bug 3 — the query 422.</strong> <code>query_range</code> rejects requests where
+<code>(end − start) / step</code> exceeds 30k points per series. Per-minute HR over months
+must be chunked — 14-day windows in <code>derive</code>.</p><p>One non-bug mattered as much: per-metric history depth genuinely differs.
+Phone-sourced metrics reach Nov 2025; watch-only intraday HR starts ~Feb 2026;
+intraday SpO2 turned to garbage after the March Pixel Watch feature drop — a
+documented Google bug, not mine. The dashboard shows daily SpO2 only.</p><p><strong>Lesson:</strong> don&rsquo;t &ldquo;fix&rdquo; missing data. First establish whether it ever existed.</p><h2 id=reverse-engineering-the-readiness-score>Reverse-Engineering the Readiness Score</h2><p><em>&ldquo;now explain all magical constants in your formulas&rdquo;</em></p><p>The derived metrics were rebuilt from first principles: Cardio Load as Banister
+TRIMP over per-minute HR (only counting HR above the 112 bpm fat-burn floor,
+like the app), ACWR as the 7-day/28-day load ratio, Readiness as a composite of
+deep-sleep HRV, resting HR, and sleep z-scores against a trailing baseline.</p><p>Then came calibration. I supplied 8 days of anchor values read off the app
+screen, and the fit collapsed the mystery:</p><ul><li><strong>Cardio Load</strong> was 3× under-scaled; <code>loadScale=1.35</code> matches the app within ±3.</li><li><strong>Readiness is essentially linear in one input:</strong>
+<code>readiness ≈ 2.85 × last-night-deep-sleep-RMSSD − 31</code>, r ≈ 0.97 against the
+app. Sleep duration and resting HR barely move it, despite what Fitbit&rsquo;s own
+docs imply. Six of eight anchor days matched within 1–3 points.</li></ul><p><strong>Lesson:</strong> the proprietary score they won&rsquo;t sell you back is a straight line
+through a single measurement you already own.</p><h2 id=sessions-running-form-and-ecg>Sessions, Running Form, and ECG</h2><p><em>&ldquo;each training session and run has additional metrics and metadata check and
+pull them from api&rdquo;</em></p><p>The <code>exercise</code> session type carries a <code>metricsSummary</code> — duration, calories,
+distance, pace, per-zone durations — and, on runs only, a nested
+<code>mobilityMetrics</code> block: cadence, stride length, vertical oscillation, ground
+contact time. Real biomechanics behind a summary screen. 178 sessions since
+November came back carrying it, each pushed to VM tagged by exercise type and
+stored as a queryable <code>session</code> resource.</p><p>The all-time trend was the story: Nov/Dec runs at 8 km/h @ HR 165, spring runs
+at 5 km/h @ HR 130. I had dropped all high intensity and ramped easy volume —
+which is exactly what suppressed HRV.</p><p><em>&ldquo;build the ecg pipeline, store files on locally for now&rdquo;</em></p><p>Probing <code>electrocardiogram</code> returned <code>403</code> until the <code>ecg</code> scope was added and
+re-consented. The watch then hands over the raw waveform: single Lead I, 250
+Hz, 7500 samples (30 seconds), with a <code>millivoltsScalingFactor</code> to convert. An
+<code>ecg-export</code> method writes each reading as CSV + JSON metadata; a containerized
+<a href=https://neuropsychology.github.io/NeuroKit/>NeuroKit2</a> extractor delineates
+the waveform and pushes QTc/PR/QRS/HRV features back into the same VM stack.
+Single-lead is screening, not diagnosis — delineation over-reads on one lead —
+but the waveform is mine, on disk.</p><h2 id=from-manual-syncs-to-a-daily-workflow>From Manual Syncs to a Daily Workflow</h2><p>The transcript for the next month is dozens of two-word prompts: <em>&ldquo;sync&rdquo;</em>,
+<em>&ldquo;pull fresh data&rdquo;</em>, <em>&ldquo;sync the night and weather&rdquo;</em>. A ritual that regular is a
+workflow, so it became one — <code>daily-health</code>, a Swamp DAG of
+<code>sync → derive → status</code> alongside a weather <code>forecast</code>, ending in a <code>notify</code>
+step that sends a BLUF, no-emoji Telegram briefing at 11:00 and 22:00. The
+<code>status</code> method reads everything back from VM through the model&rsquo;s own query
+helper — recovery, sleep stages, activity, energy balance, an illness
+early-warning line — and composes the message as a <code>briefing</code> resource.</p><p>Deployment to the Unraid <code>swamp serve</code> container surfaced one real bug: the
+serve scheduler cannot resolve a model resource&rsquo;s vault-backed sensitive fields
+during workflow execution — <code>sync</code> fails with &ldquo;No tokens&rdquo; — while the same
+workflow run from a fresh in-container CLI process succeeds fully. Filed
+upstream; the workaround is an Unraid cron running
+<code>docker exec swamp-serve swamp workflow run daily-health</code>. Models execute,
+workflows orchestrate, and cron — as ever — outlives everything.</p><h2 id=the-api-grew-up-mid-build>The API Grew Up Mid-Build</h2><p>Built in June against a weeks-old API; by mid-July the ground had shifted. The
+Google Health API went GA (launched March 24), grew a real reference, a
+data-types index, a status dashboard, and split every scope into <code>.readonly</code> /
+<code>.writeonly</code> (ECG and irregular-rhythm remain read-only — telling). The legacy
+Fitbit Web API got its September 2026 sunset date. The side quest became the
+main road while I was standing on it.</p><p>The docs also explained the last probe mystery. Types answering
+<code>400 "List is not supported"</code> — <code>floors</code>, <code>total-calories</code>,
+<code>calories-in-heart-rate-zone</code> — are <strong>rollup-only</strong>: fetched via</p><pre tabindex=0><code>POST /v4/users/me/dataTypes/{type}/dataPoints:dailyRollUp
+{ &#34;range&#34;: { &#34;start&#34;: {&#34;date&#34;: {...}}, &#34;end&#34;: {&#34;date&#34;: {...}} }, &#34;windowSizeDays&#34;: 1 }
+</code></pre><p>with a civil-time range, one aggregated point per local calendar day — which
+sidesteps the timezone bucketing problem by construction. One semantic worth
+knowing: for presence-aware types a <em>missing</em> day means the watch wasn&rsquo;t worn,
+not zero. The model gained a rollup fetch path plus three more list-able types
+the index surfaced (<code>altitude</code>, <code>active-minutes</code>, <code>sedentary-period</code>), and the
+serve deployment now collects all of it on the twice-daily cron.</p><h2 id=what-the-data-said>What the Data Said</h2><p>Once the pipeline was mine end-to-end — formulas visible, baselines mine — it
+stopped flattering me. The honest read was mundane: eight hours at a desk with
+my heart at 68, and a year of runs where I had quietly traded all intensity for
+easy volume. A graph I own tells me that. A dial I rent kept the number green.</p><h2 id=design-principles-that-emerged>Design Principles That Emerged</h2><table><thead><tr><th>Principle</th><th>Origin</th></tr></thead><tbody><tr><td>Switch the source, don&rsquo;t grind the tactic</td><td>Xiaomi login wall</td></tr><tr><td>Pull the raw signal first, tighten the mapping later</td><td>undocumented DataPoint shapes</td></tr><tr><td>Store a raw sample of every type as queryable data</td><td><code>raw-&lt;type></code> resources</td></tr><tr><td>Probe the boundary; read status codes as a map</td><td>closed enum, no list endpoint</td></tr><tr><td>Match the extractor to the type&rsquo;s cardinality</td><td>timestamps in four shapes</td></tr><tr><td>Never re-localize a server-normalized date</td><td>UTC day-shift bug</td></tr><tr><td>Delete-then-push for derived series</td><td>VM same-timestamp no-overwrite</td></tr><tr><td>Chunk range queries</td><td>VM 422 at 30k points/series</td></tr><tr><td>Calibrate derived metrics against ground truth</td><td>8 anchor days → readiness is linear</td></tr><tr><td>If they won&rsquo;t sell you the number, rebuild it from raw</td><td>derived scores all <code>400</code></td></tr><tr><td>Don&rsquo;t &ldquo;fix&rdquo; missing data — check whether it existed</td><td>SpO2 feature-drop bug, per-metric depth</td></tr><tr><td>Publish the OAuth consent screen to Production</td><td>7-day testing-token expiry</td></tr><tr><td>Models execute, workflows orchestrate</td><td><code>daily-health</code> DAG + cron workaround</td></tr></tbody></table></div><div class=after-post-tags><ul class=tags><li><a href=/tags/health/>health</a></li><li><a href=/tags/quantified-self/>quantified-self</a></li><li><a href=/tags/google-health/>google-health</a></li><li><a href=/tags/swamp/>swamp</a></li><li><a href=/tags/claude/>claude</a></li></ul></div><div class="row PageNavigation d-flex justify-content-between font-weight-bold"><a class="d-block col-md-6 text-lg-end" href=https://magistr.me/blog/reading-the-board-from-the-stands/>Reading the board from the stands &#187;</a><div class=clearfix></div></div></div></div></div></div></div><div class="jumbotron fortags"><div class="d-md-flex h-100"><div class="col-md-4 transpdark align-self-center text-center h-100"><div class="d-md-flex align-items-center justify-content-center h-100"><h2 class="d-md-block d-none align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2></div></div><div class="col-md-8 p-5 align-self-center text-center"><a class="mt-1 mb-1" href=/tags/agents/>agents</a>
+<a class="mt-1 mb-1" href=/tags/ai/>ai</a>
+<a class="mt-1 mb-1" href=/tags/amsterdam/>amsterdam</a>
+<a class="mt-1 mb-1" href=/tags/automation/>automation</a>
+<a class="mt-1 mb-1" href=/tags/blog/>blog</a>
+<a class="mt-1 mb-1" href=/tags/cad/>cad</a>
+<a class="mt-1 mb-1" href=/tags/claude/>claude</a>
+<a class="mt-1 mb-1" href=/tags/cozystack/>cozystack</a>
+<a class="mt-1 mb-1" href=/tags/ddd/>ddd</a>
+<a class="mt-1 mb-1" href=/tags/devops/>devops</a>
+<a class="mt-1 mb-1" href=/tags/finance/>finance</a>
+<a class="mt-1 mb-1" href=/tags/firecracker/>firecracker</a>
+<a class="mt-1 mb-1" href=/tags/good-planning/>good-planning</a>
+<a class="mt-1 mb-1" href=/tags/google-health/>google-health</a>
+<a class="mt-1 mb-1" href=/tags/guide/>guide</a>
+<a class="mt-1 mb-1" href=/tags/health/>health</a>
+<a class="mt-1 mb-1" href=/tags/issue-lifecycle/>issue-lifecycle</a>
+<a class="mt-1 mb-1" href=/tags/jscad/>jscad</a>
+<a class="mt-1 mb-1" href=/tags/kubernetes/>kubernetes</a>
+<a class="mt-1 mb-1" href=/tags/macos/>macos</a>
+<a class="mt-1 mb-1" href=/tags/me/>me</a>
+<a class="mt-1 mb-1" href=/tags/moldable-development/>moldable-development</a>
+<a class="mt-1 mb-1" href=/tags/nvidia/>nvidia</a>
+<a class="mt-1 mb-1" href=/tags/observability/>observability</a>
+<a class="mt-1 mb-1" href=/tags/opencore/>opencore</a>
+<a class="mt-1 mb-1" href=/tags/oxide/>oxide</a>
+<a class="mt-1 mb-1" href=/tags/qemu/>qemu</a>
+<a class="mt-1 mb-1" href=/tags/quantified-self/>quantified-self</a>
+<a class="mt-1 mb-1" href=/tags/retro/>retro</a>
+<a class="mt-1 mb-1" href=/tags/serverless/>serverless</a>
+<a class="mt-1 mb-1" href=/tags/si/>si</a>
+<a class="mt-1 mb-1" href=/tags/strategy/>strategy</a>
+<a class="mt-1 mb-1" href=/tags/swamp/>swamp</a>
+<a class="mt-1 mb-1" href=/tags/talos/>talos</a>
+<a class="mt-1 mb-1" href=/tags/tinygrad/>tinygrad</a>
+<a class="mt-1 mb-1" href=/tags/tools/>tools</a>
+<a class="mt-1 mb-1" href=/tags/typescript/>typescript</a>
+<a class="mt-1 mb-1" href=/tags/unraid/>unraid</a>
+<a class="mt-1 mb-1" href=/tags/virtualization/>virtualization</a>
+<a class="mt-1 mb-1" href=/tags/wardley/>wardley</a>
+<a class="mt-1 mb-1" href=/tags/wardley-mapping/>wardley-mapping</a></div></div></div><footer class=footer><div class=container><div class=row><div class="col-md-6 col-sm-6 text-center text-lg-start">&copy; Copyright CC SA 4.0</div><div class="col-md-6 col-sm-6 text-center text-lg-end"><a target=_blank rel=noopener href=https://github.com/ekampf/mediumish-gohugo-theme>Mediumish Theme</a></div></div></div></footer></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin=anonymous referrerpolicy=no-referrer></script><script src=https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin=anonymous referrerpolicy=no-referrer></script><script src=https://magistr.me/js/mediumish.1574b32c12cce790df495bf68909be2585a33e1bbc54b9f2cb080cac17b88472.js integrity="sha256-FXSzLBLM55DfSVv2iQm+JYWjPhu8VLnyywgMrBe4hHI="></script></body></html>

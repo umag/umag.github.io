@@ -19,10 +19,7 @@
     | replaceRE `</table>` `</table></div>` -}}
 
 {{- $parts := split $content "<h2" -}}
-{{- $headings := partialCached "headings.html" . .RelPermalink -}}
-{{/* Only stamp part markers when the headings line up with the chunks. A post
-     that opens on an h3 would otherwise mislabel every section. */}}
-{{- $aligned := eq (len $headings) (sub (len $parts) 1) -}}
+{{- $total := sub (len $parts) 1 -}}
 
 {{ index $parts 0 | safeHTML }}
 
@@ -32,12 +29,13 @@
        because the contextual autoescaper would be left parsing attributes. */}}
   {{- $section := printf "<h2%s" $chunk }}
   <section class="sect p{{ mod $i 2 }}">
-    {{- if $aligned }}
+    {{/* The counter, not the heading's slug: the heading is already set in
+         48px underneath, and printing it twice says nothing the second time.
+         How far in you are is the one thing it cannot tell you. */}}
     <div class="part">
       <i>其ノ{{ if lt $n (len $daiji) }}{{ index $daiji $n }}{{ else }}{{ $n }}{{ end }}</i>
-      <span>{{ (index $headings $i).id }}</span>
+      <span>{{ printf "%02d / %02d" $n $total }}</span>
     </div>
-    {{- end }}
     {{ $section | safeHTML }}
   </section>
 {{- end }}

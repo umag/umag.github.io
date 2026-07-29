@@ -1,6 +1,9 @@
 {{/* The contents, parked in a permanent column. The mark rides it, so on a post
      the spine is the chrome and the site header drops its copy. */}}
 <nav class="spine" aria-label="Contents">
+  {{/* The mark is the way back to the front. It only draws where the spine is
+       a column; on a phone the site header carries it. */}}
+  <a class="spine-mark" href="{{ "/" | relURL }}" aria-label="Home"></a>
   <p class="spine-label">Contents</p>
   <ol>
     {{- range partialCached "headings.html" . .RelPermalink }}

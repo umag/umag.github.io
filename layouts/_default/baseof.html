@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+{{- partial "_shared/head.html" . -}}
+{{/* A post earns the spine once it has enough sections for the contents to be
+     worth keeping in view. Shorter pieces read better without a column taken
+     out of the viewport. */}}
+{{- $spine := and .IsPage (ge (len (partialCached "headings.html" . .RelPermalink)) 3) -}}
+<body class="{{ if $spine }}has-spine {{ end }}{{ if .IsHome }}is-home{{ end }}">
+  <div class="wrap">
+    {{- partial "site-header.html" . -}}
+    {{- block "main" . }}{{- end }}
+    {{- partial "site-footer.html" . -}}
+  </div>
+</body>
+</html>

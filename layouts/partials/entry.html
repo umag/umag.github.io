@@ -1,0 +1,16 @@
+{{/* One row in a post list. `n` is passed in so the index reads as a running
+     count of the archive rather than a per-page number. */}}
+<a class="entry" href="{{ .page.RelPermalink }}">
+  <span class="entry-n">{{ printf "%02d" .n }}</span>
+  <span>
+    <span class="entry-title">{{ .page.Title }}</span>
+    {{- with .page.Description }}<span class="entry-dek">{{ . }}</span>{{ end }}
+    {{/* Redirect stubs and taxonomy terms have no date and no prose; printing
+         the zero value gives them a 0001-01-01 byline. */}}
+    <span class="entry-meta">
+      {{- if not .page.PublishDate.IsZero }}<time datetime="{{ .page.PublishDate.Format "2006-01-02" }}">{{ .page.PublishDate.Format "2006-01-02" }}</time>{{ end }}
+      {{- if gt .page.WordCount 0 }}<span>{{ lang.FormatNumber 0 .page.WordCount }} words</span>{{ end }}
+      {{- with .page.Params.tags }}<span>{{ delimit (first 3 .) " · " }}</span>{{ end }}
+    </span>
+  </span>
+</a>

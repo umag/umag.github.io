@@ -1,0 +1,47 @@
+{{ define "main" }}
+<article>
+  <header class="mast">
+    <div class="kicker">{{ .Section | default "note" }}</div>
+    <h1>{{ .Title }}</h1>
+    {{- with .Params.subtitle }}<p class="lede">{{ . }}</p>{{ end }}
+    {{/* Pages like /search/ carry no date and no prose. Printing the zero
+         value gives them a 0001-01-01 / 0 words byline, so the whole block
+         only appears when there is something true to put in it. */}}
+    {{- $dated := not .PublishDate.IsZero }}
+    {{- $written := gt .WordCount 0 }}
+    {{- if or $dated $written }}
+    <div class="meta">
+      {{- if $dated }}<time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time>{{ end }}
+      {{- if $written }}<span>{{ lang.FormatNumber 0 .WordCount }} words</span><span>{{ .ReadingTime }} min</span>{{ end }}
+      {{- if .Draft }}<span>draft</span>{{ end }}
+    </div>
+    {{- end }}
+  </header>
+
+  {{- if ge (len (partialCached "headings.html" . .RelPermalink)) 3 }}{{ partial "spine.html" . }}{{ end }}
+
+  {{- with .Params.image }}
+  <img class="featured" src="{{ . | relURL }}" alt="Cover plate for {{ $.Title }}">
+  {{- end }}
+
+  <div class="prose">
+    {{- partial "sections.html" . -}}
+  </div>
+
+  {{/* The mark closes the text, the way a stamp closes a letter. */}}
+  <div class="stamp" role="presentation"></div>
+
+  {{- with .Params.tags }}
+  <div class="tags">
+    {{- range . }}<a href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">{{ . }}</a>{{ end }}
+  </div>
+  {{- end }}
+
+  {{- if or .NextInSection .PrevInSection }}
+  <nav class="adjacent">
+    <div>{{ with .NextInSection }}<a href="{{ .RelPermalink }}"><span>Newer</span><b>{{ .Title }}</b></a>{{ end }}</div>
+    <div class="next">{{ with .PrevInSection }}<a href="{{ .RelPermalink }}"><span>Older</span><b>{{ .Title }}</b></a>{{ end }}</div>
+  </nav>
+  {{- end }}
+</article>
+{{ end }}

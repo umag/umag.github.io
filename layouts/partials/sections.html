@@ -1,0 +1,43 @@
+{{/* Wraps every h2 and the content that follows it in a .sect so a section can
+     own its ground. Hugo emits a flat run of h2 / p / ul, and the two-tone
+     alternation needs each section to be one element.
+
+     Done at build time rather than in the browser: the alternation is part of
+     how the page reads, not an enhancement, so it should not wait on JS.
+
+     Content before the first h2 is the standfirst and stays outside, exactly as
+     the anifilias landing keeps its masthead separate from the cards. */}}
+
+{{- $daiji := slice "零" "壹" "貳" "參" "肆" "伍" "陸" "柒" "捌" "玖" "拾"
+    "拾壹" "拾貳" "拾參" "拾肆" "拾伍" "拾陸" "拾柒" "拾捌" "拾玖" "廿"
+    "廿壹" "廿貳" "廿參" "廿肆" "廿伍" "廿陸" "廿柒" "廿捌" "廿玖" "卅" -}}
+
+{{/* Wide tables get their own scroll container so the page never scrolls
+     sideways. Hugo 0.121 has no table render hook, so it happens here. */}}
+{{- $content := .Content
+    | replaceRE `<table>` `<div class="tablewrap"><table>`
+    | replaceRE `</table>` `</table></div>` -}}
+
+{{- $parts := split $content "<h2" -}}
+{{- $headings := partialCached "headings.html" . .RelPermalink -}}
+{{/* Only stamp part markers when the headings line up with the chunks. A post
+     that opens on an h3 would otherwise mislabel every section. */}}
+{{- $aligned := eq (len $headings) (sub (len $parts) 1) -}}
+
+{{ index $parts 0 | safeHTML }}
+
+{{- range $i, $chunk := after 1 $parts }}
+  {{- $n := add $i 1 }}
+  {{/* Reassembled before output: a template action may not split an open tag,
+       because the contextual autoescaper would be left parsing attributes. */}}
+  {{- $section := printf "<h2%s" $chunk }}
+  <section class="sect p{{ mod $i 2 }}">
+    {{- if $aligned }}
+    <div class="part">
+      <i>其ノ{{ if lt $n (len $daiji) }}{{ index $daiji $n }}{{ else }}{{ $n }}{{ end }}</i>
+      <span>{{ (index $headings $i).id }}</span>
+    </div>
+    {{- end }}
+    {{ $section | safeHTML }}
+  </section>
+{{- end }}

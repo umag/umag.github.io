@@ -1,0 +1,29 @@
+{{ define "main" }}
+{{- $posts := (where .Site.RegularPages "Type" "blog").ByPublishDate.Reverse }}
+{{- $total := len $posts }}
+
+<header class="mast">
+  <div class="kicker">essays</div>
+  {{/* The wordmark carries the name here, so the site header drops its copy
+       and the title is not set twice on one screen. */}}
+  <h1 class="home-mark" aria-label="{{ .Site.Title }}"></h1>
+  <p class="lede">{{ .Site.Params.description }}</p>
+  <div class="meta">
+    <span>{{ $total }} posts</span>
+    {{- with index $posts 0 }}<span>latest {{ .PublishDate.Format "2006-01-02" }}</span>{{ end }}
+  </div>
+</header>
+
+<div class="entries">
+  {{- range $i, $p := first 12 $posts }}
+  {{- partial "entry.html" (dict "page" $p "n" (sub $total $i)) }}
+  {{- end }}
+</div>
+
+{{- if gt $total 12 }}
+<nav class="pager">
+  <span></span>
+  <span><a href="{{ "/blog/" | relURL }}">All {{ $total }} posts &rarr;</a></span>
+</nav>
+{{- end }}
+{{ end }}

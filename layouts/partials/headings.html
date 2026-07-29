@@ -1,0 +1,20 @@
+{{/* Section headings, derived from the same split that builds the cards.
+
+     Reads them out of .Content rather than .Fragments so the spine, the part
+     markers and the sections can never disagree about what a section is: they
+     all come from one pass over the same string. */}}
+{{- $out := slice -}}
+{{- range after 1 (split .Content "<h2") -}}
+  {{- $head := index (split . "</h2>") 0 -}}
+  {{- $id := "" -}}
+  {{- if findRE `id="[^"]+"` $head -}}
+    {{- $id = replaceRE `^.*?\bid="([^"]+)".*$` `$1` $head -}}
+  {{- end -}}
+  {{/* plainify strips the tags but leaves entities as literal text, which the
+       template then escapes again into &amp;rsquo;. Unescape once so the real
+       character survives and Hugo escapes it properly on output. */}}
+  {{- $title := $head | replaceRE `^[^>]*>` `` | plainify | htmlUnescape -}}
+  {{- $title = trim $title " \n\t" -}}
+  {{- $out = $out | append (dict "id" $id "title" $title) -}}
+{{- end -}}
+{{- return $out -}}

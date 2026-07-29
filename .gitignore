@@ -1,2 +1,5 @@
 .DS_Store
 .hugo_build.lock
+
+# Scratch Hugo build the style lab extracts its specimens from.
+.lab-build/

@@ -1,0 +1,10 @@
+{{/* The contents, parked in a permanent column. The mark rides it, so on a post
+     the spine is the chrome and the site header drops its copy. */}}
+<nav class="spine" aria-label="Contents">
+  <p class="spine-label">Contents</p>
+  <ol>
+    {{- range partialCached "headings.html" . .RelPermalink }}
+    <li><a href="#{{ .id }}">{{ .title }}</a></li>
+    {{- end }}
+  </ol>
+</nav>

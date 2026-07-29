@@ -9,6 +9,14 @@ publishDir = "docs"
 uglyURLs = true
 disableAliases = true
 
+# Chroma writes Monokai inline by default, which overrides the code tokens and
+# drops a dark box onto the bone cards. Classes let theme.css derive syntax
+# colour from the palette instead.
+[markup]
+[markup.highlight]
+noClasses = false
+lineNos = false
+
 [mediaTypes]
 [mediaTypes."text/markdown"]
 suffixes = ["md"]

@@ -1,0 +1,615 @@
+/* magistr.me — style 117, "Two-Tone Spine".
+   Bone and black alternating beside a permanent spine.
+
+   The token block below is the one the style lab exported. Everything under it
+   consumes those names and nothing else, so retuning the site is a matter of
+   editing this block rather than hunting through rules. */
+
+:root {
+  /* grounds and ink */
+  --page: oklch(0.155 0.006 60);
+  --ink: oklch(0.915 0.006 85);
+  --strong: oklch(0.97 0.006 85);
+  /* The logo red, sampled off the monogram: #AA262C. The mark and the
+     furniture are then literally the same colour. */
+  --accent: oklch(0.486 0.168 24);
+  --accent-ink: oklch(0.95 0.006 85);
+  --plate: oklch(0.945 0.006 85);
+  --plate-ink: oklch(0.165 0.006 60);
+
+  /* type */
+  --font-body: 'Golos Text', -apple-system, 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --size: 20px;
+  --lh: 1.62;
+  --body-track: 0.006em;
+  --measure: 66;
+  --scale: 1.36;
+  --disp-weight: 800;
+  --disp-track: -0.045em;
+  --disp-lh: 0.94;
+  --label-track: 0.42em;
+  --label-size: 11px;
+
+  /* rhythm */
+  --space: 1.05;
+  --rule-w: 1px;
+  --spine: 15rem;
+
+  color-scheme: dark;
+}
+
+/* The derived palette. A custom property is substituted where it is DECLARED,
+   not where it is used, so this block is repeated on the inverted sections
+   below: setting --ink alone there would leave --_strong holding the value it
+   resolved to up here. */
+:root,
+.sect.p1 {
+  --_strong: var(--strong, var(--ink));
+  --_mute: color-mix(in oklab, var(--ink) 75%, var(--page));
+  /* The fill red is too dark to carry text: 2.9:1 on its own ground. Anything
+     painting the accent AS type uses this instead. Lifted in LIGHTNESS at the
+     logo's hue and chroma rather than mixed toward the ink, because mixing
+     desaturates the red toward pink and stops reading as the mark. */
+  --_accent-text: oklch(0.68 0.2 26);
+  --_rule: color-mix(in oklab, var(--ink) 22%, transparent);
+  --_code-bg: color-mix(in oklab, var(--ink) 7%, var(--page));
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--size);
+  line-height: var(--lh);
+  letter-spacing: var(--body-track);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* modular scale, anchored at the base size */
+:root {
+  --s1: calc(var(--size) * var(--scale));
+  --s2: calc(var(--s1) * var(--scale));
+  --s3: calc(var(--s2) * var(--scale));
+  --s4: calc(var(--s3) * var(--scale));
+  --gap: calc(1.5rem * var(--space));
+  --half: calc(var(--measure) * 0.5ch);
+  /* The width content is centred in. The spine takes a bite out of the
+     viewport and every full-bleed calc has to bleed to THAT edge. */
+  --vw: 100vw;
+}
+
+.wrap {
+  max-width: calc(var(--measure) * 1ch + 3rem);
+  margin: 0 auto;
+  padding-inline: 1.5rem;
+}
+
+a { color: inherit; }
+
+/* ── site chrome ──────────────────────────────────────────────────────
+   The mark belongs to the site, not to the essay: it rides the header on
+   every page rather than sitting on top of each post's title. */
+.site-head {
+  display: flex;
+  align-items: center;
+  gap: 1.1em;
+  padding-block: clamp(1.4rem, 3vw, 2.2rem) 1.1em;
+  border-bottom: var(--rule-w) solid var(--_rule);
+  margin-bottom: clamp(2.4rem, 6vw, 5rem);
+}
+.site-mark {
+  flex: 0 0 auto;
+  width: 2.2rem;
+  height: 2.2rem;
+  background: url('/images/logo/monogram.webp') center / contain no-repeat;
+}
+.site-name {
+  font-weight: var(--disp-weight);
+  letter-spacing: var(--disp-track);
+  font-size: calc(var(--size) * 0.98);
+  color: var(--_strong);
+  line-height: 1;
+  text-decoration: none;
+}
+.site-nav {
+  margin-left: auto;
+  display: flex;
+  gap: 1.4em;
+  font-size: var(--label-size);
+  letter-spacing: var(--label-track);
+  text-transform: uppercase;
+  color: var(--_mute);
+}
+.site-nav a { text-decoration: none; }
+.site-nav a:hover,
+.site-nav a[aria-current='page'] { color: var(--_accent-text); }
+
+.site-foot {
+  margin-top: clamp(4rem, 10vw, 8rem);
+  padding-block: 1.6em 3em;
+  border-top: var(--rule-w) solid var(--_rule);
+  font-size: var(--label-size);
+  letter-spacing: calc(var(--label-track) * 0.5);
+  text-transform: uppercase;
+  color: var(--_mute);
+  display: flex;
+  gap: 1.6em;
+  flex-wrap: wrap;
+}
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { color: var(--_accent-text); }
+
+/* On the home page the wordmark is the masthead, so the header drops its own
+   copy of the name rather than printing it twice on one screen. */
+body.is-home .site-name,
+body.is-home .site-mark { display: none; }
+
+/* Scoped to .mast so it outranks `.mast h1`, which is declared later. Plain
+   `h1.home-mark` ties on specificity (0,1,1) and loses on source order, which
+   silently reset the margin and killed the auto-centring. */
+.mast h1.home-mark {
+  display: block;
+  width: min(32rem, 100%);
+  aspect-ratio: 1200 / 627;
+  /* Painted as an image, not a mask. A mask reads only the alpha channel, so
+     it would flatten the ink to one value and throw away exactly the thing
+     worth keeping: the stroke runs from oklch(0.379 …) where the nib was dry
+     to oklch(0.544 …) where it pooled. --accent is the median of that range,
+     so the flat marks elsewhere still agree with it. */
+  background: url('/images/logo/wordmark-ink.webp') center / contain no-repeat;
+  margin: 0 auto clamp(1.4rem, 3vw, 2.4rem);
+}
+
+/* The whole home masthead centres, not just the mark: a lone centred logo over
+   left-aligned type reads as a mistake rather than a decision. The archive
+   below stays left-aligned, which is where the reading starts. */
+body.is-home .mast { text-align: center; }
+body.is-home .kicker { justify-content: center; }
+body.is-home .kicker::before {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--_rule);
+}
+body.is-home .lede { margin-inline: auto; }
+body.is-home .meta { justify-content: center; }
+
+/* The mark closes the text, the way a stamp closes a letter. It sits close:
+   a card already ends with its own bottom padding, so the stamp only needs to
+   clear the last line, not restate the gap. */
+.stamp {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin: clamp(0.6rem, 1.5vw, 1.2rem) auto 0;
+  background: url('/images/logo/monogram.webp') center / contain no-repeat;
+}
+/* A post with no sections has no padding to inherit, so it buys its own. */
+.prose:not(:has(.sect)) + .stamp { margin-top: clamp(2rem, 5vw, 3.5rem); }
+
+/* ── masthead ─────────────────────────────────────────────────────── */
+.mast { margin-bottom: calc(var(--gap) * 2); }
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  font-size: var(--label-size);
+  letter-spacing: var(--label-track);
+  text-transform: uppercase;
+  color: var(--_mute);
+  font-weight: 600;
+  margin-bottom: 1.6em;
+}
+.kicker::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--_rule);
+}
+.mast h1 {
+  font-weight: var(--disp-weight);
+  letter-spacing: var(--disp-track);
+  line-height: var(--disp-lh);
+  color: var(--_strong);
+  font-size: clamp(var(--s2), 6.5vw, var(--s4));
+  margin: 0 0 0.6em;
+  text-wrap: balance;
+}
+.meta {
+  display: flex;
+  gap: 1.8em;
+  flex-wrap: wrap;
+  padding-top: 1.2em;
+  border-top: var(--rule-w) solid var(--_rule);
+  font-size: var(--label-size);
+  letter-spacing: calc(var(--label-track) * 0.6);
+  text-transform: uppercase;
+  color: var(--_mute);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── two-tone sections ────────────────────────────────────────────────
+   The cut-in is whole cards butted against each other, not a coloured
+   heading. Hugo wraps every h2 and the content after it in a .sect so a
+   section can own its ground. */
+.sect {
+  display: block;
+  margin-inline: calc(50% - var(--vw) / 2);
+  padding-inline: max(1.5rem, calc(var(--vw) / 2 - var(--half)));
+  padding-block: clamp(2rem, 5vw, 4rem);
+  border-top: 9px solid var(--page);
+}
+.sect > :first-child { margin-top: 0; }
+.sect > :last-child { margin-bottom: 0; }
+.sect.p0 { border-top-color: var(--accent); }
+.sect.p1 {
+  background: var(--plate);
+  --page: var(--plate);
+  --ink: var(--plate-ink);
+  --strong: var(--plate-ink);
+  /* Lifting was for the dark ground; on bone the red has to go the other way,
+     which lands it back on very nearly the logo colour itself. */
+  --_accent-text: oklch(0.45 0.2 26);
+  color: var(--ink);
+}
+
+/* The part marker, lifted off the anifilias landing: a daiji ordinal, a
+   letterspaced path, then a hairline that eats the rest of the width. */
+.part {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85em;
+  margin-bottom: clamp(1.1rem, 2.4vw, 2rem);
+  color: var(--_mute);
+}
+.part i {
+  font-style: normal;
+  font-size: calc(var(--size) * 0.86);
+  opacity: 0.72;
+  white-space: nowrap;
+}
+.part span {
+  font-size: var(--label-size);
+  font-weight: 600;
+  letter-spacing: var(--label-track);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.part::after {
+  content: '';
+  flex: 1 1 2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.3;
+}
+
+/* ── prose ────────────────────────────────────────────────────────── */
+.prose p { margin: 0 0 var(--gap); }
+.prose p,
+.prose li { text-wrap: pretty; }
+.prose strong { font-weight: 700; color: var(--_strong); }
+.prose em { font-style: italic; }
+.prose hr {
+  border: 0;
+  height: var(--rule-w);
+  background: var(--_rule);
+  margin: calc(var(--gap) * 1.8) 0;
+}
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-weight: var(--disp-weight);
+  letter-spacing: var(--disp-track);
+  line-height: var(--disp-lh);
+  color: var(--_strong);
+  text-wrap: balance;
+}
+.prose h2 { font-size: var(--s2); margin: 0 0 calc(var(--gap) * 0.8); }
+.prose h3 { font-size: var(--s1); margin: calc(var(--gap) * 1.5) 0 calc(var(--gap) * 0.5); }
+.prose h4 { font-size: calc(var(--size) * 1.08); margin: calc(var(--gap) * 1.2) 0 calc(var(--gap) * 0.4); }
+
+.prose a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--_accent-text);
+  text-underline-offset: 0.18em;
+}
+.prose a:hover { text-decoration-thickness: 2px; }
+
+.prose ul,
+.prose ol { margin: 0 0 var(--gap); padding-left: 1.4em; }
+.prose li { margin-bottom: 0.55em; }
+.prose li::marker { color: var(--_accent-text); }
+.prose ul ul,
+.prose ol ol { margin-top: 0.55em; margin-bottom: 0; }
+
+.prose blockquote {
+  margin: calc(var(--gap) * 1.2) 0;
+  padding: 1.1em 0;
+  border-block: var(--rule-w) solid var(--_rule);
+}
+.prose blockquote p:last-child { margin-bottom: 0; }
+
+/* ── code ─────────────────────────────────────────────────────────────
+   Syntax colour is derived from the tokens, not baked by the highlighter, so
+   it reads on the bone cards and the black ones alike. Needs
+   markup.highlight.noClasses = false in hugo.toml. */
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+}
+.prose :not(pre) > code {
+  background: var(--_code-bg);
+  padding: 0.12em 0.36em;
+}
+.prose pre {
+  font-family: var(--font-mono);
+  font-size: calc(var(--size) * 0.85);
+  line-height: 1.55;
+  overflow-x: auto;
+  margin: 0 0 var(--gap);
+  padding: 1.1em 1.2em;
+  border: var(--rule-w) solid var(--_rule);
+  letter-spacing: 0;
+}
+.prose pre code { background: none; padding: 0; font-size: inherit; }
+
+.prose pre .k, .prose pre .kd, .prose pre .kn,
+.prose pre .kr, .prose pre .kt, .prose pre .ow { color: var(--_accent-text); }
+.prose pre .s, .prose pre .s1, .prose pre .s2, .prose pre .sb,
+.prose pre .se, .prose pre .sd, .prose pre .m, .prose pre .mi,
+.prose pre .mf, .prose pre .mh { color: color-mix(in oklab, var(--_accent-text) 70%, var(--ink)); }
+.prose pre .c, .prose pre .c1, .prose pre .cm,
+.prose pre .cs, .prose pre .cp { color: var(--_mute); font-style: italic; }
+.prose pre .nf, .prose pre .nc,
+.prose pre .nt, .prose pre .nb { color: var(--_strong); font-weight: 700; }
+.prose pre .o, .prose pre .p, .prose pre .nx { color: var(--_mute); }
+
+/* ── figures ──────────────────────────────────────────────────────────
+   The Wardley plates are light-ground PNGs. On a dark card they get a
+   deliberate mat rather than being dropped in raw; on a bone card the mat is
+   already the ground, so it only needs the hairline. */
+.prose img,
+.featured {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: calc(var(--gap) * 1.4) auto;
+  background: oklch(0.97 0.005 85);
+  padding: clamp(0.6rem, 2vw, 1.4rem);
+  border: var(--rule-w) solid var(--_rule);
+}
+.sect.p1 .prose img { padding: 0; }
+
+/* ── tables ───────────────────────────────────────────────────────── */
+.tablewrap { overflow-x: auto; margin: 0 0 var(--gap); }
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: calc(var(--size) * 0.92);
+  font-variant-numeric: tabular-nums;
+}
+.prose th,
+.prose td {
+  padding: 0.6em 0.9em;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: var(--rule-w) solid var(--_rule);
+}
+.prose th {
+  font-size: var(--label-size);
+  letter-spacing: calc(var(--label-track) * 0.5);
+  text-transform: uppercase;
+  color: var(--_mute);
+  font-weight: 600;
+  border-bottom-width: calc(var(--rule-w) * 2);
+}
+
+/* ── the spine ────────────────────────────────────────────────────────
+   A fixed rail cannot float over alternating grounds: it would sit on bone for
+   one section and black for the next. The spine takes a permanent column out
+   of the viewport instead, so the alternation happens entirely beside it. The
+   accent lives on its edge, which is the one surface always in view. Below the
+   breakpoint there is no column to spare and it folds back inline. */
+/* Inline by default. It only becomes a column when there is a column to
+   spare; on a phone it is a contents list under the title, which is what a
+   reader actually wants there. */
+.spine {
+  margin: 0 0 calc(var(--gap) * 2);
+  padding-block: 1em;
+  border-block: var(--rule-w) solid var(--_rule);
+  font-size: calc(var(--size) * 0.82);
+  line-height: 1.45;
+}
+.spine-label {
+  margin: 0 0 0.8em;
+  font-size: var(--label-size);
+  letter-spacing: var(--label-track);
+  text-transform: uppercase;
+  color: var(--_mute);
+}
+.spine ol { list-style: none; padding: 0; margin: 0; }
+.spine li { margin-bottom: 0.4em; }
+.spine a { color: var(--_mute); text-decoration: none; }
+.spine a:hover { color: var(--_accent-text); }
+
+@media (min-width: 1100px) {
+  body.has-spine {
+    padding-left: var(--spine);
+    --vw: calc(100vw - var(--spine));
+  }
+  .spine {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--spine);
+    margin: 0;
+    padding: clamp(1.5rem, 4vh, 3rem) 1.3rem;
+    overflow-y: auto;
+    background: var(--page);
+    border-right: 3px solid var(--accent);
+    font-size: 13px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 3;
+    padding-block: clamp(1.5rem, 4vh, 3rem);
+    border-block: 0;
+  }
+  .spine li { margin-bottom: 0.75em; }
+  .spine-label { display: none; }
+
+  /* The mark rides the spine, which is the persistent chrome on a post. It
+     appears exactly once per page: where there is no spine the site header
+     carries it instead. */
+  .spine::before {
+    content: '';
+    display: block;
+    flex: 0 0 auto;
+    width: 3.2rem;
+    height: 3.2rem;
+    margin-bottom: 2rem;
+    background: url('/images/logo/monogram.webp') left center / contain no-repeat;
+  }
+  body.has-spine .site-mark { display: none; }
+}
+
+/* ── post list ────────────────────────────────────────────────────── */
+.lede {
+  max-width: 52ch;
+  color: var(--_mute);
+  font-size: calc(var(--size) * 1.06);
+  margin: 0 0 clamp(2.5rem, 6vw, 4.5rem);
+}
+.entries { border-top: var(--rule-w) solid var(--_rule); }
+.entry {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr);
+  gap: 0 1.4rem;
+  padding: clamp(1.6rem, 3.5vw, 2.6rem) 0;
+  border-bottom: var(--rule-w) solid var(--_rule);
+  text-decoration: none;
+}
+.entry:hover .entry-title { color: var(--_accent-text); }
+.entry-n {
+  font-size: var(--label-size);
+  letter-spacing: 0.16em;
+  color: var(--_accent-text);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.5em;
+}
+.entry-title {
+  display: block;
+  font-weight: var(--disp-weight);
+  letter-spacing: var(--disp-track);
+  line-height: 1.04;
+  font-size: clamp(var(--s1), 3.4vw, var(--s2));
+  color: var(--_strong);
+  margin: 0 0 0.4em;
+  text-wrap: balance;
+}
+.entry-dek { display: block; color: var(--_mute); margin: 0 0 0.7em; max-width: 60ch; }
+.entry-meta {
+  display: flex;
+  font-size: var(--label-size);
+  letter-spacing: calc(var(--label-track) * 0.5);
+  text-transform: uppercase;
+  color: var(--_mute);
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  gap: 1.4em;
+  flex-wrap: wrap;
+}
+@media (max-width: 620px) {
+  .entry { grid-template-columns: minmax(0, 1fr); gap: 0.5em; }
+  .entry-n { padding-top: 0; }
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5em;
+  margin-top: 2.5rem;
+  font-size: var(--label-size);
+  letter-spacing: var(--label-track);
+  text-transform: uppercase;
+}
+.pager a { text-decoration: none; color: var(--_accent-text); }
+
+.tags {
+  display: flex;
+  gap: 0.9em;
+  flex-wrap: wrap;
+  margin-top: calc(var(--gap) * 1.5);
+  padding-top: 1.2em;
+  border-top: var(--rule-w) solid var(--_rule);
+  font-size: var(--label-size);
+  letter-spacing: calc(var(--label-track) * 0.6);
+  text-transform: uppercase;
+}
+.tags a { color: var(--_mute); text-decoration: none; }
+.tags a:hover { color: var(--_accent-text); }
+
+.adjacent {
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  margin-top: calc(var(--gap) * 2);
+  padding-top: 1.4em;
+  border-top: var(--rule-w) solid var(--_rule);
+}
+.adjacent a { text-decoration: none; max-width: 22em; }
+.adjacent span {
+  display: block;
+  font-size: var(--label-size);
+  letter-spacing: var(--label-track);
+  text-transform: uppercase;
+  color: var(--_mute);
+  margin-bottom: 0.5em;
+}
+.adjacent b {
+  font-weight: var(--disp-weight);
+  letter-spacing: var(--disp-track);
+  color: var(--_strong);
+}
+.adjacent a:hover b { color: var(--_accent-text); }
+.adjacent .next { text-align: right; }
+
+/* ── narrow ───────────────────────────────────────────────────────────
+   20px is the author's reading size, but a 390px phone only fits ~37
+   characters at it, well under the 45 a line needs. The measure is defended
+   ahead of the size. */
+@media (max-width: 640px) {
+  :root { --size: 17px; }
+  .site-head { flex-wrap: wrap; gap: 0.6em 0.9em; }
+  .site-nav {
+    width: 100%;
+    margin-left: 0;
+    gap: 1.2em;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+  }
+  .sect { padding-block: clamp(1.4rem, 5vw, 2.4rem); }
+  .adjacent { flex-direction: column; gap: 1.4em; }
+  .adjacent .next { text-align: left; }
+}
+
+:focus-visible { outline: 2px solid var(--_accent-text); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,44 @@
+{{ define "main" }}
+<header class="mast">
+  <div class="kicker">{{ if eq .Kind "term" }}tag{{ else }}archive{{ end }}</div>
+  <h1>{{ .Title }}</h1>
+  {{- with .Content }}<div class="lede">{{ . }}</div>{{ end }}
+  <div class="meta">
+    <span>{{ len .Pages }} {{ cond (eq (len .Pages) 1) "post" "posts" }}</span>
+  </div>
+</header>
+
+{{/* /tags/ lists terms, not posts: a tag has no date, no word count and no
+     description, so the post row is the wrong component for it. */}}
+{{- if eq .Kind "taxonomy" }}
+<div class="entries">
+  {{- range .Data.Terms.ByCount }}
+  <a class="entry" href="{{ .Page.RelPermalink }}">
+    <span class="entry-n">{{ printf "%02d" .Count }}</span>
+    <span><span class="entry-title">{{ .Term }}</span></span>
+  </a>
+  {{- end }}
+</div>
+{{ else }}
+
+{{- $pages := .Pages.ByPublishDate.Reverse }}
+{{- $total := len $pages }}
+{{- $paginator := .Paginate $pages 20 }}
+{{/* Number the archive downward so the newest post carries the highest count
+     and an entry keeps its number across pages. */}}
+{{- $offset := mul (sub $paginator.PageNumber 1) $paginator.PageSize }}
+<div class="entries">
+  {{- range $i, $p := $paginator.Pages }}
+  {{- partial "entry.html" (dict "page" $p "n" (sub $total (add $offset $i))) }}
+  {{- end }}
+</div>
+
+{{- if gt $paginator.TotalPages 1 }}
+<nav class="pager">
+  <span>{{ with $paginator.Prev }}<a href="{{ .URL }}">&larr; Newer</a>{{ end }}</span>
+  <span>{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
+  <span>{{ with $paginator.Next }}<a href="{{ .URL }}">Older &rarr;</a>{{ end }}</span>
+</nav>
+{{- end }}
+{{ end }}
+{{ end }}

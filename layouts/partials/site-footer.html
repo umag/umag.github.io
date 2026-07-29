@@ -1,0 +1,6 @@
+<footer class="site-foot">
+  <span>&copy; {{ now.Format "2006" }} {{ .Site.Params.author.name }}</span>
+  <span>{{ .Site.Copyright }}</span>
+  {{- with .OutputFormats.Get "rss" }}<a href="{{ .RelPermalink }}">RSS</a>{{ end }}
+  <a href="{{ "/llms.txt" | relURL }}">llms.txt</a>
+</footer>

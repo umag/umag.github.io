@@ -1,0 +1,165 @@
+/* Lab chrome. Locked palette, never inherits from the specimen: the
+   instrument must not read as part of the thing being measured. */
+
+:root {
+  --c-bg: oklch(0.115 0.005 60);
+  --c-ink: oklch(0.93 0.005 85);
+  --c-mute: oklch(0.65 0.006 85);
+  --c-red: oklch(0.58 0.19 28);
+  --c-rule: oklch(0.93 0.005 85 / 0.16);
+  --c-h: 52px;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: ui-sans-serif, -apple-system, 'Helvetica Neue', sans-serif;
+  background: var(--c-bg);
+}
+
+#stage { padding-bottom: calc(var(--c-h) + 30vh); }
+
+/* ── bottom bar ───────────────────────────────────────────────────── */
+#chrome {
+  position: fixed; inset: auto 0 0 0; z-index: 50;
+  height: var(--c-h);
+  display: flex; align-items: stretch;
+  background: var(--c-bg);
+  border-top: 1px solid var(--c-rule);
+  color: var(--c-ink);
+  font-size: 12px;
+  user-select: none;
+}
+#chrome .cell { display: flex; align-items: center; gap: 0.7em; padding: 0 14px; border-right: 1px solid var(--c-rule); white-space: nowrap; }
+#chrome .cell:last-child { border-right: 0; }
+#chrome .grow { flex: 1; min-width: 0; overflow: hidden; border-right: 1px solid var(--c-rule); }
+
+#idx {
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--c-mute);
+}
+#idx b { color: var(--c-ink); font-weight: 600; }
+
+#name { font-weight: 650; font-size: 14px; letter-spacing: -0.01em; }
+#group {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--c-bg); background: var(--c-mute); padding: 3px 7px;
+}
+#group[data-mood='dark'] { background: var(--c-mute); }
+#group[data-mood='light'] { background: var(--c-ink); }
+#thesis { color: var(--c-mute); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+#fontline { color: var(--c-mute); font-family: ui-monospace, monospace; font-size: 11px; }
+
+.btn {
+  appearance: none; border: 0; background: none; color: var(--c-ink);
+  font: inherit; font-size: 12px; cursor: pointer;
+  padding: 0 12px; height: 100%;
+  display: flex; align-items: center; gap: 6px;
+  border-right: 1px solid var(--c-rule);
+}
+.btn:hover { background: oklch(0.93 0.005 85 / 0.08); }
+.btn:focus-visible { outline: 2px solid var(--c-red); outline-offset: -2px; }
+.btn kbd {
+  font-family: ui-monospace, monospace; font-size: 10px;
+  color: var(--c-mute); border: 1px solid var(--c-rule);
+  padding: 1px 4px; border-radius: 2px;
+}
+.btn[aria-pressed='true'] { background: var(--c-red); color: oklch(0.97 0.005 85); }
+.btn[aria-pressed='true'] kbd { color: inherit; border-color: currentColor; }
+
+#fav.on { color: var(--c-red); }
+
+/* ── contact sheet ────────────────────────────────────────────────── */
+#sheet {
+  position: fixed; inset: 0; z-index: 60;
+  background: var(--c-bg);
+  overflow-y: auto;
+  display: none;
+  padding: 0 0 calc(var(--c-h) + 24px);
+}
+#sheet.open { display: block; }
+#sheethead {
+  position: sticky; top: 0; z-index: 2;
+  background: var(--c-bg); border-bottom: 1px solid var(--c-rule);
+  padding: 16px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+#sheethead h2 { margin: 0; font-size: 14px; font-weight: 650; color: var(--c-ink); letter-spacing: -0.01em; }
+#sheethead .hint { color: var(--c-mute); font-size: 12px; }
+#filters { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+.chip {
+  appearance: none; border: 1px solid var(--c-rule); background: none;
+  color: var(--c-mute); font: inherit; font-size: 11px;
+  padding: 4px 9px; cursor: pointer; border-radius: 2px;
+}
+.chip[aria-pressed='true'] { background: var(--c-ink); color: var(--c-bg); border-color: var(--c-ink); }
+
+#grid {
+  display: grid; gap: 1px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  background: var(--c-rule);
+  border-bottom: 1px solid var(--c-rule);
+}
+.tile {
+  appearance: none; border: 0; padding: 0; cursor: pointer;
+  background: var(--tp, #222); color: var(--ti, #eee);
+  text-align: left; font: inherit;
+  display: block; position: relative;
+  aspect-ratio: 4 / 3; overflow: hidden;
+}
+.tile:focus-visible { outline: 2px solid var(--c-red); outline-offset: -2px; }
+.tile .tn {
+  position: absolute; inset: auto 0 0 0;
+  padding: 7px 9px;
+  font-size: 10px; letter-spacing: 0.03em;
+  background: var(--tp);
+  border-top: 1px solid color-mix(in oklab, var(--ti) 18%, transparent);
+  display: flex; justify-content: space-between; gap: 8px; align-items: baseline;
+}
+.tile .tn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.tile .tn i { font-style: normal; opacity: 0.5; font-family: ui-monospace, monospace; }
+.tile.current { outline: 3px solid var(--c-red); outline-offset: -3px; }
+.tile .star { position: absolute; top: 6px; right: 8px; color: var(--ta); font-size: 13px; }
+
+/* Miniature of the real thing: a heading band, rules, and prose lines
+   painted from the same tokens, so a tile predicts the specimen. */
+.mini { padding: 12px 12px 0; pointer-events: none; }
+.mini .mh { font-weight: 800; font-size: 13px; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 7px; color: var(--ts); }
+.mini .mb { display: block; background: var(--ta); color: var(--tai); font-size: 8px; font-weight: 700; padding: 3px 5px; margin: 0 -12px 7px; letter-spacing: 0.02em; }
+.mini .ml { height: 3px; background: currentColor; opacity: 0.34; margin-bottom: 4px; border-radius: 1px; }
+.mini .ml.s { width: 62%; }
+.mini .mr { height: 1px; background: var(--ta); opacity: 0.8; margin: 7px 0; }
+
+/* ── help ─────────────────────────────────────────────────────────── */
+#help {
+  position: fixed; inset: 0; z-index: 70; display: none;
+  background: oklch(0.09 0.004 60 / 0.86);
+  align-items: center; justify-content: center;
+}
+#help.open { display: flex; }
+#help .panel {
+  background: var(--c-bg); border: 1px solid var(--c-rule);
+  padding: 26px 30px; max-width: 460px; color: var(--c-ink);
+}
+#help h3 { margin: 0 0 16px; font-size: 14px; letter-spacing: 0.02em; }
+#help dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 9px 18px; font-size: 13px; align-items: baseline; }
+#help dt { font-family: ui-monospace, monospace; color: var(--c-red); font-size: 12px; }
+#help dd { margin: 0; color: var(--c-mute); }
+
+#toast {
+  position: fixed; bottom: calc(var(--c-h) + 16px); left: 50%; transform: translateX(-50%);
+  background: var(--c-ink); color: var(--c-bg);
+  padding: 8px 16px; font-size: 12px; font-weight: 600; z-index: 80;
+  opacity: 0; pointer-events: none; transition: opacity 0.18s cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+#toast.show { opacity: 1; }
+
+@media (max-width: 800px) {
+  #chrome { font-size: 11px; }
+  #thesis, #fontline { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #toast { transition: none; }
+}

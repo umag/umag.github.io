@@ -1,0 +1,10 @@
+<header class="site-head">
+  <a class="site-mark" href="{{ "/" | relURL }}" aria-label="{{ .Site.Title }}"></a>
+  <a class="site-name" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+  <nav class="site-nav">
+    {{- range .Site.Menus.main }}
+    <a href="{{ .URL | relURL }}"{{ if $.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ .Name }}</a>
+    {{- end }}
+    <a href="{{ "/search/" | relURL }}">Search</a>
+  </nav>
+</header>

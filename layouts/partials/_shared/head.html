@@ -1,12 +1,10 @@
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	{{ hugo.Generator }}
-	{{ with .Site.Params.logo }}
-	<link rel="icon" href="{{ . | urlize | relURL }}">
-	{{ end }}
+	<link rel="icon" href="{{ "/images/logo/monogram.webp" | relURL }}">
 	<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Page.Title }} | {{ .Site.Title }}{{ end }}</title>
-	<meta name="description" content="{{.Description | default .Site.Params.description}}">
+	<meta name="description" content="{{ .Description | default .Site.Params.description }}">
 	<meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", " }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
 	{{ with .OutputFormats.Get "rss" -}}{{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}{{ end }}
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
@@ -18,97 +16,54 @@
 	<link rel="canonical" href="{{ .Permalink }}">
 	{{ end }}
 
-	<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-	<link rel="preconnect" href="//www.google-analytics.com">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	{{ if .IsPage }}
-		{{ if .Site.Config.Services.Disqus.Shortname }}
-		<link rel="dns-prefetch" href="//developerzen.disqus.com">
-		{{ end }}
-		{{ if .Site.Params.Utterances.Repo }}
-		<link rel="dns-prefetch" href="//utteranc.es">
-		{{ end }}
-	{{ end }}
-	
+	<meta name="theme-color" content="#141210">
 	<meta property="og:locale" content="en_US">
 	<meta property="og:site_name" content="{{ .Site.Title }}">
 	{{ template "_internal/opengraph.html" . }}
 	{{- with .Params.image }}
 	<meta property="og:image" content="{{ . | absURL }}">
 	{{- else }}
-	<meta property="og:image" content="{{ $.Site.Params.logo | absURL }}">
+	<meta property="og:image" content="{{ "/images/logo/monogram.webp" | absURL }}">
 	{{- end }}
 	<link rel="me" href="https://bsky.app/profile/magistr.me">
-	{{- if .IsPage }}
+	{{- if and .IsPage (not .Date.IsZero) }}
 	<meta http-equiv="last-modified" content="{{ dateFormat "2006-01-02T15:04:05-07:00" (default .Date .Lastmod) }}">
 	{{- end }}
 	{{- range .Params.tags }}
 	<meta property="article:tag" content="{{ . }}">
 	{{- end }}
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css" integrity="sha512-aupidr80M36SeyviA/hZ2uEPnvt2dTJfyjm9y6z1MgaV13TgzmDiFdsH3cvSNG27mRIj7gJ2gNeg1HeySJyE3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+	{{/* Golos Text is the family the anifilias landing is set in; JetBrains Mono
+	     carries code. Both from Bunny, which is the Google Fonts mirror without
+	     the tracking. */}}
+	<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+	<link rel="stylesheet" href="https://fonts.bunny.net/css?family=golos-text:400,500,600,700,800|jetbrains-mono:400&display=swap">
 
-	{{ $medium := resources.Get "/css/medium.css" | resources.Fingerprint }}
-	{{ $additional := resources.Get "/css/additional.css" | resources.Fingerprint }}
-	{{ $css := slice $medium $additional | resources.Concat "css/style.css" | resources.Minify | resources.Fingerprint }}
-	<link rel="stylesheet" href="{{ $css.RelPermalink | absURL }}" integrity="{{ $css.Data.Integrity }}">
+	{{ $theme := resources.Get "css/theme.css" | resources.Minify | resources.Fingerprint }}
+	<link rel="stylesheet" href="{{ $theme.RelPermalink }}" integrity="{{ $theme.Data.Integrity }}">
 
-
-	<!-- Custom css -->
 	{{ range .Site.Params.customCSS -}}
 	{{ $style := resources.Get . }}
 	<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous" media="screen">
 	{{- end }}
 
-	<!-- ld+json -->
-	{{ if .IsPage }}
-	{{ if eq .Type "blog" }}
-	{{ $titleMeta := printf "%s" .Title }}
-	{{ $description := printf "%s" .Summary }}
-	{{ if .Description }}
-	{{ $description = printf "%s" .Description }}
-	{{ end }}
+	{{ if and .IsPage (eq .Type "blog") }}
+	{{ $description := cond (ne .Description "") .Description (string .Summary) }}
 	<script type="application/ld+json">
 	{
 		"@context"	:	"https://schema.org",
 		"@type"		:	"BlogPosting",
 		"@id"		:	"{{ .Permalink }}",
-		"mainEntityOfPage"	:	{
-			"@type"	: 	"WebPage",
-			"@id"	:	"{{ .Permalink }}"
-		},
-		"name"		: 	{{ $titleMeta }},
-		{{ if .Params.comments }}
-		"discussionUrl" : "{{ .Permalink }}#comments",
-		{{ end }}
-		"headline"	:	{{ $titleMeta }},
+		"mainEntityOfPage"	:	{ "@type" : "WebPage", "@id" : "{{ .Permalink }}" },
+		"name"		: 	{{ .Title }},
+		"headline"	:	{{ .Title }},
 		"description"	: {{ $description }},
 		"abstract"	:	{{ $description }},
 		"inLanguage"	: "en-US",
 		"isFamilyFriendly"	: 	"true",
-		"author"		: {
-			"@type"	: "Person",
-			"name"	: "{{ default .Site.Params.author.name .Params.author }}",
-			"url"	: "{{"/about" | absURL}}"
-		},
-		"creator"		: {
-			"@type"	: "Person",
-			"name"	: "{{ default .Site.Params.author.name .Params.author }}",
-			"url"	: "{{"/about" | absURL}}"
-		},
-		"accountablePerson"	: {
-			"@type"	: "Person",
-			"name"	: "{{ default .Site.Params.author.name .Params.author }}",
-			"url"	: "{{"/about" | absURL}}"
-		},
-		"copyrightHolder"	: {
-			"@type"	: "Person",
-			"name"	: "{{ default .Site.Params.author.name .Params.author }}",
-			"url"	: "{{"/about" | absURL}}"
-		},
+		"author"		: { "@type" : "Person", "name" : "{{ default .Site.Params.author.name .Params.author }}", "url" : "{{"/me/me" | absURL}}" },
+		"creator"		: { "@type" : "Person", "name" : "{{ default .Site.Params.author.name .Params.author }}", "url" : "{{"/me/me" | absURL}}" },
+		"copyrightHolder"	: { "@type" : "Person", "name" : "{{ default .Site.Params.author.name .Params.author }}" },
 		"copyrightYear"	: "{{ dateFormat "2006" (default .Date (.PublishDate)) }}",
 		"datePublished"	: "{{ dateFormat "2006-01-02" (default .Date (.PublishDate)) }}",
 		"dateCreated"	: "{{ dateFormat "2006-01-02" (default .Date (.PublishDate)) }}",
@@ -117,24 +72,17 @@
 			"@type" : "Organization",
 			"name":	"{{ .Site.Title }}",
 			"url": "{{"/" | absURL}}",
-			"logo": {
-				"@type"	:	"ImageObject",
-				"contentUrl"	:	"{{ .Site.Params.logo | absURL }}",
-				"url"	:	"{{ .Site.Params.logo | absURL }}"
-			}
+			"logo": { "@type" : "ImageObject", "url" : "{{ "/images/logo/monogram.webp" | absURL }}" }
 		},
 		"url"	:	"{{ .Permalink }}",
 		"wordCount"	:	"{{ .WordCount }}",
-		"image"	:	"{{ .Params.image | absURL }}",
+		"image"	:	"{{ with .Params.image }}{{ . | absURL }}{{ else }}{{ "/images/logo/monogram.webp" | absURL }}{{ end }}",
 		"keywords"	:	"{{ range $i, $e := .Params.tags }}{{ if $i }},{{ end }}{{ $e }}{{ end}}"
 	}
 	</script>
-	{{ end }}
 	{{ end }}
 
 	{{ if isset .Site.Params "goatcounter" }}
 	<script data-goatcounter="https://{{.Site.Params.goatcounter}}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 	{{ end }}
-
-	{{ partial "_shared/head-extra.html" . }}
 </head>

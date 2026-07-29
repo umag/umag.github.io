@@ -1,0 +1,9 @@
+# Overlay config used only when building the lab specimens.
+#
+# The site's default build lets Chroma write Monokai straight into the markup
+# (color:#f8f8f2;background-color:#272822), which overrides the code tokens and
+# drops a dark box into all 25 light styles. Emitting classes instead lets
+# skeleton.css derive syntax colour from each style's own ink and accent.
+[markup.highlight]
+noClasses = false
+lineNos = false

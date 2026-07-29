@@ -1,0 +1,650 @@
+/* The article skeleton. Reads the token contract, knows nothing about any
+   individual style. Every one of the 100 is this file plus 30 custom
+   properties and seven treatment attributes. */
+
+/* Registered so it computes at the element that declares it. --half is used to
+   align full-bleed bands with the text column, and `ch` inside an h2 resolves
+   against the heading's own font, not the body's. Typing it as <length> pins it
+   to the body measure and inherits the resolved pixels down. */
+@property --half {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
+#stage {
+  background: var(--page);
+  /* The width the content is actually centred in. A spine takes a bite out of
+     the viewport, and every full-bleed calc below has to bleed to THAT edge,
+     not to the window's. */
+  --vw: 100vw;
+  --spine: 15rem;
+  color: var(--ink);
+  min-height: 100%;
+  overflow-x: hidden;
+  padding-bottom: 40vh; /* room to scroll the last section clear of the chrome */
+  --_rw: calc(var(--ruleW) * 1px);
+  --_field: var(--field, var(--page));
+  --_disp: var(--fontDisplay, var(--fontBody));
+  --_label: var(--fontLabel, var(--_disp));
+
+  /* modular scale, anchored at the fixed base size */
+  --s0: calc(var(--size) * 1px);
+  --s1: calc(var(--s0) * var(--scale));
+  --s2: calc(var(--s1) * var(--scale));
+  --s3: calc(var(--s2) * var(--scale));
+  --s4: calc(var(--s3) * var(--scale));
+  --gap: calc(1.5rem * var(--space));
+}
+
+/* The derived palette.
+   A custom property is substituted where it is DECLARED, not where it is used,
+   so these resolve against whichever element carries the block. Declaring it on
+   the cut-in sections as well as on the stage is what lets a red or bone card
+   re-derive its whole palette from its own --ink / --page / --accent. Setting
+   the inputs alone on the section does nothing: --_strong would still hold the
+   value it resolved to up on #stage. */
+#stage,
+[data-sect='cutin'] .lab-sect,
+[data-sect='plate'] .lab-sect {
+  --_strong: var(--strong, var(--ink));
+  --_mute: var(--mute, color-mix(in oklab, var(--ink) 75%, var(--page)));
+  /* Lifting toward --ink works in both directions: on a dark ground the ink is
+     light so the accent brightens; on a bone ground it darkens. */
+  --_accentText: var(--accentText, color-mix(in oklab, var(--accent) 58%, var(--ink)));
+  --_rule: var(--rule, color-mix(in oklab, var(--ink) 22%, transparent));
+  --_codeBg: var(--codeBg, color-mix(in oklab, var(--ink) 7%, var(--page)));
+  --_codeInk: var(--codeInk, var(--ink));
+  --_quoteBg: var(--quoteBg, color-mix(in oklab, var(--accent) 14%, var(--page)));
+  --_quoteInk: var(--quoteInk, var(--ink));
+  --_markBg: var(--markBg, var(--accent));
+}
+
+.lab-article {
+  font-family: var(--fontBody), Georgia, serif;
+  font-size: var(--s0);
+  font-weight: var(--bodyWeight);
+  line-height: var(--lh);
+  /* max-width carries the gutters too, so the text column itself is exactly
+     --measure wide rather than measure-minus-padding. */
+  --half: calc(var(--measure) * 0.5ch);
+  max-width: calc(var(--measure) * 1ch + 3rem);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 6rem) 1.5rem 0;
+  letter-spacing: var(--bodyTrack);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+  font-optical-sizing: auto;
+  /* Quotes and hyphens hang into the margin so the measure reads straight. */
+  hanging-punctuation: first allow-end last;
+  counter-reset: sec;
+}
+
+/* Widow and orphan control. `pretty` costs a little layout time and is worth it
+   on an essay: it stops single-word last lines, which are the most common
+   typographic fault in long-form web text. */
+.lab-article p,
+.lab-article li { text-wrap: pretty; }
+
+/* ── masthead ─────────────────────────────────────────────────────── */
+.lab-mast { margin-bottom: calc(var(--gap) * 2); }
+.lab-kicker {
+  font-family: var(--_label), sans-serif;
+  font-size: calc(var(--labelSize) * 1px);
+  letter-spacing: var(--labelTrack);
+  text-transform: uppercase;
+  color: var(--_mute);
+  display: flex; align-items: center; gap: 0.9em;
+  margin-bottom: 1.6em;
+  font-weight: 600;
+}
+.lab-kicker::after { content: ''; flex: 1; height: 1px; background: var(--_rule); }
+.lab-mast h1 {
+  font-family: var(--_disp), sans-serif;
+  font-weight: var(--dispWeight);
+  letter-spacing: var(--dispTrack);
+  line-height: var(--dispLh);
+  text-transform: var(--dispCase);
+  color: var(--_strong);
+  font-size: clamp(var(--s2), 6.5vw, var(--s4));
+  margin: 0 0 0.6em;
+  text-wrap: balance;
+}
+.lab-dek {
+  color: var(--_mute);
+  font-size: calc(var(--s0) * 1.06);
+  max-width: 52ch;
+  margin: 0 0 1.4em;
+}
+.lab-meta {
+  font-family: var(--_label), sans-serif;
+  font-size: calc(var(--labelSize) * 1px);
+  letter-spacing: calc(var(--labelTrack) * 0.6);
+  text-transform: uppercase;
+  color: var(--_mute);
+  padding-top: 1.2em;
+  border-top: var(--_rw) solid var(--_rule);
+  display: flex; gap: 1.8em; flex-wrap: wrap;
+}
+
+/* ── site chrome ──────────────────────────────────────────────────────
+   The mark belongs to the site, not to the essay: it sits in the header above
+   every page rather than on top of each post's title. The monogram keeps its
+   own red, which lands within 0.03 lightness of the brand ink anyway. */
+.lab-site {
+  display: flex;
+  align-items: center;
+  gap: 1.1em;
+  padding-bottom: 1.1em;
+  margin-bottom: clamp(2.4rem, 6vw, 5rem);
+  border-bottom: var(--_rw) solid var(--_rule);
+}
+.lab-site-mark {
+  flex: 0 0 auto;
+  width: 2.2rem;
+  aspect-ratio: 1;
+  background: url('static/images/logo/monogram.png') center / contain no-repeat;
+}
+[data-mark='none'] .lab-site-mark { display: none; }
+.lab-site-title {
+  font-family: var(--_disp), sans-serif;
+  font-weight: var(--dispWeight);
+  letter-spacing: var(--dispTrack);
+  font-size: calc(var(--s0) * 0.98);
+  color: var(--_strong);
+  line-height: 1;
+}
+.lab-site-nav {
+  margin-left: auto;
+  display: flex;
+  gap: 1.4em;
+  font-family: var(--_label), sans-serif;
+  font-size: calc(var(--labelSize) * 1px);
+  letter-spacing: var(--labelTrack);
+  text-transform: uppercase;
+  color: var(--_mute);
+}
+
+/* ── prose ────────────────────────────────────────────────────────── */
+.lab-article p { margin: 0 0 var(--gap); }
+.lab-article strong { font-weight: var(--boldWeight); color: var(--_strong); }
+.lab-article em { font-style: italic; }
+.lab-article hr {
+  border: 0; height: var(--_rw); background: var(--_rule);
+  margin: calc(var(--gap) * 1.8) 0;
+}
+
+.lab-article h2, .lab-article h3, .lab-article h4 {
+  font-family: var(--_disp), sans-serif;
+  font-weight: var(--dispWeight);
+  letter-spacing: var(--dispTrack);
+  line-height: var(--dispLh);
+  text-transform: var(--dispCase);
+  color: var(--_strong);
+  text-wrap: balance;
+}
+.lab-article h2 {
+  font-size: var(--s2);
+  margin: calc(var(--gap) * 2.2) 0 calc(var(--gap) * 0.8);
+  counter-increment: sec;
+}
+.lab-article h3 {
+  font-size: var(--s1);
+  margin: calc(var(--gap) * 1.5) 0 calc(var(--gap) * 0.5);
+}
+.lab-article h4 {
+  font-size: calc(var(--s0) * 1.08);
+  margin: calc(var(--gap) * 1.2) 0 calc(var(--gap) * 0.4);
+}
+.lab-article > *:first-child { margin-top: 0; }
+
+/* h2 treatments */
+[data-h2='rule-over'] h2 { border-top: var(--_rw) solid var(--_rule); padding-top: 0.6em; }
+[data-h2='rule-under'] h2 { border-bottom: var(--_rw) solid var(--_rule); padding-bottom: 0.35em; }
+[data-h2='caps'] h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  border-top: var(--_rw) solid var(--_rule);
+  padding-top: 0.9em;
+}
+/* A part marker already ends in a rule; a second one right under it reads as
+   an accident rather than a system. */
+[data-part='kanji'] .lab-part + h2,
+[data-part='eva'] .lab-part + h2,
+[data-part='seele'] .lab-part + h2 { border-top: 0; padding-top: 0; }
+[data-h2='numbered'] h2 { display: grid; grid-template-columns: auto 1fr; gap: 0.5em; align-items: baseline; }
+[data-h2='numbered'] h2::before {
+  content: counter(sec, decimal-leading-zero);
+  color: var(--_accentText);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.72em;
+}
+[data-h2='outdent'] h2 { margin-left: clamp(-4.5rem, -6vw, -1rem); }
+[data-h2='kicker'] h2::before {
+  content: counter(sec, decimal-leading-zero);
+  display: flex; align-items: center; gap: 0.8em;
+  font-family: var(--_label), sans-serif;
+  font-size: calc(var(--labelSize) * 1px);
+  font-weight: 600;
+  letter-spacing: var(--labelTrack);
+  text-transform: uppercase;
+  color: var(--_accentText);
+  line-height: 1;
+  margin-bottom: 1.1em;
+  white-space: nowrap;
+}
+[data-h2='kicker'] h2 { display: block; }
+/* The part marker already carries the section number, so the kicker would
+   print it twice. Where both are on, the marker wins and the kicker degrades
+   to a plain heading. */
+[data-part='kanji'][data-h2='kicker'] h2::before,
+[data-part='eva'][data-h2='kicker'] h2::before,
+[data-part='seele'][data-h2='kicker'] h2::before { content: none; }
+[data-h2='band'] h2 {
+  background: var(--accent);
+  color: var(--accentInk);
+  padding-block: 0.7em;
+  margin-left: calc(50% - var(--vw) / 2);
+  margin-right: calc(50% - var(--vw) / 2);
+  padding-left: max(1.5rem, calc(var(--vw) / 2 - var(--half)));
+  padding-right: max(1.5rem, calc(var(--vw) / 2 - var(--half)));
+}
+[data-h2='band'][data-bleed='false'] h2 {
+  margin-left: 0; margin-right: 0;
+  padding-inline: clamp(1rem, 3vw, 2rem);
+}
+
+/* ── cut-in sections ──────────────────────────────────────────────────
+   The SHAFT language is not a coloured heading, it is whole cards of black,
+   red and bone butted against each other. lab.js wraps each h2 and its
+   following content in a .lab-sect so a section can own its ground.
+
+   Each variant only reassigns --page / --ink / --accent. Everything derived
+   (--_mute, --_rule, --_accentText, --_codeBg) is substituted at the point of
+   use, so overriding the inputs on the section re-derives the whole palette
+   inside it without restating a single rule. */
+.lab-sect { display: block; }
+
+/* 'bar' keeps the cut-in rhythm and drops the cut-in. The full-bleed bar and
+   the part marker still cleave the essay into acts, but the ground under the
+   prose never moves: alternating luminance is punctuation on a landing page of
+   five short cards, and an eye test every section across 6,700 words. */
+[data-sect='bar'] .lab-sect {
+  margin-inline: calc(50% - var(--vw) / 2);
+  padding-inline: max(1.5rem, calc(var(--vw) / 2 - var(--half)));
+  padding-block: clamp(1.8rem, 4.5vw, 3.4rem);
+  border-top: 9px solid var(--accent);
+}
+[data-sect='bar'] .lab-sect > :first-child { margin-top: 0; }
+[data-sect='bar'] .lab-sect:first-child { border-top: 0; padding-top: 0; }
+
+[data-sect='cutin'] .lab-sect,
+[data-sect='plate'] .lab-sect {
+  margin-inline: calc(50% - var(--vw) / 2);
+  padding-inline: max(1.5rem, calc(var(--vw) / 2 - var(--half)));
+  padding-block: clamp(2rem, 5vw, 4rem);
+  border-top: 9px solid var(--page);
+}
+[data-sect='cutin'] .lab-sect > :first-child,
+[data-sect='plate'] .lab-sect > :first-child { margin-top: 0; }
+[data-sect='cutin'] .lab-sect > :last-child,
+[data-sect='plate'] .lab-sect > :last-child { margin-bottom: 0; }
+
+/* A style's explicit --rule / --mute / --codeBg were chosen for the page
+   ground, so an inverted card has to drop them back to `initial` (the only
+   value var() treats as absent) and re-derive from its own ink. */
+[data-sect='cutin'] .lab-sect.g1,
+[data-sect='cutin'] .lab-sect.g2,
+[data-sect='plate'] .lab-sect.p1 {
+  --mute: initial;
+  --rule: initial;
+  --codeBg: initial;
+  --codeInk: initial;
+  --quoteBg: initial;
+  --quoteInk: initial;
+  --accentText: initial;
+  color: var(--ink);
+}
+
+/* black card: the ground the essay already sits on */
+[data-sect='cutin'] .lab-sect.g0 { border-top-color: var(--accent); }
+/* red card */
+[data-sect='cutin'] .lab-sect.g1 {
+  background: var(--accent);
+  --page: var(--accent);
+  --ink: var(--accentInk);
+  --strong: var(--accentInk);
+  --accent: var(--plate);
+  --accentInk: var(--plateInk);
+}
+/* bone card */
+[data-sect='cutin'] .lab-sect.g2 {
+  background: var(--plate);
+  --page: var(--plate);
+  --ink: var(--plateInk);
+  --strong: var(--plateInk);
+}
+
+[data-sect='plate'] .lab-sect.p1 {
+  background: var(--plate);
+  --page: var(--plate);
+  --ink: var(--plateInk);
+  --strong: var(--plateInk);
+}
+[data-sect='plate'] .lab-sect.p0 { border-top-color: var(--accent); }
+
+/* ── SEELE monoliths ──────────────────────────────────────────────────
+   The committee: slabs standing in a void, thin vermilion outline, the label
+   stacked at the top. Nothing is filled and nothing touches anything else;
+   the black between the slabs is doing as much work as the slabs. */
+[data-sect='monolith'] .lab-sect {
+  border: calc(var(--_rw) * 2) solid var(--accent);
+  padding: clamp(1.6rem, 3.4vw, 3rem);
+  margin-block: clamp(2.4rem, 5.5vw, 4.5rem);
+}
+[data-sect='monolith'] .lab-sect > :first-child { margin-top: 0; }
+[data-sect='monolith'] .lab-sect > :last-child { margin-bottom: 0; }
+
+[data-part='seele'] .lab-part {
+  color: var(--accent);
+  border-bottom: var(--_rw) solid var(--accent);
+  padding-bottom: 0.9em;
+  align-items: baseline;
+}
+[data-part='seele'] .lab-part i {
+  font-family: var(--_label), sans-serif;
+  font-size: calc(var(--s0) * 1.5);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  opacity: 1;
+  line-height: 1;
+}
+[data-part='seele'] .lab-part span { letter-spacing: 0.46em; opacity: 0.85; }
+[data-part='seele'] .lab-part::after { opacity: 0; flex-basis: 0.5rem; }
+
+/* The part marker, lifted off the landing's `.part`: a daiji ordinal, a
+   letterspaced path, then a hairline that eats the rest of the width. */
+.lab-part { display: none; }
+[data-part='kanji'] .lab-part,
+[data-part='eva'] .lab-part,
+[data-part='seele'] .lab-part {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85em;
+  margin-bottom: clamp(1.1rem, 2.4vw, 2rem);
+  color: var(--_mute);
+}
+.lab-part i {
+  font-style: normal;
+  font-family: var(--_disp), sans-serif;
+  font-size: calc(var(--s0) * 0.86);
+  opacity: 0.72;
+  white-space: nowrap;
+}
+.lab-part span {
+  font-family: var(--_label), sans-serif;
+  font-size: calc(var(--labelSize) * 1px);
+  font-weight: 600;
+  letter-spacing: var(--labelTrack);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lab-part::after {
+  content: '';
+  flex: 1 1 2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.3;
+}
+
+/* ── Evangelion title card ────────────────────────────────────────────
+   The episode card: type set far larger than the column, cropped tight,
+   nothing else on the screen. Mincho carries it; the Latin kicker is
+   letterspaced caps. */
+[data-h2='evatitle'] h2 {
+  font-size: clamp(var(--s3), 9vw, calc(var(--s4) * 1.5));
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  margin: calc(var(--gap) * 2.4) 0 calc(var(--gap) * 1.1);
+  padding-bottom: 0.24em;
+  border-bottom: calc(var(--_rw) * 3) solid var(--_accentText);
+}
+[data-h2='evatitle'] h2::before {
+  content: '第' counter(sec, cjk-ideographic) '話';
+  display: block;
+  font-family: var(--_label), sans-serif;
+  font-size: calc(var(--labelSize) * 1.1px);
+  font-weight: 700;
+  letter-spacing: 0.5em;
+  color: var(--_accentText);
+  line-height: 1;
+  margin-bottom: 0.9em;
+}
+
+/* ── links ────────────────────────────────────────────────────────── */
+.lab-article a {
+  color: inherit;
+  text-decoration-color: var(--_accentText);
+  text-underline-offset: 0.18em;
+  transition: background-color 0.16s cubic-bezier(0.2, 0.9, 0.25, 1),
+              color 0.16s cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+[data-link='underline'] .lab-article a,
+[data-link='underline'] a { text-decoration: underline; text-decoration-thickness: 1px; }
+[data-link='thick'] a { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.22em; }
+[data-link='dotted'] a { text-decoration: underline dotted; text-decoration-thickness: 1.5px; }
+[data-link='weight'] a { text-decoration: none; font-weight: var(--boldWeight); color: var(--_accentText); }
+[data-link='mark'] a {
+  text-decoration: none;
+  background: var(--_markBg);
+  color: var(--accentInk);
+  padding: 0.08em 0.28em;
+  margin: 0 -0.06em;
+}
+[data-link='mark'] a:hover { background: transparent; color: var(--_accentText); }
+[data-link='bracket'] a { text-decoration: none; color: var(--_accentText); }
+[data-link='bracket'] a::before { content: '['; opacity: 0.55; }
+[data-link='bracket'] a::after { content: ']'; opacity: 0.55; }
+.lab-article a:hover { text-decoration-thickness: 2px; }
+
+/* ── lists ────────────────────────────────────────────────────────── */
+.lab-article ul, .lab-article ol { margin: 0 0 var(--gap); padding-left: 1.4em; }
+.lab-article li { margin-bottom: 0.55em; }
+.lab-article li::marker { color: var(--_accentText); }
+.lab-article ul ul, .lab-article ol ol { margin-top: 0.55em; margin-bottom: 0; }
+
+/* ── code ─────────────────────────────────────────────────────────── */
+.lab-article code {
+  font-family: var(--fontMono), ui-monospace, monospace;
+  font-size: 0.88em;
+}
+.lab-article :not(pre) > code {
+  background: var(--_codeBg);
+  padding: 0.12em 0.36em;
+  border-radius: var(--radius);
+}
+.lab-article pre {
+  font-family: var(--fontMono), ui-monospace, monospace;
+  font-size: calc(var(--s0) * 0.85);
+  line-height: 1.55;
+  overflow-x: auto;
+  margin: 0 0 var(--gap);
+  padding: 1.1em 1.2em;
+  background: var(--_codeBg);
+  color: var(--_codeInk);
+  border-radius: var(--radius);
+  font-variant-numeric: normal;
+}
+.lab-article pre code { background: none; padding: 0; font-size: inherit; }
+/* Syntax colour is derived from the style, not baked by the highlighter, so
+   code reads as designed on a bone ground and a black one alike. */
+.lab-article pre .k, .lab-article pre .kd, .lab-article pre .kn,
+.lab-article pre .kr, .lab-article pre .kt, .lab-article pre .ow { color: var(--_accentText); }
+.lab-article pre .s, .lab-article pre .s1, .lab-article pre .s2,
+.lab-article pre .sb, .lab-article pre .se, .lab-article pre .sd,
+.lab-article pre .m, .lab-article pre .mi, .lab-article pre .mf,
+.lab-article pre .mh { color: color-mix(in oklab, var(--_accentText) 70%, var(--_codeInk)); }
+.lab-article pre .c, .lab-article pre .c1, .lab-article pre .cm,
+.lab-article pre .cs, .lab-article pre .cp { color: var(--_mute); font-style: italic; }
+.lab-article pre .nf, .lab-article pre .nc, .lab-article pre .nt,
+.lab-article pre .nb { color: var(--_strong); font-weight: var(--boldWeight); }
+.lab-article pre .o, .lab-article pre .p, .lab-article pre .nx { color: var(--_mute); }
+
+[data-code='flat'] pre { background: var(--_codeBg); }
+[data-code='framed'] pre { background: none; border: var(--_rw) solid var(--_rule); }
+[data-code='ruled'] pre { background: none; border-top: var(--_rw) solid var(--_rule); border-bottom: var(--_rw) solid var(--_rule); padding-left: 0; padding-right: 0; }
+[data-code='inverted'] pre { background: var(--_strong); color: var(--_field); }
+[data-code='tinted'] pre { background: color-mix(in oklab, var(--accent) 12%, var(--page)); }
+
+/* ── blockquote ───────────────────────────────────────────────────── */
+.lab-article blockquote { margin: calc(var(--gap) * 1.2) 0; color: var(--_quoteInk); }
+.lab-article blockquote p:last-child { margin-bottom: 0; }
+[data-quote='indent'] blockquote { padding-left: 2.2em; font-style: italic; }
+[data-quote='rule'] blockquote { border-top: var(--_rw) solid var(--_rule); border-bottom: var(--_rw) solid var(--_rule); padding: 1.1em 0; }
+[data-quote='oversize'] blockquote {
+  font-size: calc(var(--s0) * 1.28);
+  line-height: 1.42;
+  font-family: var(--_disp), sans-serif;
+  font-weight: var(--dispWeight);
+  letter-spacing: var(--dispTrack);
+  color: var(--_strong);
+  padding: 0.3em 0;
+}
+[data-quote='ground'] blockquote { background: var(--_quoteBg); padding: 1.2em 1.4em; }
+[data-quote='caps'] blockquote { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.92em; }
+
+/* ── figures and the Wardley plates ───────────────────────────────── */
+.lab-article img, .lab-article .featured-image {
+  display: block; max-width: 100%; height: auto;
+  margin: calc(var(--gap) * 1.4) auto;
+  border-radius: var(--radius);
+}
+[data-img='framed'] .lab-article img { border: var(--_rw) solid var(--_rule); }
+[data-img='matte'] .lab-article img {
+  background: oklch(0.97 0.005 85);
+  padding: clamp(0.6rem, 2vw, 1.4rem);
+  border: var(--_rw) solid var(--_rule);
+}
+[data-img='dim'] .lab-article img { opacity: 0.82; transition: opacity 0.2s cubic-bezier(0.2, 0.9, 0.25, 1); }
+[data-img='dim'] .lab-article img:hover { opacity: 1; }
+[data-img='invert-hint'] .lab-article img { filter: invert(1) hue-rotate(180deg); }
+[data-img='invert-hint'] .lab-article img:hover { filter: none; }
+
+/* ── tables ───────────────────────────────────────────────────────── */
+.lab-article .lab-tablewrap { overflow-x: auto; margin: 0 0 var(--gap); }
+.lab-article table {
+  border-collapse: collapse; width: 100%;
+  font-size: calc(var(--s0) * 0.92);
+  font-variant-numeric: tabular-nums;
+}
+.lab-article th, .lab-article td { padding: 0.6em 0.9em; text-align: left; vertical-align: top; }
+.lab-article th {
+  font-family: var(--_label), sans-serif;
+  font-size: calc(var(--labelSize) * 1px);
+  letter-spacing: calc(var(--labelTrack) * 0.5);
+  text-transform: uppercase;
+  color: var(--_mute);
+  font-weight: 600;
+}
+[data-table='rules'] th, [data-table='rules'] td { border-bottom: var(--_rw) solid var(--_rule); }
+[data-table='rules'] th { border-bottom-width: calc(var(--_rw) * 2); }
+[data-table='minimal'] th { border-bottom: var(--_rw) solid var(--_rule); }
+[data-table='zebra'] tbody tr:nth-child(odd) { background: color-mix(in oklab, var(--ink) 6%, transparent); }
+[data-table='zebra'] th { border-bottom: calc(var(--_rw) * 2) solid var(--_rule); }
+[data-table='boxed'] th, [data-table='boxed'] td { border: var(--_rw) solid var(--_rule); }
+
+/* ── table of contents ────────────────────────────────────────────── */
+.lab-toc { margin: 0 0 calc(var(--gap) * 2); font-size: calc(var(--s0) * 0.94); }
+.lab-toc ul { list-style: none; padding-left: 0; margin: 0; }
+.lab-toc ul ul { padding-left: 1.2em; margin-top: 0.4em; }
+.lab-toc li { margin-bottom: 0.4em; }
+.lab-toc a { color: var(--_mute); text-decoration: none; }
+.lab-toc a:hover { color: var(--_accentText); }
+[data-toc='boxed'] .lab-toc { border: var(--_rw) solid var(--_rule); padding: 1.2em 1.4em; }
+[data-toc='numbered'] .lab-toc > ul { counter-reset: toc; }
+[data-toc='numbered'] .lab-toc > ul > li { counter-increment: toc; }
+[data-toc='numbered'] .lab-toc > ul > li::before {
+  content: counter(toc, decimal-leading-zero) '  ';
+  color: var(--_accentText);
+  font-variant-numeric: tabular-nums;
+  font-family: var(--fontMono), monospace;
+  font-size: 0.85em;
+}
+[data-toc='inline'] .lab-toc ul { display: flex; flex-wrap: wrap; gap: 0.4em 1.4em; }
+[data-toc='inline'] .lab-toc ul ul { display: none; }
+
+/* The rail parks the contents in the left margin on wide viewports and
+   folds back inline when there is no margin to park it in. */
+@media (min-width: 1180px) {
+  [data-toc='rail'] .lab-toc {
+    position: fixed;
+    left: clamp(1rem, calc(var(--vw) / 2 - var(--half) - 17rem), 22rem);
+    top: 12vh;
+    width: 15rem;
+    max-height: 68vh;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.45;
+    padding: 0.4rem 1rem 0.4rem 0;
+    border-right: var(--_rw) solid var(--_rule);
+    /* Opaque, so a full-bleed bar or heading band passes cleanly behind the
+       contents instead of running under its text. */
+    background: var(--page);
+  }
+  [data-toc='rail'] .lab-toc ul ul { display: none; }
+  /* A parked rail already occupies the left margin, so headings that hang into
+     it have to hang less far or they collide with the contents. */
+  [data-toc='rail'][data-h2='outdent'] h2 { margin-left: clamp(-2rem, -2vw, -0.75rem); }
+}
+
+/* ── the spine ────────────────────────────────────────────────────────
+   A fixed rail cannot float over alternating grounds: it sits on bone for one
+   section and black for the next, and no single background is right for both.
+   The spine solves it structurally instead. It takes a permanent column out of
+   the viewport and keeps the page ground, so the alternation happens entirely
+   beside it and never runs underneath. --vw shrinks to match, which is what
+   keeps the full-bleed cards bleeding to the spine's edge rather than the
+   window's. Below the breakpoint there is no column to spare, so the contents
+   fold back inline. */
+@media (min-width: 1100px) {
+  #stage[data-toc='spine'] { padding-left: var(--spine); }
+  [data-toc='spine'] .lab-article { --vw: calc(100vw - var(--spine)); }
+  [data-toc='spine'] .lab-toc {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: var(--spine);
+    box-sizing: border-box;
+    margin: 0;
+    padding: clamp(1.5rem, 4vh, 3rem) 1.3rem;
+    overflow-y: auto;
+    background: var(--page);
+    /* The alternation means half the sections have no red on them at all. The
+       spine is the one surface that is always visible, so the accent lives
+       here and the identity survives whichever ground is showing. */
+    border-right: 3px solid var(--accent);
+    font-size: 13px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 3;
+  }
+  [data-toc='spine'] .lab-toc ul ul { display: none; }
+  [data-toc='spine'] .lab-toc li { margin-bottom: 0.75em; }
+}
+
+/* ── theme-owned label used by several treatments ─────────────────── */
+.lab-article .lab-tag {
+  font-family: var(--_label), sans-serif;
+  font-size: calc(var(--labelSize) * 1px);
+  letter-spacing: var(--labelTrack);
+  text-transform: uppercase;
+  color: var(--_mute);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-article a, [data-img='dim'] .lab-article img { transition: none; }
+}

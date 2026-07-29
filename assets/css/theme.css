@@ -155,6 +155,22 @@ a { color: inherit; }
 body.is-home .site-name,
 body.is-home .site-mark { display: none; }
 
+/* The kicker already draws a rule either side of itself, so the header's own
+   rule made two horizontal lines with 80px of dead space between them. The
+   kicker's is the one that frames the masthead, so the header gives up its
+   rule here and the gap closes. */
+body.is-home .site-head {
+  border-bottom: 0;
+  margin-bottom: clamp(1.1rem, 2.6vw, 2rem);
+}
+
+/* The counts sit in a band between two rules: their own border-top and the
+   one that opens the archive. Centring them means the space above and below
+   has to match, so the masthead gives up its bottom margin and the band pads
+   itself evenly. */
+body.is-home .meta { padding-block: 1.5rem; }
+body.is-home .mast { margin-bottom: 0; }
+
 /* Scoped to .mast so it outranks `.mast h1`, which is declared later. Plain
    `h1.home-mark` ties on specificity (0,1,1) and loses on source order, which
    silently reset the margin and killed the auto-centring. */
